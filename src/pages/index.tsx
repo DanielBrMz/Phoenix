@@ -4,26 +4,25 @@ import { useEffect } from "react";
 import mapboxgl, { Projection } from "mapbox-gl";
 
 import { api } from "~/utils/api";
+import createGeoJSONCircle from "~/utils/createGeoJSONSurface";
 
 export default function Home() {
-
   useEffect(() => {
-    mapboxgl.accessToken = "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
+    mapboxgl.accessToken =
+      "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
 
     const map = new mapboxgl.Map({
       container: "map",
       projection: { name: "globe" },
-      style: "mapbox://styles/mapbox/satellite-v9",
-      center: [-107.05, 25.95],
+      style: "mapbox://styles/mapbox/satellite-v8",
+      center: [-110.961525, 29.083298],
       zoom: 10,
     });
 
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
 
-    map.on("load", function () {
-
-
+    map.on("style.load", function () {
       map.addSource("mapbox-dem", {
         type: "raster-dem",
         url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -49,12 +48,71 @@ export default function Home() {
           // This function is called on each frame to render your 3D model.
         },
       });
-   
-      map.setTerrain({ source: "mapbox-dem", exaggeration: 1.7 });
-      map.setPitch(60);
-    });
 
-    
+      map.addSource("polygon", createGeoJSONCircle([-110.934463, 29.160402], 0.5));
+
+map.addLayer({
+    "id": "polygon",
+    "type": "fill",
+    "source": "polygon",
+    "layout": {},
+    "paint": {
+        "fill-color": "#f12",
+        "fill-opacity": 0.6
+    }
+});
+
+      
+
+      map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
+      map.setPitch(60);
+
+      const layers = map.getStyle().layers as any;
+      const labelLayerId = layers.find(
+        (layer: any) => layer.type === "symbol" && layer.layout["text-field"],
+      ).id;
+
+      // The 'building' layer in the Mapbox Streets
+      // vector tileset contains building height data
+      // from OpenStreetMap.
+      map.addLayer(
+        {
+          id: "add-3d-buildings",
+          source: "composite",
+          "source-layer": "building",
+          filter: ["==", "extrude", "true"],
+          type: "fill-extrusion",
+          minzoom: 15,
+          paint: {
+            "fill-extrusion-color": "#aaa",
+
+            // Use an 'interpolate' expression to
+            // add a smooth transition effect to
+            // the buildings as the user zooms in.
+            "fill-extrusion-height": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              15,
+              0,
+              15.05,
+              ["get", "height"],
+            ],
+            "fill-extrusion-base": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              15,
+              0,
+              15.05,
+              ["get", "min_height"],
+            ],
+            "fill-extrusion-opacity": 0.6,
+          },
+        },
+        labelLayerId,
+      );
+    });
   }, []);
 
   return (
