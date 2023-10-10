@@ -16,7 +16,7 @@ export default function Home() {
       projection: { name: "globe" },
       style: "mapbox://styles/mapbox/satellite-v8",
       center: [-110.961525, 29.083298],
-      zoom: 10,
+      zoom: 15,
     });
 
     map.addControl(new mapboxgl.NavigationControl());
@@ -49,20 +49,35 @@ export default function Home() {
         },
       });
 
-      map.addSource("polygon", createGeoJSONCircle([-110.934463, 29.160402], 0.5));
+      map.addSource(
+        "polygon",
+        createGeoJSONCircle([-110.934463, 29.160402], 0.5),
+      );
 
-map.addLayer({
-    "id": "polygon",
-    "type": "fill",
-    "source": "polygon",
-    "layout": {},
-    "paint": {
-        "fill-color": "#f12",
-        "fill-opacity": 0.6
-    }
-});
+      // Define los colores y los rangos
+const colors = ["transparent", "red", "yellow"];
+const ranges = [0, 0.5, 1]; // Ajusta estos valores según tus datos
 
-      
+// Añade una capa para cada rango
+for (let i = 0; i < colors.length; i++) {
+  map.addLayer({
+    id: "polygon" + i,
+    type: "fill",
+    source: "polygon",
+    layout: {},
+    paint: {
+      "fill-color": colors[i],
+      "fill-opacity": [
+        "interpolate",
+        ["linear"],
+        ["get", "property"], // Reemplaza 'property' con la propiedad de tus datos que quieres utilizar para la interpolación
+        ranges[i],
+        ranges[i + 1] ? ranges[i + 1] : ranges[i]
+      ],
+    },
+  });
+}
+
 
       map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
       map.setPitch(60);
@@ -85,10 +100,6 @@ map.addLayer({
           minzoom: 15,
           paint: {
             "fill-extrusion-color": "#aaa",
-
-            // Use an 'interpolate' expression to
-            // add a smooth transition effect to
-            // the buildings as the user zooms in.
             "fill-extrusion-height": [
               "interpolate",
               ["linear"],
