@@ -12,7 +12,7 @@ const addCustomSources = (map: Map) => {
 
   map.addSource(
     "polygon",
-    createGeoJSONCircles([-110.934463, 29.160402], 0.5),
+    createGeoJSONCircles([-109.705057, 30.392632,], 0.5),
   );
 }
 
