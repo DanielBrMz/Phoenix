@@ -1,14 +1,17 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"
 import { api } from "~/utils/api";
 import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
+import { set } from "zod";
 
 export default function Home() {
+  const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
+  const [map, setMap] = useState<mapboxgl.Map | null>(null);
 
   useEffect(() => {
     mapboxgl.accessToken =
@@ -21,6 +24,8 @@ export default function Home() {
       center: [-109.68775015454612, 30.375232671192375],
       zoom: 15,
     });
+
+    setMap(map);
 
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
@@ -40,7 +45,14 @@ export default function Home() {
       
       map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
       map.setPitch(60);
-
+      
+      map.on('zoom', () => {
+        setKilometersPerPixel(4007501.6686 * Math.abs(Math.cos((map.getCenter().lat * Math.PI) / 180)) / Math.pow(2, map.getZoom() + 8));
+      });
+      
+     return () => {
+      map.remove();
+    };
     });
   }, []);
 
@@ -53,7 +65,7 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center">
         <div id="map" style={{ width: "100%", height: "100vh" }}></div>
-       <Timeslider/>
+       <Timeslider map={map!} scale={kilometersPerPixel}/>
       </main>
     </>
   );

@@ -42,6 +42,24 @@ const addCustomLayers = (map: Map) => {
         'rgb(178,24,43)'
         ],
       "heatmap-opacity": 0.6,
+      "heatmap-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        15,
+        20,
+        22,
+        1
+      ],
+      "heatmap-intensity": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      10,
+      20,
+      15,
+      0
+    ],
     },
   });  
 
