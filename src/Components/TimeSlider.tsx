@@ -116,7 +116,6 @@ const Timeslider = ({
               },
             }}
           />
-
           <SliderMarker min={0} max={240} step={24} />
         </div>
       </div>
