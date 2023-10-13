@@ -22,6 +22,7 @@
     "next": "^13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-draggable": "^4.4.6",
     "react-input-slider": "^6.0.1",
     "superjson": "^1.13.1",
     "use-position": "^1.0.0",

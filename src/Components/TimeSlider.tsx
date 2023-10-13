@@ -47,7 +47,7 @@ const Timeslider = ({
     const intervalId = setInterval(() => {
       const now = new Date();
       setCurrentTime(
-        now.toLocaleTimeString("en-US", { hour: "2-digit", hour12: true }),
+        now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }),
       );
       setCurrentDate(
         now.toLocaleDateString("en-US", {
@@ -64,23 +64,23 @@ const Timeslider = ({
   return (
     <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
       <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem] ">
-        <div className="flex flex-row space-x-2">
+        <div className="flex flex-row space-x-4">
           <button>
             <FontAwesomeIcon
               icon={faBackward}
-              className="h-[1rem] w-[1rem] text-white"
+              className="h-[1.2rem] w-[1.2rem] text-white"
             />
           </button>
           <button>
             <FontAwesomeIcon
               icon={faPlay}
-              className="h-[1rem] w-[1rem] text-white"
+              className="h-[1.2rem] w-[1.2rem] text-white"
             />
           </button>
           <button>
             <FontAwesomeIcon
               icon={faForward}
-              className="h-[1rem] w-[1rem] text-white"
+              className="h-[1.2rem] w-[1.2rem] text-white"
             />
           </button>
         </div>
