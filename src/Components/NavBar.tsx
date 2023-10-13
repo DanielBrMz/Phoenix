@@ -1,21 +1,24 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faCalendar, faCloudSun, faFire, faGear, faLayerGroup, faTree, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faCloudSun, faFire, faGear, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import Draggable from 'react-draggable';
+import RiskForecastModal from './RiskForecastModal'; 
 
 const NavBar = () => {
   const [selectedIcons, setSelectedIcons] = useState<IconDefinition[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleIconClick = (icon: IconDefinition) => {
     setSelectedIcons(prevIcons => {
       if (prevIcons.includes(icon)) {
         return prevIcons.filter(i => i !== icon);
       } else {
+        setIsOpen(true);
         return [...prevIcons, icon];
       }
     });
   };
+  
 
   const renderIcon = (icon: IconDefinition) => (
     <button onClick={() => handleIconClick(icon)}>
@@ -26,21 +29,14 @@ const NavBar = () => {
     </button>
   );
 
-  const renderModal = (icon: IconDefinition) => (
-    selectedIcons.includes(icon) && (
-      <Draggable>
-        <div className="absolute bg-black p-4 top-20  w-[20rem] h-[30rem]">
-          <button onClick={() => handleIconClick(icon)}>
-            <FontAwesomeIcon
-              icon={faTimes}
-              className="text-white"
-              size="3x"  // Increase the size of the 'x' icon
-            />
-          </button>
-        </div>
-      </Draggable>
-    )
-  );
+  const renderModal = (icon: IconDefinition):JSX.Element => {
+    switch (icon) {
+      case faCloudSun:
+        return (<RiskForecastModal selectedIcons={selectedIcons} handleIconClick={handleIconClick} isOpen={isOpen} setIsOpen={setIsOpen} />);
+      default:
+        return <></>;
+    }
+  };
   
 
   return (
