@@ -3,6 +3,7 @@ import { faCalendar, faCloudSun, faFire, faGear, faLayerGroup } from "@fortaweso
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import RiskForecastModal from './RiskForecastModal'; 
+import PredictionModal from "./PredictionModal";
 
 const NavBar = () => {
   const [selectedIcons, setSelectedIcons] = useState<IconDefinition[]>([]);
@@ -33,6 +34,8 @@ const NavBar = () => {
     switch (icon) {
       case faCloudSun:
         return (<RiskForecastModal selectedIcons={selectedIcons} handleIconClick={handleIconClick} isOpen={isOpen} setIsOpen={setIsOpen} />);
+      case faFire:
+        return (<PredictionModal selectedIcons={selectedIcons} handleIconClick={handleIconClick} isOpen={isOpen} setIsOpen={setIsOpen}/>);
       default:
         return <></>;
     }

@@ -65,8 +65,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
-        <div id="map" style={{ width: "100%", height: "100vh", display:"none"}}></div>
-        <div className="w-full h-full bg-[#777]" />
+        <div id="map" style={{ width: "100%", height: "100vh"}}></div>
+        {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar/>
        <Timeslider map={map!} scale={kilometersPerPixel}/>
       </main>
