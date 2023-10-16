@@ -23,13 +23,13 @@ const RiskForecastModal = ({
   isOpen,
   setIsOpen,
 }: RiskForecastModalProps): JSX.Element | null => {
-  if (!selectedIcons.includes(faCloudSun) || !isOpen) return null;
-
   const [isOpenDropdown1, setIsOpenDropdown1] = useState(false);
   const [isOpenDropdown2, setIsOpenDropdown2] = useState(false);
   const [isOpenDropdown3, setIsOpenDropdown3] = useState(false);
-
   const [transparency, setTransparency] = useState(0);
+  
+  if (!selectedIcons.includes(faCloudSun) || !isOpen) return null;
+  
   const colors = [
     "#009352",
     "#00c163",
@@ -57,7 +57,7 @@ const RiskForecastModal = ({
             <FontAwesomeIcon
               icon={faTimes}
               className="h-[1rem] w-[1rem] text-gray-400"
-              size="3x" // Increase the size of the 'x' icon
+              size="3x" 
             />
           </button>
         </div>
@@ -105,7 +105,7 @@ const RiskForecastModal = ({
             </div>
           </div>
           <div className="flex w-full flex-col p-[1.2rem] pt-[0rem]">
-            <span className="text-white">Transparency</span>'
+            <span className="text-white">Transparency</span>
             <Slider
               axis="x"
               x={transparency}

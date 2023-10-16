@@ -1,13 +1,10 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"
-import { api } from "~/utils/api";
 import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
-import { set } from "zod";
 import NavBar from "~/Components/NavBar";
 
 export default function Home() {

@@ -1,10 +1,20 @@
-import { Map } from "mapbox-gl";
+import mapboxgl, { Map } from "mapbox-gl";
+
+type SymbolLayout = mapboxgl.AnyLayout & {
+  'text-field'?: string;
+};
 
 const addCustomLayers = (map: Map) => {
-  const layers = map.getStyle().layers as any;
-      const labelLayerId = layers.find(
-        (layer: any) => layer.type === "symbol" && layer.layout["text-field"],
-      ).id;
+  const layers: mapboxgl.AnyLayer[] = map.getStyle().layers;
+  const labelLayer = layers.find(
+    (layer) => {
+      const typedLayer = layer as mapboxgl.Layer & { layout?: SymbolLayout };
+      return typedLayer.type === "symbol" && typedLayer.layout && typedLayer.layout["text-field"];
+    }
+  );
+  
+  
+
 
   map.addLayer({
     id: 'place-labels',
@@ -94,7 +104,7 @@ const addCustomLayers = (map: Map) => {
         "fill-extrusion-opacity": 0.6,
       },
     },
-    labelLayerId,
+    labelLayer?.id,
   );
 
 }

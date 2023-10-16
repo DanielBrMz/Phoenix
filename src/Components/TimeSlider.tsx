@@ -1,53 +1,67 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlay,
-  faForward,
-  faBackward,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faForward, faBackward } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-input-slider";
 import { Map } from "mapbox-gl";
 import SliderMarker from "./SliderMarker";
 
-const Timeslider = ({
-  map,
-  scale,
-}: {
+interface TimesliderProps {
   map: Map;
   scale: number;
-}): JSX.Element => {
+}
+
+interface LocationData {
+  city: string;
+}
+
+interface WeatherData {
+  data: Array<{
+    coordinates: Array<{
+      dates: Array<{
+        value: number;
+      }>;
+    }>;
+  }>;
+}
+
+const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [sliderValue, setSliderValue] = useState(0);
-  const [locationData, setLocationData] = useState<any>(null);
-  const [weatherData, setWeatherData] = useState<any>(null);
-  let lat: number = 0,
-    lng: number = 0;
+  const [locationData, setLocationData] = useState<LocationData | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
+  let lat = 0, lng = 0;
   if (map) ({ lat, lng } = map.getCenter());
 
   useEffect(() => {
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
     )
-      .then((response) => response.json())
-      .then((data) => setLocationData(data));
-
-    /* const username = 'molinagroup_barreras_daniel';
+      .then((response) => response.json() as Promise<LocationData>)
+      .then((data) => setLocationData(data))
+      .catch((error) => console.error(error));
+  
+    const username = 'molinagroup_barreras_daniel';
     const password = 'VfCzr02qA5';
-
+  
     fetch(`https://api.meteomatics.com/${new Date().toISOString()}/t_2m:C/${lat},${lng}/json`, {
       headers: {
         'Authorization': 'Basic ' + btoa(username + ':' + password)
       }
     })
-    .then(response => response.json())
-    .then(data => setWeatherData(data)); */
-
+    .then(response => response.json() as Promise<WeatherData>)
+    .then(data => setWeatherData(data))
+    .catch((error) => console.error(error));
+  
     const intervalId = setInterval(() => {
       const now = new Date();
       setCurrentTime(
-        now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }),
+        now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
       );
       setCurrentDate(
         now.toLocaleDateString("en-US", {
@@ -57,31 +71,22 @@ const Timeslider = ({
         }),
       );
     }, 1000);
-
+  
     return () => clearInterval(intervalId); // Clear interval on unmount
   }, [lat, lng]);
-
+  
   return (
     <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
       <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem] ">
         <div className="flex flex-row space-x-4">
           <button>
-            <FontAwesomeIcon
-              icon={faBackward}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
+            <FontAwesomeIcon icon={faBackward} className="h-[1.2rem] w-[1.2rem] text-white" />
           </button>
           <button>
-            <FontAwesomeIcon
-              icon={faPlay}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
+            <FontAwesomeIcon icon={faPlay} className="h-[1.2rem] w-[1.2rem] text-white" />
           </button>
           <button>
-            <FontAwesomeIcon
-              icon={faForward}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
+            <FontAwesomeIcon icon={faForward} className="h-[1.2rem] w-[1.2rem] text-white" />
           </button>
         </div>
         <div className="flex flex-col">
@@ -126,8 +131,9 @@ const Timeslider = ({
             <p className="text-white">Longitude: {map && lng.toFixed(3)}</p>
             <p className="text-white">Eye Level: {scale.toFixed(3)}</p>
             <p className="text-white">
+              {" "}
               Temperature:{" "}
-              {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}
+              {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}{" "}
             </p>
             <p className="text-white">Territory: {locationData.city}</p>
           </div>
