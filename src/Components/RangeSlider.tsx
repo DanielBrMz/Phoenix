@@ -6,14 +6,14 @@ import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 
 export default function RangeSlider() {
-  const [value, setValue] = React.useState<number[]>([20, 37]);
+  const [value, setValue] = React.useState<number[]>([50, 50]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 
   const AirbnbSlider = styled(Slider)(({ theme }) => ({
-    color: '#3a8589',
+    color:  "#57c5f7"/* value[0] !== undefined && value[0] < 50 ? 'red' : 'blue' */,
     height: 3,
     padding: '13px 0',
     '& .MuiSlider-thumb': {
@@ -62,6 +62,7 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
         slots={{ thumb: AirbnbThumbComponent }}
         getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
         defaultValue={[50, 50]}
+        /* onChange={handleChange} */
       />
     </Box>
   );

@@ -84,8 +84,6 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
     return () => clearInterval(intervalId); // Clear interval on unmount
   }, [lat, lng]);
 
-  console.log(locationData);
-
   return (
     <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
       <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem] ">
