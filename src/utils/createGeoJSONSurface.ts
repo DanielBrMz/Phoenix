@@ -1,4 +1,4 @@
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry, Point } from 'geojson';
+import { Feature, GeoJsonProperties, Geometry, Point } from 'geojson';
 
 interface Coords {
   latitude: number;

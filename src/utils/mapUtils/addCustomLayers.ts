@@ -12,9 +12,6 @@ const addCustomLayers = (map: Map) => {
       return typedLayer.type === "symbol" && typedLayer.layout && typedLayer.layout["text-field"];
     }
   );
-  
-  
-
 
   map.addLayer({
     id: 'place-labels',
@@ -50,28 +47,21 @@ const addCustomLayers = (map: Map) => {
         'rgb(239,138,98)',
         1,
         'rgb(178,24,43)'
-        ],
+      ],
       "heatmap-opacity": 0.6,
       "heatmap-radius": [
         "interpolate",
         ["linear"],
         ["zoom"],
-        15,
+        0,
+        2,
         20,
-        22,
-        1
-      ],
-      "heatmap-intensity": [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      10,
-      20,
-      15,
-      0
-    ],
+        50
+      ], // fixed radius
+      "heatmap-intensity": 200 // increased intensity
     },
-  });  
+});
+
 
   map.addLayer(
     {

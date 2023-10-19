@@ -6,7 +6,6 @@ import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
-import Image from "next/image";
 
 export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);

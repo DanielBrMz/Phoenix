@@ -5,7 +5,6 @@ import {
   faForward,
   faBackward,
 } from "@fortawesome/free-solid-svg-icons";
-import Slider from "react-input-slider";
 import { Map } from "mapbox-gl";
 import SliderMarker from "./SliderMarker";
 import RangeSlider from "./RangeSlider";
@@ -32,7 +31,6 @@ interface WeatherData {
 const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [sliderValue, setSliderValue] = useState(0);
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
@@ -125,9 +123,9 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
             <p className="text-white">
               {" "}
               Temperature:{" "}
-              {/* {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}{" "} */}
+              {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}{" "}
             </p>
-            <p className="text-white">Territory: {/* {locationData.city} */}</p>
+            <p className="text-white">Territory: {locationData.city}</p>
           </div>
         )}
       </div>
