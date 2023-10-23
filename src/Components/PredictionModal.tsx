@@ -43,7 +43,7 @@ const PredictionModal = ({
           >
             <div className="flex flex-col">
             <span className="ml-[0.8rem] text-base text-white">ICP Julian 10-15</span>
-            <span className="ml-[0.8rem] text-sm text-gray-400">ICP Julian 10-15</span>
+            <span className="ml-[0.8rem] text-sm text-gray-400">10/22/</span>
             </div>
             <FontAwesomeIcon
               icon={faPaperPlane}
