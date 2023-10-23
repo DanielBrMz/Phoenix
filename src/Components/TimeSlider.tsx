@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
   faForward,
   faBackward,
 } from "@fortawesome/free-solid-svg-icons";
-import { Map } from "mapbox-gl";
+import { type Map } from "mapbox-gl";
 import SliderMarker from "./SliderMarker";
 import RangeSlider from "./RangeSlider";
 
@@ -31,36 +31,52 @@ interface WeatherData {
 const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-  let lat = 0,
-    lng = 0;
-  if (map) ({ lat, lng } = map.getCenter());
-
   useEffect(() => {
+    if (map) {
+      map.on("moveend", () => {
+        setLat(map.getCenter().lat);
+        setLng(map.getCenter().lng);
+        fetchLocationData();
+      });
+    }
+  }, [map]);
+
+  const fetchLocationData = () => {
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
     )
       .then((response) => response.json() as Promise<LocationData>)
       .then((data) => setLocationData(data))
       .catch((error) => console.error(error));
+  };
 
+  const fetchWeatherData = () => {
     const username = "molinagroup_barreras_daniel";
     const password = "VfCzr02qA5";
-
     fetch(
       `https://api.meteomatics.com/${new Date().toISOString()}/t_2m:C/${lat},${lng}/json`,
       {
         headers: {
-          Authorization: "Basic " + btoa(username + ":" + password),
+          Authorization: "Basic" + btoa(username + ":" + password),
         },
       },
     )
       .then((response) => response.json() as Promise<WeatherData>)
       .then((data) => setWeatherData(data))
       .catch((error) => console.error(error));
+  };
 
+  useEffect(() => {
+    const intervalId = setInterval(fetchWeatherData, 5 * 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
       const now = new Date();
       setCurrentTime(
@@ -79,8 +95,8 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
       );
     }, 1000);
 
-    return () => clearInterval(intervalId); // Clear interval on unmount
-  }, [lat, lng]);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
