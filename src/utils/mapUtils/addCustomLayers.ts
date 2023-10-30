@@ -12,8 +12,6 @@ const addCustomLayers = (map: Map) => {
       return typedLayer.type === "symbol" && typedLayer.layout && typedLayer.layout["text-field"];
     }
   );
-  
-  
 
 
   map.addLayer({
@@ -52,26 +50,20 @@ const addCustomLayers = (map: Map) => {
         'rgb(178,24,43)'
         ],
       "heatmap-opacity": 0.6,
-      "heatmap-radius": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        15,
-        20,
-        22,
-        1
-      ],
-      "heatmap-intensity": [
+      'heatmap-radius': {
+        base: 5,
+        stops: [[1, 100], [3, 50], [22, 100]],  // adjust as necessary to cover gaps
+      },      "heatmap-intensity": [
       "interpolate",
       ["linear"],
       ["zoom"],
-      10,
-      20,
       15,
-      0
+      20,
+      22,
+      1
     ],
     },
-  });  
+  });
 
   map.addLayer(
     {

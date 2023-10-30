@@ -1,8 +1,7 @@
-import { Map } from "mapbox-gl";
+import {Map} from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
 
 const addCustomSources = (map: Map) => {
-
   map.addSource("mapbox-dem", {
     type: "raster-dem",
     url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -12,7 +11,7 @@ const addCustomSources = (map: Map) => {
 
   map.addSource(
     "polygon",
-    createGeoJSONCircles([-109.705057, 30.392632,], 0.5),
+    createGeoJSONCircles([-110.8968082457804, 31.26933620026809], 0.5),
   );
 }
 

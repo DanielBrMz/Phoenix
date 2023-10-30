@@ -28,7 +28,7 @@ const PredictionModal = ({
     <Draggable>
       <div className="absolute top-20 flex h-[30rem] w-[24rem] flex-col bg-[#2c2a2c]">
         <div className="m-[0.4rem] flex h-[1.5rem] justify-between">
-          <span className="text-white"> View Risk Forecast</span>
+          <span className="text-white">Prediction Modal</span>
           <button onClick={handleClose}>
             <FontAwesomeIcon
               icon={faTimes}

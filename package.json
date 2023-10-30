@@ -18,6 +18,9 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "@turf/turf": "^6.5.0",
+    "@vercel/kv": "^0.2.3",
+    "axios": "^1.5.1",
     "geojson": "^0.5.0",
     "mapbox-gl": "^2.15.0",
     "next": "^13.4.19",
@@ -26,10 +29,12 @@
     "react-draggable": "^4.4.6",
     "react-input-slider": "^6.0.1",
     "superjson": "^1.13.1",
+    "tailwind-scrollbar": "^3.0.5",
     "use-position": "^1.0.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/eslint": "^8.44.2",
     "@types/geojson": "^7946.0.11",
     "@types/mapbox-gl": "^2.7.15",
