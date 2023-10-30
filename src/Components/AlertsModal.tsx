@@ -1,8 +1,8 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Draggable from "react-draggable";
-import {Alert, Receiver} from "~/utils/receivers";
+import type {Alert, Receiver} from "~/utils/receivers";
 
 interface AlertsModalProps {
   selectedIcons: IconDefinition[];
@@ -41,7 +41,7 @@ const AlertsModal = ({
             />
           </button>
         </div>
-        <div className="flex w-full flex-grow flex-col border-2 border-gray-400 p-[1.2rem] scrollbar scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-200 overflow-y-scroll">
+        <div className="flex w-full flex-grow flex-col border-2 border-gray-400 p-[1.2rem] scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-gray-200 overflow-y-scroll">
           {selectedReceiver?.alerts.map((alert: Alert, index: number) => (
             <div key={index} className="mb-4 p-2 bg-gray-700 rounded-md">
               <p>{alert.message}</p>

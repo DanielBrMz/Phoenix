@@ -1,4 +1,4 @@
-import {Map} from "mapbox-gl";
+import type {Map} from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
 
 const addCustomSources = (map: Map) => {

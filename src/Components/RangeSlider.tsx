@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 export default function RangeSlider() {
-  const [value, setValue] = React.useState<number[]>([50, 50]);
+  const [value, setValue] = React.useState<number[]>();
 
  /*  const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);

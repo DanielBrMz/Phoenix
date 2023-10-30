@@ -1,4 +1,4 @@
-import {Receiver} from "~/utils/receivers";
+import type {Receiver} from "~/utils/receivers";
 
 export const cacheReceivers = (receivers: Receiver[]) => {
 	localStorage.setItem("receivers", JSON.stringify(receivers));

@@ -1,5 +1,5 @@
-import {Receiver} from "~/utils/receivers";
-import {Map, MapMouseEvent} from "mapbox-gl";
+import type {Receiver} from "~/utils/receivers";
+import type {Map, MapMouseEvent} from "mapbox-gl";
 
 const addReceiversToMap = (map: Map, receivers: Receiver[], onReceiverClick: (e: MapMouseEvent, receiver: Receiver) => void) => {
 	receivers.forEach(receiver => {

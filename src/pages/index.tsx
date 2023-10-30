@@ -1,14 +1,15 @@
 import Head from "next/head";
 import {useCallback, useEffect, useState} from "react";
-import mapboxgl, {MapMouseEvent} from "mapbox-gl";
+import mapboxgl, { type MapMouseEvent} from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"
 import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
 import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
-import {cacheReceivers, getCachedReceivers} from "~/utils/localCache";
-import {generateMockReceivers, Receiver} from "~/utils/receivers";
+import {cacheReceivers } from "~/utils/localCache";
+import {generateMockReceivers, type Receiver} from "~/utils/receivers";
+import Image from "next/image";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
@@ -47,7 +48,7 @@ export default function Home() {
 
       // Add receivers to map
       // let receivers = getCachedReceivers()
-      let receivers = []
+      let receivers: Receiver[] = []
       if (receivers.length == 0) {
         receivers = generateMockReceivers(CENTER_COORDS, 20)
       }
@@ -87,7 +88,7 @@ export default function Home() {
         {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar selectedReceiver={selectedReceiver} />
        <Timeslider map={map!} scale={kilometersPerPixel}/>
-       <img src="/Phoenix-eye.png" className="absolute w-[8rem] h-[8rem] bottom-4 left-8 z-1" alt="Logo"/>
+       <Image src="/Phoenix-eye.png" alt="Logo" width={128} height={128} className="absolute bottom-4 left-8 z-1"/>
       </main>
     </>
   );

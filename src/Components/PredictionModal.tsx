@@ -1,5 +1,5 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faCaretRight, faFire, faLocationDot, faPaperPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faFire, faLocationDot, faPaperPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Draggable from "react-draggable";
 

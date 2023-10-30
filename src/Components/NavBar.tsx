@@ -1,11 +1,11 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faCalendar, faCloudSun, faFire, faGear, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useCallback, useEffect, useState} from "react";
 import RiskForecastModal from './RiskForecastModal';
 import PredictionModal from "./PredictionModal";
 import AlertsModal from "~/Components/AlertsModal";
-import {Receiver} from "~/utils/receivers";
+import type {Receiver} from "~/utils/receivers";
 
 const NavBar = ({selectedReceiver}:{selectedReceiver: Receiver | null}) => {
   const [selectedIcons, setSelectedIcons] = useState<IconDefinition[]>([]);
