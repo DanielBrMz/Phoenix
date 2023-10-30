@@ -1,5 +1,5 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faFire, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faFire, faLocationDot, faPaperPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Draggable from "react-draggable";
 
@@ -37,11 +37,26 @@ const PredictionModal = ({
             />
           </button>
         </div>
-        <div className="flex w-full flex-grow flex-col border-2 border-gray-400 p-[1.2rem]"></div>
+        <div
+            className={`flex w-full cursor-pointer pb-[1rem] pl-[1rem] pr-[1rem] pt-[1rem] text-white items-center`}
+            onClick={() => null}
+          >
+            <div className="flex flex-col">
+            <span className="ml-[0.8rem] text-base text-white">ICP Julian 10-15</span>
+            <span className="ml-[0.8rem] text-sm text-gray-400">10/22/</span>
+            </div>
+            <FontAwesomeIcon
+              icon={faPaperPlane}
+              className="h-[1.6rem] w-[1.6rem] text-gray-400"
+            />
+            <FontAwesomeIcon
+              icon={faLocationDot}
+              className="h-[1.6rem] w-[1.6rem] text-gray-400"
+            />
+          </div>
       </div>
     </Draggable>
   );
-
 };
 
 export default PredictionModal;

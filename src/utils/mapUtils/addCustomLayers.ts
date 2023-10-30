@@ -13,7 +13,6 @@ const addCustomLayers = (map: Map) => {
     }
   );
 
-
   map.addLayer({
     id: 'place-labels',
     source: 'composite',
@@ -48,7 +47,7 @@ const addCustomLayers = (map: Map) => {
         'rgb(239,138,98)',
         1,
         'rgb(178,24,43)'
-        ],
+      ],
       "heatmap-opacity": 0.6,
       'heatmap-radius': {
         base: 5,

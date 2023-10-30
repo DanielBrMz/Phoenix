@@ -87,6 +87,7 @@ export default function Home() {
         {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar selectedReceiver={selectedReceiver} />
        <Timeslider map={map!} scale={kilometersPerPixel}/>
+       <img src="/Phoenix-eye.png" className="absolute w-[8rem] h-[8rem] bottom-4 left-8 z-1" alt="Logo"/>
       </main>
     </>
   );
