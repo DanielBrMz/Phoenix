@@ -63,6 +63,54 @@ const ChatBot = () => {
             }
             ]);
         }
+
+            // Verifica si el mensaje del usuario es "How much would it take to reforest again?"
+        else if (newMessage.trim().toLowerCase() === "how much would it take to reforest again?") {
+            setMessages(prevMessages => [
+            ...prevMessages, 
+            { 
+                sender: 'bot', 
+                text: "Reforestation of a 1,500 hectare area affected by fire under these conditions could take considerable time. Low humidity and high temperatures, along with strong winds, indicate that the fire is intense, causing significant damage to the soil and vegetation. Depending on the recovery and restoration measures implemented, and considering the natural factors of ecosystem regeneration, complete reforestation could take from several years to several decades. Nature and careful human intervention will play a crucial role in this recovery process.",
+                image: "https://www.elsoldemexico.com.mx/republica/sociedad/nyt7az-incendio-arteaga-efe.jpg/ALTERNATES/LANDSCAPE_960/incendio%20arteaga%20EFE.jpg" // URL de la imagen sobre reforestación
+            }
+            ]);
+        }
+
+            // Verifica si el mensaje del usuario es "Give me the type of vegetation in the area"
+        else if (newMessage.trim().toLowerCase() === "give me the type of vegetation in the area") {
+            setMessages(prevMessages => [
+            ...prevMessages, 
+            { 
+                sender: 'bot', 
+                text: "The vegetation includes drought-resistant shrubs, cacti, succulents, dry grasses, and some desert-adapted trees such as palo verde and mesquite.",
+                image: "https://smokecurtain.files.wordpress.com/2017/12/desierto-de-sonora-foto-de-anton-foltin2.jpg" // URL de la imagen de la vegetación
+            }
+            ]);
+        }
+
+            // Verifica si el mensaje del usuario es "What can I do to help?"
+        else if (newMessage.trim().toLowerCase() === "what can i do to help?") {
+            setMessages(prevMessages => [
+            ...prevMessages, 
+            { 
+                sender: 'bot', 
+                text: "The most important thing is to follow the instructions of authorities and evacuate if asked. You can help by staying informed and sharing reliable information. Avoid moving closer to the fire area so as not to obstruct emergency operations."
+            }
+            ]);
+        }
+
+            // Verifica si el mensaje del usuario es "Give me emergency numbers near the wildfire"
+        else if (newMessage.trim().toLowerCase() === "give me emergency numbers near the wildfire") {
+            setMessages(prevMessages => [
+            ...prevMessages, 
+            { 
+                sender: 'bot', 
+                text: "• Emergency Number (911): For immediate emergencies and reporting fires.\n• Local Fire Department: 555-1234 - For assistance and fire reports.\n• Regional Forest Ranger: 555-5678 - For inquiries about fires in forest areas.\n• Local Hospital: 555-9012 - For medical assistance and health-related emergencies.",
+            }
+            ]);
+        }
+  
+
   
       setNewMessage('');
     }
