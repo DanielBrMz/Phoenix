@@ -20,19 +20,19 @@ const ChatBot = () => {
     if (newMessage.trim()) {
       // Agrega el nuevo mensaje como enviado por el usuario
       setMessages(prevMessages => [...prevMessages, { sender: 'user', text: newMessage }]);
-
-      // Verifica si el mensaje del usuario es una pregunta específica y responde
+  
+      // Verifica si el mensaje del usuario es "What do I do if this wildfire is 20 km away from me?"
       if (newMessage.trim() === "What do I do if this wildfire is 20 km away from me?") {
         setMessages(prevMessages => [
           ...prevMessages, 
           { 
             sender: 'bot', 
             text: "Stay informed through local news and alerts. Prepare for a possible evacuation by packing essentials. Protect your home by removing flammable materials. Wear smoke masks to keep pets safe. Your safety is the most important thing.",
-            image: "https://www.redcross.org/content/dam/redcross/about-us/news/2022/wildfire419.png" // URL de la imagen
+            image: "https://www.redcross.org/content/dam/redcross/about-us/news/2022/wildfire419.png"
           }
         ]);
       }
-
+  
       // Verifica si el mensaje del usuario es "Thank You"
       else if (newMessage.trim().toLowerCase() === "thank you") {
         setMessages(prevMessages => [
@@ -40,7 +40,30 @@ const ChatBot = () => {
           { sender: 'bot', text: "You're welcome, I'm here to help you! If you have more questions, don't hesitate to ask." }
         ]);
       }
+  
+      // Verifica si el mensaje del usuario es "tell me the conditions of the wildfire"
+      else if (newMessage.trim().toLowerCase() === "tell me the conditions of the wildfire") {
+        setMessages(prevMessages => [
+          ...prevMessages, 
+          { 
+            sender: 'bot', 
+            text: "Wind Speed: 30 km/h. Wind Direction: Towards the east. Temperature: 35°C. Relative Humidity: 15%. Burned Area: 1,500 hectares." 
+          }
+        ]);
+      }
 
+        // Verifica si el mensaje del usuario es "Give me the prediction graphs"
+        else if (newMessage.trim().toLowerCase() === "give me the prediction graphs") {
+            setMessages(prevMessages => [
+            ...prevMessages, 
+            { 
+                sender: 'bot', 
+                text: "Of course, here you have them:",
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9biVLzeKGgT06FQi8o3rbDZqlhsqdjZcYg_IrBqNjE1ZPw4H1KtOfaaljwYRfAkN-zYW4prBHZbJBULSCp0mvI-I5EojR7q3G7cWoei_BwfSjZhmF3LXTyBvWSMnfpiFhKSzUR3kZEFJHPrFzPsXgXJruA5fQ8XTRs8d-aMxwU8WenV66h1Y0VJiUcpI/w609-h288/MODELO.png" // URL de la imagen de los gráficos de predicción
+            }
+            ]);
+        }
+  
       setNewMessage('');
     }
   };
