@@ -10,6 +10,7 @@ import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
 import {cacheReceivers } from "~/utils/localCache";
 import {generateMockReceivers, type Receiver} from "~/utils/receivers";
 import Image from "next/image";
+import ChatBot from "~/Components/ChatBot";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
@@ -89,6 +90,7 @@ export default function Home() {
         <NavBar selectedReceiver={selectedReceiver} />
        <Timeslider map={map!} scale={kilometersPerPixel}/>
        <Image src="/Phoenix-eye.png" alt="Logo" width={128} height={128} className="absolute bottom-4 left-8 z-1"/>
+       <ChatBot />
       </main>
     </>
   );
