@@ -129,7 +129,7 @@ const ChatBot = () => {
         style={{ position: 'fixed', top: '20%', right: '0.3rem', transform: 'translateY(-50%)' }}
         aria-label="Chat with us"
       >
-        <FontAwesomeIcon icon={faRobot} size="lg" />
+        <FontAwesomeIcon icon={faRobot} className='w-8 h-8'/>
       </button>
 
       {/* Contenedor Draggable del chat */}
