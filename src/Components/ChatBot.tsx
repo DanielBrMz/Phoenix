@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRobot, faTimes } from '@fortawesome/free-solid-svg-icons';
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faRobot, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Draggable from 'react-draggable';
 
 const ChatBot = () => {
@@ -139,7 +139,7 @@ const ChatBot = () => {
             <div className="flex items-center justify-between p-4 bg-orange-500 text-white cursor-move">
               <h2 className="text-lg font-semibold">🔥FlameGuardian🔥</h2>
               <button onClick={toggleChat} className="text-lg rounded-full hover:bg-orange-700 p-2">
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTimes}  className='w-8 h-8'/>
               </button>
             </div>
             <div className="overflow-y-auto p-4" style={{ maxHeight: '70vh' }}>
