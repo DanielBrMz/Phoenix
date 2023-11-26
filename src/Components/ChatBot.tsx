@@ -146,7 +146,7 @@ const ChatBot = () => {
               {messages.map((message, index) => (
                 <div key={index} className={`flex flex-col items-start rounded-lg p-2 my-2 text-sm ${message.sender === 'bot' ? 'bg-orange-200' : 'bg-gray-300'}`}>
                   <div className="flex items-center">
-                    {message.sender === 'bot' && <FontAwesomeIcon icon={faRobot} className="mr-2 h-8 w-8" size="sm" />}
+                    {message.sender === 'bot' && <FontAwesomeIcon icon={faRobot} className="mr-2 h-8 w-8"/>}
                     <span>{message.text}</span>
                   </div>
                   {message.image && <img src={message.image} alt="Chatbot Message" className="mt-2 max-w-full h-auto rounded" />}
