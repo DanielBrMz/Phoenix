@@ -66,41 +66,56 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
-// Agregar manejador de eventos de clic a la capa de heatmap
-map.on('click', 'polygon', (e) => {
-  const coordinates = e.lngLat;
-  const fireData = {
-    location: `${coordinates.lat.toFixed(2)}, ${coordinates.lng.toFixed(2)}`,
-    intensity: "High", // Example, replace with real data
-    detectedTime: "3:45 PM", // Example, replace with real data
-    zoneImageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/29/La_Pirinola_-_panoramio.jpg" // Reemplaza con la URL real de la imagen
-  };
+  // Agregar manejador de eventos de clic a la capa de heatmap
+  map.on('click', 'polygon', (e) => {
+    const coordinates = e.lngLat;
+    const fireData = {
+      location: `${coordinates.lat.toFixed(2)}, ${coordinates.lng.toFixed(2)}`,
+      intensity: "High", // Ejemplo, debe ser reemplazado con datos reales
+      detectedTime: "3:45 PM. 01/11/2023", // Ejemplo, debe ser reemplazado con datos reales
+      zoneImageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/29/La_Pirinola_-_panoramio.jpg", // URL de la imagen de la zona
+      mlImageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9biVLzeKGgT06FQi8o3rbDZqlhsqdjZcYg_IrBqNjE1ZPw4H1KtOfaaljwYRfAkN-zYW4prBHZbJBULSCp0mvI-I5EojR7q3G7cWoei_BwfSjZhmF3LXTyBvWSMnfpiFhKSzUR3kZEFJHPrFzPsXgXJruA5fQ8XTRs8d-aMxwU8WenV66h1Y0VJiUcpI/w609-h288/MODELO.png" // URL de la imagen de ML
+    };
 
-  const description = `
-    <div class="bg-cream text-gray-800 font-sans text-base rounded-lg shadow-lg border-2 border-gray-800 custom-popup max-w-sm">
-      <div class="bg-gray-700 p-2 rounded-t-lg text-center">
-        <h3 class="font-bold text-white text-lg">Fire Detail</h3>
-      </div>
-      <div class="p-4">
-        <p class="mb-2"><strong>Location:</strong> ${fireData.location}</p>
-        <p class="mb-2"><strong>Intensity:</strong> ${fireData.intensity}</p>
-        <p class="mb-2"><strong>Detection Time:</strong> ${fireData.detectedTime}</p>
-        <div class="mb-2">
-          <strong>Zone:</strong>
-          <img src="${fireData.zoneImageUrl}" alt="Zone Image" class="mt-2 w-1/2 h-auto rounded-lg" />
+    const description = `
+      <div class="bg-cream text-gray-800 font-sans text-base rounded-lg shadow-lg border-2 border-gray-800 custom-popup max-w-md">
+        <div class="bg-gray-700 p-2 rounded-t-lg text-center">
+          <h3 class="font-bold text-white text-lg">Fire Detail</h3>
         </div>
-        <p>Additional information here.</p>
+        <div class="p-3 divide-y divide-gray-400">
+          <div class="flex mb-2 py-2">
+            <div class="w-1/2 border-r border-gray-400 pr-2"><strong>Location:</strong> </div>
+            <div class="w-1/2 pl-2">${fireData.location}</div>
+          </div>
+          <div class="flex mb-2 py-2">
+            <div class="w-1/2 border-r border-gray-400 pr-2"><strong>Intensity:</strong></div>
+            <div class="w-1/2 pl-2">${fireData.intensity}</div>
+          </div>
+          <div class="flex mb-2 py-2">
+            <div class="w-1/2 border-r border-gray-400 pr-2"><strong>Detection Time:</strong></div>
+            <div class="w-1/2 pl-2">${fireData.detectedTime}</div>
+          </div>
+          <div class="flex mb-2 py-2">
+            <div class="w-1/2 border-r border-gray-400 pr-2"><strong>Zone:</strong></div>
+            <div class="w-1/2 pl-2">
+              <img src="${fireData.zoneImageUrl}" alt="Zone Image" class="w-3/4 h-auto rounded-lg" />
+            </div>
+          </div>
+          <div class="flex mb-2 py-2">
+            <div class="w-1/2 border-r border-gray-400 pr-2"><strong>Trajectory Prediction:</strong></div>
+            <div class="w-1/2 pl-2">
+              <img src="${fireData.mlImageUrl}" alt="ML Image" class="w-3/4 h-auto rounded-lg" />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
 
-  new mapboxgl.Popup({ offset: 25, maxWidth: '400px' , className: 'p-0 bg-black'})
-    .setLngLat(coordinates)
-    .setHTML(description)
-    .addTo(map);
-});
-
-
+    new mapboxgl.Popup({ offset: 25, maxWidth: '400px', className: 'p-0 bg-black' })
+      .setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(map);
+  });
   // Añadir capa de edificios 3D
   map.addLayer(
     {
