@@ -16,6 +16,10 @@
   top: 1rem !important;
 }
 
-.mapboxgl-popup-anchor-bottom, .mapboxgl-popup-anchor-bottom-top {
+.mapboxgl-popup-anchor-bottom{
+  background-color: transparent !important;
+}
+
+.mapboxgl-popup-anchor-top{
   background-color: transparent !important;
 }
