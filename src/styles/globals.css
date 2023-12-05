@@ -4,6 +4,7 @@
 .mapboxgl-popup-content {
   background-color: cream !important;
   padding: 0 !important;
+  border-radius: 0.5rem !important;
 }
 
 .mapboxgl-popup-close-button{
@@ -13,4 +14,8 @@
   font-weight: bolder !important;
   right: 1rem !important;
   top: 1rem !important;
+}
+
+.mapboxgl-popup-anchor-bottom {
+  background-color: transparent !important;
 }
