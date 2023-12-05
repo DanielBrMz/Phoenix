@@ -121,8 +121,8 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col items-end z-30">
-      {/* Botón de robot siempre visible */}
+    <div className="fixed inset-0 flex flex-col items-end z-30 w-2 h-2">
+      {/* Botón de robot siempre visible */} 
       <button
         onClick={toggleChat}
         className="z-40 p-3 rounded-full transition duration-200 focus:outline-none bg-gray-800 text-white hover:bg-gray-700"
