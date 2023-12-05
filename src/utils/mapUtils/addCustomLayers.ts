@@ -66,16 +66,40 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
-  // Agregar manejador de eventos de clic a la capa de heatmap
-  map.on('click', 'polygon', (e) => {
-    const coordinates = e.lngLat;
-    const description = `<strong>Detalle del Heatmap</strong><p>Información adicional aquí.</p>`;
+// Agregar manejador de eventos de clic a la capa de heatmap
+map.on('click', 'polygon', (e) => {
+  const coordinates = e.lngLat;
+  const fireData = {
+    location: `${coordinates.lat.toFixed(2)}, ${coordinates.lng.toFixed(2)}`,
+    intensity: "High", // Example, replace with real data
+    detectedTime: "3:45 PM", // Example, replace with real data
+    zoneImageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/29/La_Pirinola_-_panoramio.jpg" // Reemplaza con la URL real de la imagen
+  };
 
-    new mapboxgl.Popup()
-      .setLngLat(coordinates)
-      .setHTML(description)
-      .addTo(map);
-  });
+  const description = `
+    <div class="bg-cream text-gray-800 font-sans text-base rounded-lg shadow-lg border-2 border-gray-800 custom-popup max-w-sm">
+      <div class="bg-gray-700 p-2 rounded-t-lg text-center">
+        <h3 class="font-bold text-white text-lg">Fire Detail</h3>
+      </div>
+      <div class="p-4">
+        <p class="mb-2"><strong>Location:</strong> ${fireData.location}</p>
+        <p class="mb-2"><strong>Intensity:</strong> ${fireData.intensity}</p>
+        <p class="mb-2"><strong>Detection Time:</strong> ${fireData.detectedTime}</p>
+        <div class="mb-2">
+          <strong>Zone:</strong>
+          <img src="${fireData.zoneImageUrl}" alt="Zone Image" class="mt-2 w-1/2 h-auto rounded-lg" />
+        </div>
+        <p>Additional information here.</p>
+      </div>
+    </div>
+  `;
+
+  new mapboxgl.Popup({ offset: 25, maxWidth: '400px' , className: 'p-0 bg-black'})
+    .setLngLat(coordinates)
+    .setHTML(description)
+    .addTo(map);
+});
+
 
   // Añadir capa de edificios 3D
   map.addLayer(
