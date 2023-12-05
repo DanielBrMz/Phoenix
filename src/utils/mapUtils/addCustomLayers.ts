@@ -25,6 +25,7 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
+  // Añadir la capa de heatmap
   map.addLayer({
     id: "polygon",
     type: "heatmap",
@@ -51,19 +52,32 @@ const addCustomLayers = (map: Map) => {
       "heatmap-opacity": 0.6,
       'heatmap-radius': {
         base: 5,
-        stops: [[1, 100], [3, 50], [22, 100]],  // adjust as necessary to cover gaps
-      },      "heatmap-intensity": [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      15,
-      20,
-      22,
-      1
-    ],
+        stops: [[1, 100], [3, 50], [22, 100]],  // Ajustar según sea necesario
+      },
+      "heatmap-intensity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        15,
+        20,
+        22,
+        1
+      ],
     },
   });
 
+  // Agregar manejador de eventos de clic a la capa de heatmap
+  map.on('click', 'polygon', (e) => {
+    const coordinates = e.lngLat;
+    const description = `<strong>Detalle del Heatmap</strong><p>Información adicional aquí.</p>`;
+
+    new mapboxgl.Popup()
+      .setLngLat(coordinates)
+      .setHTML(description)
+      .addTo(map);
+  });
+
+  // Añadir capa de edificios 3D
   map.addLayer(
     {
       id: "add-3d-buildings",
@@ -97,7 +111,6 @@ const addCustomLayers = (map: Map) => {
     },
     labelLayer?.id,
   );
-
 }
 
 export default addCustomLayers;
