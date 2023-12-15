@@ -1,3 +1,4 @@
+import React from 'react'
 import { type AppType } from "next/app";
 
 import { api } from "~/utils/api";

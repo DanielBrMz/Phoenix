@@ -1,0 +1,11 @@
+yarn run v1.22.18
+$ next dev
+  ▲ Next.js 13.5.4
+  - Local:        http://localhost:3000
+  - Environments: .env.development.local
+
+ ✓ Ready in 2.6s
+ ✓ Compiled / in 2.1s (3555 modules)
+deck: deck.gl 8.2.0 - set deck.log.level=1 (or higher) to trace attribute updates
+ ✓ Compiled /_error in 563ms (3557 modules)
+[?25h
