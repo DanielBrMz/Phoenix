@@ -28,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-  ],
+, "src/Components/MyMap.js"  ],
   "exclude": ["node_modules"]
 }
