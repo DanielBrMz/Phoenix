@@ -2,43 +2,45 @@ import React from 'react'
 import styles from "../styles/Home.module.css";
 
 import { Map } from "react-map-gl";
-import { AmbientLight, PointLight, LightingEffect } from "@deck.gl/core";
+import { AmbientLight, PointLight, LightingEffect} from "@deck.gl/core";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import DeckGL from "@deck.gl/react/typed";
+import { RGBAColor } from 'deck.gl';
+import { ColorRange } from 'deck.gl';
 
-const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A'
+const MAPBOX_ACCESS_TOKEN: string = 'pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A'
 
-const ambientLight = new AmbientLight({
+const ambientLight: AmbientLight= new AmbientLight({
   color: [255, 165, 0],
   intensity: 1.0,
 });
 
-const pointLight1 = new PointLight({
+const pointLight1: PointLight = new PointLight({
   color: [255, 69, 0],
   intensity: 1.2,
   position: [-0.144528, 49.739968, 80000],
 });
 
-const pointLight2 = new PointLight({
+const pointLight2: PointLight = new PointLight({
   color: [255, 69, 0],
   intensity: 1.2,
   position: [-3.807751, 54.104682, 8000],
 });
 
-const lightingEffect = new LightingEffect({
+const lightingEffect: LightingEffect = new LightingEffect({
   ambientLight,
   pointLight1,
   pointLight2,
 });
 
-const material = {
+const material: Record<string, number | number[]> = {
   ambient: 0.64,
   diffuse: 0.6,
   shininess: 32,
   specularColor: [51, 51, 51],
 };
 
-const INITIAL_VIEW_STATE = {
+const INITIAL_VIEW_STATE: Record<string, number> = {
   longitude: -1.415727,
   latitude: 52.232395,
   zoom: 6.6,
@@ -48,28 +50,28 @@ const INITIAL_VIEW_STATE = {
   bearing: -27,
 };
 
-// const MAP_STYLE = "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
-// const MAP_STYLE = "mapbox://styles/mapbox/streets-v9";
-// const MAP_STYLE = "mapbox://styles/petherem/cl2hdvc6r003114n2jgmmdr24";
-const MAP_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
+const MAP_STYLE: string = "mapbox://styles/mapbox/satellite-streets-v12";
 
-
-export const colorRange = [
-  [1, 152, 189],
-  [73, 227, 206],
-  [216, 254, 181],
-  [254, 237, 177],
-  [254, 173, 84],
-  [209, 55, 78],
+export const colorRange: ColorRange = [
+  [1, 152, 189, 355],
+  [73, 227, 206, 255],
+  [216, 254, 181, 255],
+  [254, 237, 177, 255],
+  [254, 173, 84, 255],
+  [209, 55, 78, 255],
 ];
 
-function getTooltip({ object }:{object:any}) {
+if (colorRange.length !== 6 || colorRange.some(color => color.length !== 4)) {
+  throw new Error('colorRange must be an array of exactly six RGBA colors');
+}
+
+function getTooltip({ object }: { object: { position: number[], points: { length: number }[] } }) {
   if (!object) {
     return null;
   }
-  const lat = object.position[1];
-  const lng = object.position[0];
-  const count = object.points.length;
+  const lat: number = object.position[1]!;
+  const lng: number = object.position[0]!;
+  const count: number = object.points.length;
 
   return `\
     latitude: ${Number.isFinite(lat) ? lat.toFixed(6) : ""}
@@ -77,23 +79,37 @@ function getTooltip({ object }:{object:any}) {
     ${count} Accidents`;
 }
 
+interface MyMapProps {
+  data?: number[][],
+  mapStyle?: string,
+  radius?: number,
+  upperPercentile?: number,
+  coverage?: number,
+}
+
 export default function MyMap({
-  data = [] as any,
+  data = [],
   mapStyle = MAP_STYLE,
   radius = 1000,
   upperPercentile = 100,
   coverage = 1,
-}) {
-  const layers = [
+}: MyMapProps) {
+  const layers: HeatmapLayer<number[]>[] = [
     new HeatmapLayer({
       id: 'heatmap',
       data,
-      getPosition: d => d as any,
+      getPosition: d => {
+        if (d.length >= 2 && typeof d[0] === 'number' && typeof d[1] === 'number') {
+          return [d[0], d[1]];
+        } else {
+          throw new Error('Data array must have at least two elements and they must be numbers');
+        }
+      },
       getWeight: d => 1,
       radiusPixels: 60,
       intensity: 1,
       threshold: 0.05,
-      colorRange: colorRange as any,
+      colorRange: colorRange,
       opacity: 0.8,
     }),
   ];
@@ -105,7 +121,6 @@ export default function MyMap({
         effects={[lightingEffect]}
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
-        // getTooltip={getTooltip}
       >
         <Map
           mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
