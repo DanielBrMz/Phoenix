@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styles from "../styles/Home.module.css";
 
 import { Map } from "react-map-gl";
@@ -7,6 +7,10 @@ import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import DeckGL from "@deck.gl/react/typed";
 import { RGBAColor } from 'deck.gl';
 import { ColorRange } from 'deck.gl';
+
+interface MyDeckGLProps extends DeckGL {
+  children?: ReactNode;
+}
 
 const MAPBOX_ACCESS_TOKEN: string = 'pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A'
 
@@ -41,8 +45,8 @@ const material: Record<string, number | number[]> = {
 };
 
 const INITIAL_VIEW_STATE: Record<string, number> = {
-  longitude: -1.415727,
-  latitude: 52.232395,
+  longitude: -93.16479,
+  latitude: 18.4417,
   zoom: 6.6,
   minZoom: 5,
   maxZoom: 15,

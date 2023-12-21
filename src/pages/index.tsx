@@ -1,9 +1,13 @@
-import React from 'react'
-import dynamic from 'next/dynamic';
-import axios, { AxiosResponse } from 'axios'
-import csv from 'csv-parser'
+import React from "react";
+import dynamic from "next/dynamic";
+import axios, { AxiosResponse } from "axios";
+import fs from "fs";
+import path from "path";
+import csv from "csv-parser";
 
-const DynamicMapComponent = dynamic(() => import('../Components/MyMap'), { ssr: false });
+const DynamicMapComponent = dynamic(() => import("../Components/MyMap"), {
+  ssr: false,
+});
 
 // Define una interfaz para los props de tu componente
 interface AppProps {
@@ -20,35 +24,39 @@ export default function App(props: AppProps) {
 
 // Define una interfaz para los datos de las filas
 interface RowData {
-  lng: string;
-  lat: string;
+  longitude: string;
+  latitude: string;
 }
 
 export async function getServerSideProps() {
-  const DATA_URL =
-    "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv";
+  // Define la ruta al archivo CSV local
+  const DATA_PATH = path.join(
+    process.cwd(),
+    "public",
+    "data",
+    "NogalesFire.csv",
+  );
 
-  async function fetchAndParseCSV(url: string): Promise<number[][]> {
-    const response: AxiosResponse<NodeJS.ReadableStream> = await axios.get(url, {responseType: 'stream'});
-
+  function readAndParseCSV(filePath: string): Promise<number[][]> {
     return new Promise((resolve, reject) => {
       const points: number[][] = [];
 
-      response.data
+      fs.createReadStream(filePath)
         .pipe(csv())
-        .on('data', (row: RowData) => {
-          points.push([Number(row.lng), Number(row.lat)]);
+        .on("data", (row: RowData) => {
+          // Sólo guarda las columnas de latitud y longitud
+          points.push([Number(row.longitude), Number(row.latitude)]);
         })
-        .on('end', () => {
+        .on("end", () => {
           resolve(points);
         })
-        .on('error', (err: string) => {
+        .on("error", (err: string) => {
           reject(err);
         });
     });
   }
 
-  const points = await fetchAndParseCSV(DATA_URL)
+  const points = await readAndParseCSV(DATA_PATH);
 
   return {
     props: {

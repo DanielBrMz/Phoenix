@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@builder.io/partytown": "^0.8.1",
     "@danmarshall/deckgl-typings": "^3.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
