@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import styles from "../styles/Home.module.css";
 
-import { Map } from "react-map-gl";
+import { Map, Source, Layer, SkyLayer, AnyLayer, SymbolLayer } from "react-map-gl";
 import { AmbientLight, PointLight, LightingEffect} from "@deck.gl/core";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import DeckGL from "@deck.gl/react/typed";
@@ -49,10 +49,46 @@ const INITIAL_VIEW_STATE: Record<string, number> = {
   latitude: 18.4417,
   zoom: 6.6,
   minZoom: 5,
-  maxZoom: 15,
-  pitch: 40.5,
-  bearing: -27,
+  pitch: 80,
+  bearing: 80,
 };
+
+const skyLayer: SkyLayer = {
+  id: 'sky',
+  type: 'sky',
+  paint: {
+    'sky-type': 'atmosphere',
+    'sky-atmosphere-sun': [0.0, 0.0],
+    'sky-atmosphere-sun-intensity': 15
+  }
+};
+
+const placeLabels: SymbolLayer = {
+  id: 'place-labels',
+    source: 'composite',
+    'source-layer': 'place_label',
+    type: 'symbol',
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+      'text-size': 12,
+    },
+};
+
+const add3dBuildingLayer: AnyLayer = {
+    id: '3d-buildings',
+    source: 'composite',
+    'source-layer': 'building',
+    filter: ['==', 'extrude', 'true'],
+    type: 'fill-extrusion',
+    minzoom: 14,
+    paint: {
+      'fill-extrusion-color': '#aaa',
+      'fill-extrusion-height': ['get', 'height'],
+      'fill-extrusion-base': ['get', 'min_height'],
+      'fill-extrusion-opacity': 0.6,
+    },
+}
 
 const MAP_STYLE: string = "mapbox://styles/mapbox/satellite-streets-v12";
 
@@ -98,6 +134,7 @@ export default function MyMap({
   upperPercentile = 100,
   coverage = 1,
 }: MyMapProps) {
+  
   const layers: HeatmapLayer<number[]>[] = [
     new HeatmapLayer({
       id: 'heatmap',
@@ -129,7 +166,19 @@ export default function MyMap({
         <Map
           mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
           mapStyle={mapStyle}
+          terrain={{source: 'mapbox-dem', exaggeration: 1.4}}
+        >
+        <Source
+          id="mapbox-dem"
+          type="raster-dem"
+          url="mapbox://mapbox.mapbox-terrain-dem-v1"
+          tileSize={512}
+          maxzoom={14}
         />
+        <Layer {...skyLayer} />
+        <Layer {...placeLabels} />
+        <Layer {...add3dBuildingLayer} />
+        </Map>
       </DeckGL>
     </div>
   );
