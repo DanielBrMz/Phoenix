@@ -4,8 +4,8 @@
 import React from 'react';
 import TimeRangeSliderFactory from '../common/TimeRangeSlider';
 import {DEFAULT_TIME_FORMAT, FILTER_VIEW_TYPES} from '../constants/settings';
-import {TimeRangeFilter} from '@kepler.gl/types';
-import {TimeRangeFilterProps} from './types';
+import {TimeRangeFilter} from '../types/reducers';
+import {TimeRangeFilterProps} from '../types/index';
 /*
  * TimeRangeFilter -> TimeRangeSlider -> RangeSlider
  */

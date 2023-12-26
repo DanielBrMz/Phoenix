@@ -1,10 +1,8 @@
-// SPDX-License-Identifier: MIT
-// Copyright contributors to the kepler.gl project
-
 import React, {useMemo} from 'react';
 import throttle from 'lodash.throttle';
+import styled from 'styled-components';
 
-import RangeSliderFactory from './range-slider';
+import RangeSliderFactory from './RangeSlider';
 import TimeSliderMarkerFactory from './time-slider-marker';
 import PlaybackControlsFactory from './animation-control/playback-controls';
 import TimeRangeSliderTimeTitleFactory from './time-range-slider-time-title';

@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: MIT
-// Copyright contributors to the kepler.gl project
 import {
   RefObject,
   TouchEvent,
@@ -40,7 +38,7 @@ export default class MouseEventHandler {
     this.setAnchor = setAnchor;
   }
 
-  handleMouseDown: ReactMouseEventHandler = (e: MouseEvent) => {
+  handleMouseDown = (e: globalThis.MouseEvent) => {
     document.addEventListener('mouseup', this.mouseup);
     document.addEventListener('mousemove', this.mousemove);
     if (this.setAnchor) {
@@ -50,12 +48,12 @@ export default class MouseEventHandler {
     this.toggleMouseOver();
   };
 
-  private getMousePos(e: MouseEvent) {
+  private getMousePos(e: globalThis.MouseEvent) {
     return this.vertical ? e.clientY : e.clientX;
   }
 
-  private getTouchPosition(e: TouchEvent) {
-    return this.vertical ? e.touches[0].clientY : e.touches[0].clientX;
+  private getTouchPosition(e: globalThis.TouchEvent) {
+    return this.vertical ? e.touches[0]!.clientY : e.touches[0]!.clientX;
   }
 
   private mouseup = () => {
@@ -72,13 +70,13 @@ export default class MouseEventHandler {
     return pos - (this.vertical ? trackRect.bottom : trackRect.left);
   }
 
-  private mousemove = function(this: Document, e: MouseEvent) {
+  private mousemove = (e: globalThis.MouseEvent) => {
     e.preventDefault();
     const pos = this.getMousePos(e);
     this.valueListener(this.getDistanceToTrack(pos));
   };
 
-  handleTouchStart: TouchEventHandler = (e: TouchEvent) => {
+  handleTouchStart = (e: globalThis.TouchEvent) => {
     // TODO: fix touch event
     document.addEventListener('touchend', this.touchend);
     document.addEventListener('touchmove', this.touchmove);
@@ -89,7 +87,7 @@ export default class MouseEventHandler {
     this.toggleMouseOver();
   };
 
-  private touchmove = function(this: Document, e: TouchEvent) {
+  private touchmove = (e: globalThis.TouchEvent) => {
     // TODO: touch not tested
     const pos = this.getTouchPosition(e);
     this.valueListener(this.getDistanceToTrack(pos));
