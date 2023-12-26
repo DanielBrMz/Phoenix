@@ -3,7 +3,6 @@
 
 import React, {useMemo} from 'react';
 import throttle from 'lodash.throttle';
-import styled from 'styled-components';
 
 import RangeSliderFactory from './range-slider';
 import TimeSliderMarkerFactory from './time-slider-marker';
