@@ -1,7 +1,11 @@
 import minDoc from 'min-document';
 
-let topLevel: typeof global | typeof window | {} = typeof global !== 'undefined' ? global :
-    typeof window !== 'undefined' ? window : {}
+type TopLevelType = {
+    '__GLOBAL_DOCUMENT_CACHE@4'?: Document;
+}
+
+let topLevel: TopLevelType = typeof global !== 'undefined' ? global as TopLevelType :
+    typeof window !== 'undefined' ? window as TopLevelType : {}
 let doccy: Document | undefined;
 
 if (typeof document !== 'undefined') {
