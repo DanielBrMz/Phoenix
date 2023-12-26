@@ -45,8 +45,8 @@ const material: Record<string, number | number[]> = {
 };
 
 const INITIAL_VIEW_STATE: Record<string, number> = {
-  longitude: -93.16479,
-  latitude: 18.4417,
+  longitude: -110.8654,
+  latitude: 30.7185,
   zoom: 6.6,
   minZoom: 5,
   pitch: 80,
