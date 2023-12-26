@@ -72,7 +72,7 @@ export default class MouseEventHandler {
     return pos - (this.vertical ? trackRect.bottom : trackRect.left);
   }
 
-  private mousemove = (e: MouseEvent) => {
+  private mousemove = function(this: Document, e: MouseEvent) {
     e.preventDefault();
     const pos = this.getMousePos(e);
     this.valueListener(this.getDistanceToTrack(pos));
@@ -89,7 +89,7 @@ export default class MouseEventHandler {
     this.toggleMouseOver();
   };
 
-  private touchmove = (e: TouchEvent) => {
+  private touchmove = function(this: Document, e: TouchEvent) {
     // TODO: touch not tested
     const pos = this.getTouchPosition(e);
     this.valueListener(this.getDistanceToTrack(pos));
