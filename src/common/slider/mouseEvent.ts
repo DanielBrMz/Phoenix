@@ -9,7 +9,7 @@ import {
 } from 'react';
 import {StyleRangeSliderType} from './slider';
 
-function nope(...args: any[]) {}
+function nope(...args: unknown[]) {}
 
 type MouseEventHandlerProps = {
   vertical: boolean;
