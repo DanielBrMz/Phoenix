@@ -15,7 +15,7 @@ type MouseEventHandlerProps = {
   vertical: boolean;
   valueListener: (distance: number) => void;
   toggleMouseOver: () => void;
-  track: RefObject<StyleRangeSliderType>;
+  track: RefObject<HTMLDivElement>; // Corrected type
   setAnchor?: null | ((distance: number) => void);
 };
 
@@ -23,8 +23,8 @@ export default class MouseEventHandler {
   private vertical: boolean;
   private valueListener: (distance: number) => void;
   private toggleMouseOver: () => void;
-  private track: RefObject<StyleRangeSliderType>; // Set correct type
-  private setAnchor: null | ((distance: number) => void); // Set correct type
+  private track: RefObject<HTMLDivElement>; // Corrected type
+  private setAnchor: null | ((distance: number) => void);
 
   constructor({
     vertical = false,
