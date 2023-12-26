@@ -47,10 +47,10 @@ const material: Record<string, number | number[]> = {
 const INITIAL_VIEW_STATE: Record<string, number> = {
   longitude: -110.8654,
   latitude: 30.7185,
-  zoom: 6.6,
+  zoom: 3,
   minZoom: 5,
-  pitch: 80,
-  bearing: 80,
+  pitch: 0,
+  bearing: 0,
 };
 
 const skyLayer: SkyLayer = {
