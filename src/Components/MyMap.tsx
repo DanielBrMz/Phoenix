@@ -12,7 +12,7 @@ interface MyDeckGLProps extends DeckGL {
   children?: ReactNode;
 }
 
-const MAPBOX_ACCESS_TOKEN: string = 'pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A'
+const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A'
 
 const ambientLight: AmbientLight= new AmbientLight({
   color: [255, 165, 0],
@@ -90,7 +90,7 @@ const add3dBuildingLayer: AnyLayer = {
     },
 }
 
-const MAP_STYLE: string = "mapbox://styles/mapbox/satellite-streets-v12";
+const MAP_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
 
 export const colorRange: ColorRange = [
   [1, 152, 189, 355],
