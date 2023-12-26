@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import styles from "../styles/Home.module.css";
 
 import { Map, Source, Layer, SkyLayer, AnyLayer, SymbolLayer } from "react-map-gl";
@@ -90,7 +90,12 @@ const add3dBuildingLayer: AnyLayer = {
     },
 }
 
-const MAP_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
+const MAP_STYLES = {
+  "Street View": "mapbox://styles/mapbox/streets-v11",
+  "Dark View": "mapbox://styles/mapbox/dark-v10",
+};
+const [mapStyle, setMapStyle] = useState(MAP_STYLES["Street View"]);
+const handleStyleChange = (event) => setMapStyle(MAP_STYLES[event.target.value]);
 
 export const colorRange: ColorRange = [
   [1, 152, 189, 355],
