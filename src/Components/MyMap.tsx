@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
 import styles from "../styles/Home.module.css";
 
 import { Map, Source, Layer, SkyLayer, AnyLayer, SymbolLayer } from "react-map-gl";
@@ -46,9 +46,9 @@ const material: Record<string, number | number[]> = {
 
 const INITIAL_VIEW_STATE: Record<string, number> = {
   longitude: -110.8654,
-  latitude: 31.,
-  zoom: 5,
-  minZoom: 9,
+  latitude: 31.005,
+  zoom: 9,
+  minZoom: 4,
   pitch: 0,
   bearing: 0,
 };
@@ -90,12 +90,7 @@ const add3dBuildingLayer: AnyLayer = {
     },
 }
 
-const MAP_STYLES = {
-  "Street View": "mapbox://styles/mapbox/streets-v11",
-  "Dark View": "mapbox://styles/mapbox/dark-v10",
-};
-const [mapStyle, setMapStyle] = useState(MAP_STYLES["Street View"]);
-const handleStyleChange = (event) => setMapStyle(MAP_STYLES[event.target.value]);
+const MAP_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
 
 export const colorRange: ColorRange = [
   [1, 152, 189, 355],
@@ -178,7 +173,7 @@ export default function MyMap({
           type="raster-dem"
           url="mapbox://mapbox.mapbox-terrain-dem-v1"
           tileSize={512}
-          maxzoom={14}
+          maxzoom={15}
         />
         <Layer {...skyLayer} />
         <Layer {...placeLabels} />

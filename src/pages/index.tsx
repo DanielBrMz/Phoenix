@@ -34,7 +34,7 @@ export async function getServerSideProps() {
     process.cwd(),
     "public",
     "data",
-    "NogalesFire.csv",
+    "NOGALESDT.csv",
   );
 
   function readAndParseCSV(filePath: string): Promise<number[][]> {
