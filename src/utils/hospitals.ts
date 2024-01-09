@@ -1,4 +1,4 @@
-// hospitals.ts
+// hospitals.ts, dsda
 export type Hospital = {
     id: string;
     name: string;
