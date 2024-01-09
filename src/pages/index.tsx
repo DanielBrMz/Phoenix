@@ -1,3 +1,4 @@
+//index.tsx
 import Head from "next/head";
 import {useCallback, useEffect, useState} from "react";
 import mapboxgl, { type MapMouseEvent} from "mapbox-gl";
@@ -11,6 +12,8 @@ import {cacheReceivers } from "~/utils/localCache";
 import {generateMockReceivers, type Receiver} from "~/utils/receivers";
 import Image from "next/image";
 import ChatBot from "~/Components/ChatBot";
+import { generateMockHospitals } from "~/utils/hospitals";
+import addHospitalsToMap from "~/utils/mapUtils/addHospitalsToMap";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
@@ -47,6 +50,8 @@ export default function Home() {
       addCustomSources(map);
       addCustomLayers(map);
 
+      
+
       // Add receivers to map
       // let receivers = getCachedReceivers()
       let receivers: Receiver[] = []
@@ -70,6 +75,10 @@ export default function Home() {
       map.on('zoom', () => {
         setKilometersPerPixel(4007501.6686 * Math.abs(Math.cos((map.getCenter().lat * Math.PI) / 180)) / Math.pow(2, map.getZoom() + 8));
       });
+
+       // Agregar hospitales al mapa
+      const hospitals = generateMockHospitals();
+      addHospitalsToMap(map, hospitals);
 
      return () => {
       map.remove();
