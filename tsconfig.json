@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "src/Components/MyMap.js",
+    "deckgl.d.ts"
   ],
   "exclude": ["node_modules"]
 }
