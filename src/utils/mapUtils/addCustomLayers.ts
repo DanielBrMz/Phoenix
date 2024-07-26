@@ -120,6 +120,11 @@ const addCustomLayers = (map: Map) => {
 
       if (progress < 1) {
         requestAnimationFrame(animate);
+      } else {
+        // Reiniciar la animación después de completar
+        setTimeout(() => {
+          animateHeatmap();
+        }, 1000); // 1 segundo de pausa antes de reiniciar la animación
       }
     };
 
