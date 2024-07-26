@@ -11,7 +11,7 @@ const createGeoJSONCircles = (
   variation = 0.2,
 ): mapboxgl.GeoJSONSourceRaw => {
   const points = 64;
-  const circles = 10; // Número de círculos concéntricosss
+  const circles = 10; // Número de círculos concéntricossssssssss
 
   const coords: Coords = {
     latitude: center[1],
