@@ -6,7 +6,7 @@ import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
-// import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
+import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
 import { cacheReceivers } from "~/utils/localCache";
 import { generateMockReceivers, type Receiver } from "~/utils/receivers";
 import Image from "next/image";
@@ -57,7 +57,7 @@ export default function Home() {
       if (receivers.length == 0) {
         receivers = generateMockReceivers(CENTER_COORDS, 20);
       }
-      //addReceiversToMap(map, receivers, handleReceiverClick);
+      addReceiversToMap(map, receivers, handleReceiverClick);
       cacheReceivers(receivers);
 
       map.setFog({
@@ -95,7 +95,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
         <div id="map" style={{ width: "100%", height: "100vh" }}></div>
         {/* <div className="w-full h-full bg-[#777]" /> */}
-        {/* <NavBar selectedReceiver={selectedReceiver} /> */}
+        <NavBar selectedReceiver={selectedReceiver} />
         <Timeslider map={map!} scale={kilometersPerPixel} />
         <Image
           src="/Phoenix-eye.png"

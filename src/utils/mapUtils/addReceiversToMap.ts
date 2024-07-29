@@ -32,7 +32,7 @@ const addReceiversToMap = (
       type: "circle",
       source: sourceId,
       paint: {
-        "circle-radius": 10,
+        "circle-radius": 7,
         "circle-color": "#00FF00",
       },
     });
