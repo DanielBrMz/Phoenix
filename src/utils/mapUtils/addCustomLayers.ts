@@ -53,15 +53,8 @@ const addCustomLayers = (map: Map) => {
         "rgb(178,24,43)",
       ],
       "heatmap-opacity": 0.6,
-      "heatmap-radius": {
-        base: 1, // Puede ser cambiado manualmente con setHeatmapRadius
-        stops: [
-          [1, 10],
-          [3, 5],
-          [22, 10],
-        ],
-      },
-      "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 15, 20, 22, 1],
+      "heatmap-radius": 10, // Valor fijo para mantener el tamaño
+      "heatmap-intensity": 1, // Valor fijo para mantener la intensidad
     },
   });
 
@@ -103,14 +96,7 @@ const addCustomLayers = (map: Map) => {
 
 // Función para ajustar el radio del heatmap manualmente
 export function setHeatmapRadius(map: Map, radius: number) {
-  map.setPaintProperty("polygon", "heatmap-radius", {
-    base: radius,
-    stops: [
-      [1, radius * 10],
-      [3, radius * 5],
-      [22, radius * 10],
-    ],
-  });
+  map.setPaintProperty("polygon", "heatmap-radius", radius);
 }
 
 export default addCustomLayers;
