@@ -1,29 +1,35 @@
 import Head from "next/head";
-import {useCallback, useEffect, useState} from "react";
-import mapboxgl, { type MapMouseEvent} from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css"
+import { useCallback, useEffect, useState } from "react";
+import mapboxgl, { type MapMouseEvent } from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
-import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
-import {cacheReceivers } from "~/utils/localCache";
-import {generateMockReceivers, type Receiver} from "~/utils/receivers";
+// import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
+import { cacheReceivers } from "~/utils/localCache";
+import { generateMockReceivers, type Receiver } from "~/utils/receivers";
 import Image from "next/image";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
-const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
+const MAPBOX_ACCESS_TOKEN =
+  "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
 const INITIAL_ZOOM = 15;
 const INITIAL_PITCH = 60;
 
 export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
-  const [selectedReceiver, setSelectedReceiver] = useState<Receiver | null>(null)
+  const [selectedReceiver, setSelectedReceiver] = useState<Receiver | null>(
+    null,
+  );
 
-  const handleReceiverClick = useCallback((e: MapMouseEvent, receiver: Receiver) => {
-    setSelectedReceiver(receiver)
-  }, [setSelectedReceiver])
+  const handleReceiverClick = useCallback(
+    (e: MapMouseEvent, receiver: Receiver) => {
+      setSelectedReceiver(receiver);
+    },
+    [setSelectedReceiver],
+  );
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -42,18 +48,17 @@ export default function Home() {
     map.addControl(new mapboxgl.FullscreenControl());
 
     map.on("style.load", () => {
-
       addCustomSources(map);
       addCustomLayers(map);
 
       // Add receivers to map
       // let receivers = getCachedReceivers()
-      let receivers: Receiver[] = []
+      let receivers: Receiver[] = [];
       if (receivers.length == 0) {
-        receivers = generateMockReceivers(CENTER_COORDS, 20)
+        receivers = generateMockReceivers(CENTER_COORDS, 20);
       }
-      addReceiversToMap(map, receivers, handleReceiverClick);
-      cacheReceivers(receivers)
+      //addReceiversToMap(map, receivers, handleReceiverClick);
+      cacheReceivers(receivers);
 
       map.setFog({
         color: "rgb(186, 210, 235)",
@@ -66,13 +71,17 @@ export default function Home() {
       map.setTerrain({ source: "mapbox-dem", exaggeration: 1.4 });
       map.setPitch(INITIAL_PITCH);
 
-      map.on('zoom', () => {
-        setKilometersPerPixel(4007501.6686 * Math.abs(Math.cos((map.getCenter().lat * Math.PI) / 180)) / Math.pow(2, map.getZoom() + 8));
+      map.on("zoom", () => {
+        setKilometersPerPixel(
+          (4007501.6686 *
+            Math.abs(Math.cos((map.getCenter().lat * Math.PI) / 180))) /
+            Math.pow(2, map.getZoom() + 8),
+        );
       });
 
-     return () => {
-      map.remove();
-    };
+      return () => {
+        map.remove();
+      };
     });
   }, [handleReceiverClick]);
 
@@ -84,11 +93,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
-        <div id="map" style={{ width: "100%", height: "100vh"}}></div>
+        <div id="map" style={{ width: "100%", height: "100vh" }}></div>
         {/* <div className="w-full h-full bg-[#777]" /> */}
-        <NavBar selectedReceiver={selectedReceiver} />
-       <Timeslider map={map!} scale={kilometersPerPixel}/>
-       <Image src="/Phoenix-eye.png" alt="Logo" width={128} height={128} className="absolute bottom-4 left-8 z-1"/>
+        {/* <NavBar selectedReceiver={selectedReceiver} /> */}
+        {/* <Timeslider map={map!} scale={kilometersPerPixel}/> */}
+        <Image
+          src="/Phoenix-eye.png"
+          alt="Logo"
+          width={128}
+          height={128}
+          className="z-1 absolute bottom-4 left-8"
+        />
       </main>
     </>
   );

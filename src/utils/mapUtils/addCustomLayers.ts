@@ -100,14 +100,14 @@ const addCustomLayers = (map: Map) => {
   // Función de animación
   const animateHeatmap = () => {
     const startTime = performance.now();
-    const duration = 20000; // 20 segundos
+    const duration = 30000; // 30 segundos
 
     const animate = (currentTime: number) => {
       const elapsedTime = currentTime - startTime;
       const progress = Math.min(elapsedTime / duration, 1);
 
       // Interpolar los valores de heatmap-radius
-      const radius = 10 * progress; // aumentar el radio de 0 a 10
+      const radius = 80 * progress; // aumentar el radio de 0 a 10
 
       map.setPaintProperty("polygon", "heatmap-radius", {
         base: radius,
