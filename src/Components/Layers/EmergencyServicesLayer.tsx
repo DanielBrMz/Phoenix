@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
-import { emergencyServices } from "../data/emergencyServices";
+import { emergencyServices } from "../../data/emergencyServices";
 
 interface EmergencyServicesLayerProps {
   map: Map | null;
