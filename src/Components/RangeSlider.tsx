@@ -1,65 +1,52 @@
-import * as React from 'react';
-import Slider, { SliderThumb } from '@mui/material/Slider';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import Slider from "@mui/material/Slider";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 
 export default function RangeSlider() {
-  const [value, setValue] = React.useState<number[]>();
-
- /*  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  }; */
+  const [value, setValue] = React.useState(0); // Valor inicial ajustado a la mitad del rango para visualización
 
   const AirbnbSlider = styled(Slider)(({ theme }) => ({
-    color:  "#57c5f7"/* value[0] !== undefined && value[0] < 50 ? 'red' : 'blue' */,
-    height: 3,
-    padding: '13px 0',
-    '& .MuiSlider-thumb': {
-      height: 27,
-      width: 27,
-      backgroundColor: '#fff',
-      border: '1px solid currentColor',
-      '&:hover': {
-        boxShadow: '0 0 0 8px rgba(58, 133, 137, 0.16)',
-      },
-      '& .airbnb-bar': {
-        height: 9,
-        width: 1,
-        backgroundColor: 'currentColor',
-        marginLeft: 1,
-        marginRight: 1,
+    color: "#57c5f7", // Color del track cuando está activo
+    height: 4,
+    "& .MuiSlider-thumb": {
+      height: 24,
+      width: 24,
+      backgroundColor: "#fff",
+      border: "2px solid #000", // Borde del thumb
+      "&:hover": {
+        boxShadow: "0 0 0 8px rgba(58, 133, 137, 0.16)",
       },
     },
-    '& .MuiSlider-track': {
-      height: 3,
+    "& .MuiSlider-track": {
+      height: 4,
     },
-    '& .MuiSlider-rail': {
-      color: theme.palette.mode === 'dark' ? '#bfbfbf' : '#d8d8d8',
-      opacity: theme.palette.mode === 'dark' ? undefined : 1,
-      height: 3,
+    "& .MuiSlider-rail": {
+      height: 4,
+      backgroundColor: "#d8d8d8", // Color del rail
+    },
+    "& .MuiSlider-mark": {
+      backgroundColor: "#000", // Color de las marcas
+      height: 10,
+      width: 2,
+      "&.MuiSlider-markActive": {
+        backgroundColor: "transparent",
+      },
     },
   }));
 
-
-function AirbnbThumbComponent( props: React.HTMLAttributes<unknown> ) {
-  const { children, ...other } = props;
   return (
-    <SliderThumb {...other}>
-      {children}
-      <span className="airbnb-bar" />
-      <span className="airbnb-bar" />
-      <span className="airbnb-bar" />
-    </SliderThumb>
-  );
-}
-
-  return (
-    <Box>  
+    <Box className="mx-4">
       <AirbnbSlider
-        slots={{ thumb: AirbnbThumbComponent }}
-        getAriaLabel={(index) => (index === 0 ? 'Minimum price' : 'Maximum price')}
-        defaultValue={[50, 50]}
-        /* onChange={handleChange} */
+        value={value}
+        onChange={(event, newValue) => setValue(newValue as number)}
+        defaultValue={24}
+        min={0}
+        max={48}
+        step={12}
+        marks={new Array(5).fill(0).map((_, index) => ({
+          value: index * 12,
+        }))}
       />
     </Box>
   );
