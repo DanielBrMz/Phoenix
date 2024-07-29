@@ -7,37 +7,36 @@ export const emergencyServices = [
     id: "e1",
     icon: hospital,
     name: "hospital",
-    coordinates: [31.27, -110.9],
+    coordinates: [-110.9, 31.27],
   },
   {
     id: "e2",
     icon: hospital,
     name: "hospital",
-    coordinates: [31.2655, -110.905],
+    coordinates: [-110.905, 31.2655],
   },
-
   {
     id: "e3",
     icon: firefighter,
     name: "firefighter",
-    coordinates: [31.275, -110.9025],
+    coordinates: [-110.9025, 31.275],
   },
   {
     id: "e4",
     icon: firefighter,
     name: "firefighter",
-    coordinates: [31.268, -110.898],
+    coordinates: [-110.898, 31.268],
   },
   {
     id: "e5",
     icon: police,
     name: "police",
-    coordinates: [31.2725, -110.8965],
+    coordinates: [-110.8965, 31.2725],
   },
   {
     id: "e6",
     icon: police,
     name: "police",
-    coordinates: [31.266, -110.899],
+    coordinates: [-110.899, 31.266],
   },
 ];

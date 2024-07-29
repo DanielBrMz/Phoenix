@@ -7,6 +7,7 @@ import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
 import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
+import EmergencyServicesLayer from "~/Components/EmergencyServicesLayer";
 import { cacheReceivers } from "~/utils/localCache";
 import { generateMockReceivers, type Receiver } from "~/utils/receivers";
 import Image from "next/image";
@@ -97,6 +98,7 @@ export default function Home() {
         {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar selectedReceiver={selectedReceiver} />
         <Timeslider map={map!} scale={kilometersPerPixel} />
+        {map && <EmergencyServicesLayer map={map} />}
         <Image
           src="/Phoenix-eye.png"
           alt="Logo"
