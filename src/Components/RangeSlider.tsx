@@ -2,6 +2,7 @@ import * as React from "react";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import { setHeatmapRadius } from "~/utils/mapUtils/addCustomLayers";
 
 export default function RangeSlider() {
   const [value, setValue] = React.useState(0);

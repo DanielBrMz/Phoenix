@@ -15,6 +15,7 @@ const addCustomLayers = (map: Map) => {
     );
   });
 
+  // Añade capa de etiquetas de lugares
   map.addLayer({
     id: "place-labels",
     source: "composite",
@@ -27,6 +28,7 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
+  // Añade capa de calor
   map.addLayer({
     id: "polygon",
     type: "heatmap",
@@ -52,17 +54,18 @@ const addCustomLayers = (map: Map) => {
       ],
       "heatmap-opacity": 0.6,
       "heatmap-radius": {
-        base: 1, // Inicialmente pequeño
+        base: 1, // Puede ser cambiado manualmente con setHeatmapRadius
         stops: [
           [1, 10],
           [3, 5],
           [22, 10],
-        ], // valores iniciales pequeños
+        ],
       },
       "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 15, 20, 22, 1],
     },
   });
 
+  // Añade capa de edificios 3D
   map.addLayer(
     {
       id: "add-3d-buildings",
@@ -96,45 +99,18 @@ const addCustomLayers = (map: Map) => {
     },
     labelLayer?.id,
   );
-
-  // Función de animación
-  const animateHeatmap = () => {
-    const startTime = performance.now();
-    const duration = 30000; // 30 segundos
-
-    const animate = (currentTime: number) => {
-      const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1);
-
-      // Interpolar los valores de heatmap-radius
-      const radius = 80 * progress; // aumentar el radio de 0 a 10
-
-      map.setPaintProperty("polygon", "heatmap-radius", {
-        base: radius,
-        stops: [
-          [1, radius * 10],
-          [3, radius * 5],
-          [22, radius * 10],
-        ],
-      });
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        // Reiniciar la animación después de completar
-        setTimeout(() => {
-          animateHeatmap();
-        }, 1000); // 1 segundo de pausa antes de reiniciar la animación
-      }
-    };
-
-    requestAnimationFrame(animate);
-  };
-
-  // Iniciar la animación cuando el mapa esté cargado
-  map.on("load", () => {
-    animateHeatmap();
-  });
 };
+
+// Función para ajustar el radio del heatmap manualmente
+export function setHeatmapRadius(map: Map, radius: number) {
+  map.setPaintProperty("polygon", "heatmap-radius", {
+    base: radius,
+    stops: [
+      [1, radius * 10],
+      [3, radius * 5],
+      [22, radius * 10],
+    ],
+  });
+}
 
 export default addCustomLayers;
