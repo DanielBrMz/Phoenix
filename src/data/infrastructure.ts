@@ -5,19 +5,19 @@ export const infrastructure = [
     id: "i1",
     icon: electricityPole,
     name: "electricity_pole",
-    coordinates: [-110.903, 31.274],
+    coordinates: [-110.908, 31.261],
   },
   {
     id: "i2",
     icon: electricityPole,
     name: "electricity_pole",
-    coordinates: [-110.8975, 31.269],
+    coordinates: [-110.898, 31.263],
   },
   {
     id: "i3",
     icon: electricityPole,
     name: "electricity_pole",
-    coordinates: [-110.901, 31.271],
+    coordinates: [-110.89, 31.272],
   },
   {
     id: "i4",
@@ -35,6 +35,6 @@ export const infrastructure = [
     id: "i6",
     icon: electricityPole,
     name: "electricity_pole",
-    coordinates: [-110.8995, 31.2685],
+    coordinates: [-110.892, 31.266],
   },
 ];
