@@ -96,7 +96,7 @@ export default function Home() {
         <div id="map" style={{ width: "100%", height: "100vh" }}></div>
         {/* <div className="w-full h-full bg-[#777]" /> */}
         {/* <NavBar selectedReceiver={selectedReceiver} /> */}
-        {/* <Timeslider map={map!} scale={kilometersPerPixel}/> */}
+        <Timeslider map={map!} scale={kilometersPerPixel} />
         <Image
           src="/Phoenix-eye.png"
           alt="Logo"
