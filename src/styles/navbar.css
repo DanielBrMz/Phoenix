@@ -1,0 +1,46 @@
+.navbar {
+  position: fixed;
+  left: 1.5rem; /* 6 * 0.25rem */
+  top: 1.5rem; /* 6 * 0.25rem */
+  display: flex;
+}
+
+.navbarContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.barraLateral {
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 300px;
+  background-color: rgba(33, 38, 43, 0.8); /* #21262b with 80% opacity */
+  border-color: #f57f61;
+  border-width: 1px;
+  border-style: solid;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 60px;
+}
+
+.menu {
+  color: yellow;
+  background-color: rgba(33, 38, 43, 0.8); /* #21262b with 80% opacity */
+  border-color: #f57f61;
+  border-width: 1px;
+  border-style: solid;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  color: #f57f61;
+  width: 30px;
+  height: 30px;
+}
