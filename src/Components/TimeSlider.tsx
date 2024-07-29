@@ -62,7 +62,7 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
       `https://api.meteomatics.com/${new Date().toISOString()}/t_2m:C/${lat},${lng}/json`,
       {
         headers: {
-          Authorization: "Basic" + btoa(username + ":" + password),
+          Authorization: "Basic " + btoa(username + ":" + password),
         },
       },
     )
@@ -126,7 +126,7 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
           <div className="text-[#5ec2fb]">{currentDate}</div>
         </div>
         <div className="flex flex-grow flex-col">
-          <RangeSlider />
+          <RangeSlider map={map} />
           <SliderMarker min={0} max={240} step={24} />
         </div>
       </div>

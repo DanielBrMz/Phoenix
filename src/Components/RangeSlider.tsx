@@ -4,7 +4,11 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { setHeatmapRadius } from "~/utils/mapUtils/addCustomLayers";
 
-export default function RangeSlider() {
+interface RangeSliderProps {
+  map: mapboxgl.Map;
+}
+
+export default function RangeSlider({ map }: RangeSliderProps) {
   const [value, setValue] = React.useState(0);
   const sliderWidth = 720; // Ancho total del slider
   const min = 0;
@@ -43,6 +47,28 @@ export default function RangeSlider() {
   const calculateLeftPosition = () => {
     const position = ((value - min) / (max - min)) * sliderWidth;
     return position - thumbWidth / 2; // Ajusta la posición para centrar el popup sobre el thumb
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    const sliderValue = newValue as number;
+    setValue(sliderValue);
+
+    let newRadius = 0;
+    if (sliderValue === 0) {
+      newRadius = 0;
+    } else if (sliderValue === 12) {
+      newRadius = 20;
+    } else if (sliderValue === 24) {
+      newRadius = 40;
+    } else if (sliderValue === 36) {
+      newRadius = 60;
+    } else {
+      newRadius = 80;
+    }
+
+    if (map) {
+      setHeatmapRadius(map, newRadius);
+    }
   };
 
   let popUpText = "";
@@ -96,7 +122,7 @@ export default function RangeSlider() {
           </div>
           <AirbnbSlider
             value={value}
-            onChange={(event, newValue) => setValue(newValue as number)}
+            onChange={handleSliderChange}
             defaultValue={0}
             min={0}
             max={48}
