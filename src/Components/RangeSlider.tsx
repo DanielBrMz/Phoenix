@@ -55,7 +55,7 @@ export default function RangeSlider({ map }: RangeSliderProps) {
 
     let newRadius = 0;
     if (sliderValue === 0) {
-      newRadius = 0;
+      newRadius = -1; // Indica que se debe usar el valor predeterminado
     } else if (sliderValue === 12) {
       newRadius = 20;
     } else if (sliderValue === 24) {
@@ -67,7 +67,18 @@ export default function RangeSlider({ map }: RangeSliderProps) {
     }
 
     if (map) {
-      setHeatmapRadius(map, newRadius);
+      if (newRadius === -1) {
+        map.setPaintProperty("polygon", "heatmap-radius", {
+          base: 1,
+          stops: [
+            [1, 10],
+            [3, 5],
+            [22, 10],
+          ],
+        });
+      } else {
+        setHeatmapRadius(map, newRadius);
+      }
     }
   };
 
