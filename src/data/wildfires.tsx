@@ -4,7 +4,7 @@ export interface WildfiresData {
   };
 }
 
-const countriesData: WildfiresData = {
+const wildfiresData: WildfiresData = {
   USA: {
     California: ["Fire1", "Fire2", "Fire3"],
     "New York": ["Fire1", "Fire2"],
@@ -22,4 +22,4 @@ const countriesData: WildfiresData = {
   },
 };
 
-export default WildfiresData;
+export default wildfiresData;
