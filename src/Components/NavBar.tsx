@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CountryStep from "~/pages/MenuPages/CountryStep";
 import StateStep from "~/pages/MenuPages/StateStep";
 import WildfireStep from "~/pages/MenuPages/WildfireStep";
+import PredictionStep from "~/pages/MenuPages/PredictionStep";
 
 const NavBar = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -52,6 +53,15 @@ const NavBar = () => {
             country={selectedData.country!}
             state={selectedData.state!}
             onNext={handleNext}
+            onBack={handleBack}
+          />
+        );
+      case 3:
+        return (
+          <PredictionStep
+            country={selectedData.country!}
+            state={selectedData.state!}
+            wildfire={selectedData.wildfire!}
             onBack={handleBack}
           />
         );
