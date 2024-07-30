@@ -5,7 +5,7 @@ import { Category, Service } from "~/types/layerInterfaces";
 import styles from "~/styles/NavbarStyles/LayersModal.module.css";
 
 const LayersModal = () => {
-  const { toggleLayer } = useLayersStore();
+  const { toggleLayer, selectedLayers } = useLayersStore();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const handleCheckboxChange = (
@@ -19,12 +19,19 @@ const LayersModal = () => {
     setActiveCategory(activeCategory === category ? null : category);
   };
 
+  const isChecked = (service: Service) => {
+    return selectedLayers.some(
+      (selectedLayer) => selectedLayer.name === service.name,
+    );
+  };
+
   const renderCheckboxes = (services: Service[]) => {
     return services.map((service) => (
       <div key={service.name} className={styles.checkboxContainer}>
         <input
           type="checkbox"
           id={service.name}
+          checked={isChecked(service)}
           onChange={(e) => handleCheckboxChange(e, service)}
         />
         <label htmlFor={service.name}>{service.name}</label>
@@ -37,7 +44,9 @@ const LayersModal = () => {
       {servicesDetails.map((category: Category) => (
         <div key={category.type} className={styles.categoryContainer}>
           <button
-            className={styles.categoryButton}
+            className={`${styles.categoryButton} ${
+              activeCategory === category.type ? styles.active : ""
+            }`}
             onClick={() => toggleDropdown(category.type)}
           >
             {category.type}
