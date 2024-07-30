@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import wildfiresData from "~/data/wildfires";
-import styles from "~/styles/NavbarStyles/PredictionSection/CountryStep.module.css";
+import styles from "~/styles/NavbarStyles/PredictionSection/PredictionSection.module.css";
 
 interface Props {
   onNext: (country: string) => void;
@@ -33,19 +33,31 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
             key={country}
             style={{
               cursor: "pointer",
-              fontWeight: selectedCountry === country ? "bold" : "normal",
+              color: selectedCountry === country ? "#f57f61" : "white",
             }}
             onClick={() => handleCountryClick(country)}
+            className={styles.predictionStepSelctionsText}
           >
             {country}
           </p>
         ))}
       </div>
       <div className={styles.line}></div>
-      <button onClick={handleNext} disabled={!selectedCountry}>
-        Ok
-      </button>
-      <button onClick={handleCancel}>Cancel</button>
+      <div className={styles.predictionStepButtonContainer}>
+        <button
+          onClick={handleCancel}
+          className={styles.predictionStepButtonCancel}
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!selectedCountry}
+          className={styles.predictionStepButtonOk}
+        >
+          Ok
+        </button>
+      </div>
     </div>
   );
 };

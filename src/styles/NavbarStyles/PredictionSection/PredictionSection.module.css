@@ -1,0 +1,71 @@
+.predictionStepContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.predictionStepTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f57f61;
+  align-self: center;
+}
+
+.line {
+  height: 3px; /* Ajusta el grosor de la línea */
+  width: 100%; /* Ajusta el ancho de la línea según sea necesario */
+  background-color: black; /* Ajusta el color de la línea */
+  margin: 20px 0; /* Ajusta el margen según sea necesario */
+}
+
+.predictionStepSelections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.predictionStepSelctionsText {
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  text-transform: uppercase;
+  padding-top: 10px;
+}
+.predictionStepButtonContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px; /* Añadir un espacio entre los botones */
+}
+
+.predictionStepButtonOk {
+  background-color: #f57f61;
+  color: white;
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #c3c3c3;
+  border-width: 1px;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.predictionStepButtonCancel {
+  background-color: black;
+  color: white;
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #c3c3c3;
+  border-width: 1px;
+  text-transform: uppercase;
+  font-size: 20px;
+}

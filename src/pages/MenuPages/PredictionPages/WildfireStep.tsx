@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import wildfiresData from "~/data/wildfires";
+import styles from "~/styles/NavbarStyles/PredictionSection/PredictionSection.module.css";
 
 interface Props {
   country: string;
@@ -30,29 +30,37 @@ const WildfireStep: React.FC<Props> = ({ country, state, onBack, onNext }) => {
   };
 
   return (
-    <div>
-      <h2>
-        Fires in {state}, {country}
-      </h2>
-      <div>
+    <div className={styles.predictionStepContainer}>
+      <h2 className={styles.predictionStepTitle}>SELECT WILDFIRE</h2>
+      <div className={styles.line}></div>
+      <div className={styles.predictionStepSelections}>
         {wildfires.map((wildfire) => (
           <p
             key={state}
             onClick={() => handleWildfireClick(wildfire)}
             style={{
               cursor: "pointer",
-              fontWeight: selectedWildfire === wildfire ? "bold" : "normal",
+              color: selectedWildfire === wildfire ? "#f57f61" : "white",
             }}
+            className={styles.predictionStepSelctionsText}
           >
             {wildfire}
           </p>
         ))}
       </div>
-
-      <button onClick={onBack}>Go Back</button>
-      <button onClick={handleNext} disabled={!selectedWildfire}>
-        Next
-      </button>
+      <div className={styles.line}></div>
+      <div className={styles.predictionStepButtonContainer}>
+        <button onClick={onBack} className={styles.predictionStepButtonCancel}>
+          CANCEL
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!selectedWildfire}
+          className={styles.predictionStepButtonOk}
+        >
+          OK
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import wildfiresData from "~/data/wildfires";
+import styles from "~/styles/NavbarStyles/PredictionSection/PredictionSection.module.css";
 
 interface Props {
   country: string;
@@ -28,27 +29,37 @@ const StateStep: React.FC<Props> = ({ country, onBack, onNext }) => {
   };
 
   return (
-    <div>
-      <h2>Select a State in {country}</h2>
-      <div>
+    <div className={styles.predictionStepContainer}>
+      <h2 className={styles.predictionStepTitle}>SELECT STATE</h2>
+      <div className={styles.line}></div>
+      <div className={styles.predictionStepSelections}>
         {states.map((state) => (
           <p
             key={state}
             onClick={() => handleStateClick(state)}
             style={{
               cursor: "pointer",
-              fontWeight: selectedState === state ? "bold" : "normal",
+              color: selectedState === state ? "#f57f61" : "white",
             }}
+            className={styles.predictionStepSelctionsText}
           >
             {state}
           </p>
         ))}
       </div>
-
-      <button onClick={onBack}>Cancel</button>
-      <button onClick={handleNext} disabled={!selectedState}>
-        Ok
-      </button>
+      <div className={styles.line}></div>
+      <div className={styles.predictionStepButtonContainer}>
+        <button onClick={onBack} className={styles.predictionStepButtonCancel}>
+          Cancel
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!selectedState}
+          className={styles.predictionStepButtonOk}
+        >
+          Ok
+        </button>
+      </div>
     </div>
   );
 };

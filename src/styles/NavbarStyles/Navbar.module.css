@@ -18,7 +18,6 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  height: 300px;
   background-color: rgba(33, 38, 43, 0.8); /* #21262b with 80% opacity */
   border-color: #f57f61;
   border-width: 1px;
