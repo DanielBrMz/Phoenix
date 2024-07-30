@@ -1,6 +1,4 @@
 import { type AppType } from "next/app";
-
-import store from "../store";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";

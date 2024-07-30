@@ -6,22 +6,58 @@ import {
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AlertsModal from "~/pages/MenuPages/AlertsModal";
-import LayersModal from "~/pages/MenuPages/LayersModal";
-import SettingsModal from "~/pages/MenuPages/SettingsModal";
-import PredictionModal from "~/pages/MenuPages/PredictionModal";
+import CountryStep from "~/pages/MenuPages/CountryStep";
+import StateStep from "~/pages/MenuPages/StateStep";
+import WildfireStep from "~/pages/MenuPages/WildfireStep";
 
 const NavBar = () => {
-  const [activeComponent, setActiveComponent] = useState<JSX.Element | null>(
-    null,
-  );
-  const [activeIcon, setActiveIcon] = useState<string | null>(null);
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [selectedData, setSelectedData] = useState<{
+    country?: string;
+    state?: string;
+    wildfire?: string;
+  }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const handleIconClick = (component: JSX.Element, icon: string) => {
-    setActiveComponent(component);
-    setActiveIcon(icon);
-    setIsModalVisible(true);
+  const handleNext = (data: string) => {
+    if (activeStep === 0) {
+      setSelectedData({ country: data });
+    } else if (activeStep === 1) {
+      setSelectedData((prev) => ({ ...prev, state: data }));
+    } else if (activeStep === 2) {
+      setSelectedData((prev) => ({ ...prev, wildfire: data }));
+    }
+    setActiveStep((prev) => prev + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prev) => prev - 1);
+  };
+
+  const getCurrentStepComponent = () => {
+    switch (activeStep) {
+      case 0:
+        return <CountryStep onNext={handleNext} />;
+      case 1:
+        return (
+          <StateStep
+            country={selectedData.country!}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        );
+      case 2:
+        return (
+          <WildfireStep
+            country={selectedData.country!}
+            state={selectedData.state!}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   const toggleModalVisibility = () => {
@@ -34,26 +70,28 @@ const NavBar = () => {
         <div className="barraLateral">
           <FontAwesomeIcon
             icon={faFire}
-            className={`icon ${activeIcon === "fire" ? "active" : ""}`}
-            onClick={() => handleIconClick(<PredictionModal />, "fire")}
+            className={`icon ${isModalVisible ? "active" : ""}`}
+            onClick={toggleModalVisibility}
           />
           <FontAwesomeIcon
             icon={faBell}
-            className={`icon ${activeIcon === "bell" ? "active" : ""}`}
-            onClick={() => handleIconClick(<AlertsModal />, "bell")}
+            className={`icon ${isModalVisible ? "active" : ""}`}
+            onClick={toggleModalVisibility}
           />
           <FontAwesomeIcon
             icon={faLayerGroup}
-            className={`icon ${activeIcon === "layer" ? "active" : ""}`}
-            onClick={() => handleIconClick(<LayersModal />, "layer")}
+            className={`icon ${isModalVisible ? "active" : ""}`}
+            onClick={toggleModalVisibility}
           />
           <FontAwesomeIcon
             icon={faGear}
-            className={`icon ${activeIcon === "gear" ? "active" : ""}`}
-            onClick={() => handleIconClick(<SettingsModal />, "gear")}
+            className={`icon ${isModalVisible ? "active" : ""}`}
+            onClick={toggleModalVisibility}
           />
         </div>
-        {isModalVisible && <div className="menu">{activeComponent}</div>}
+        {isModalVisible && (
+          <div className="menu">{getCurrentStepComponent()}</div>
+        )}
       </div>
       <div className="cerradura" onClick={toggleModalVisibility}></div>
       <div className="flex"></div>
