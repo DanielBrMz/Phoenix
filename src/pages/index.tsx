@@ -73,7 +73,6 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
         <div id="map" style={{ width: "100%", height: "100vh" }}></div>
-        {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar map={map} />
         <Timeslider map={map!} scale={kilometersPerPixel} />
         {map && <ServicesLayer map={map} />}

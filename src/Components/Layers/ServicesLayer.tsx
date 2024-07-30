@@ -14,18 +14,30 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
     if (!map) return;
 
     // Clear existing markers
-    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
+    // Group selected layers by type
+    const groupedLayers = selectedLayers.reduce((acc, layer) => {
+      if (!acc[layer.name]) {
+        acc[layer.name] = [];
+      }
+      acc[layer.name].push(layer);
+      return acc;
+    }, {});
+
     // Function to add markers to the map
-    const addMarkers = (details, markerClass) => {
+    const addMarkers = (details, markerClass, icon) => {
       details.forEach((service) => {
+        console.log("Adding marker at coordinates:", service.coordinates);
         const el = document.createElement("div");
         el.className = markerClass;
-        el.style.backgroundImage = `url(${service.icon.src})`;
+        el.style.backgroundImage = `url(${icon})`;
         el.style.width = "32px";
         el.style.height = "32px";
         el.style.backgroundSize = "100%";
+        el.style.backgroundRepeat = "no-repeat";
+        el.style.backgroundPosition = "center";
 
         const marker = new mapboxgl.Marker(el)
           .setLngLat(service.coordinates as [number, number])
@@ -35,8 +47,14 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
       });
     };
 
-    // Adding selected layers markers
-    addMarkers(selectedLayers, "selected-layer-marker");
+    // Adding grouped layers markers
+    Object.keys(groupedLayers).forEach((key) => {
+      const layers = groupedLayers[key];
+      if (layers.length > 0) {
+        const { icon } = layers[0];
+        addMarkers(layers, "selected-layer-marker", icon.src);
+      }
+    });
   }, [map, selectedLayers]);
 
   return null;

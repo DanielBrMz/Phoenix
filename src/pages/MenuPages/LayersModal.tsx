@@ -45,4 +45,5 @@ const LayersModal = () => {
     </div>
   );
 };
+
 export default LayersModal;

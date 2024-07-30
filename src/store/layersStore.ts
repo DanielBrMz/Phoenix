@@ -4,6 +4,7 @@ interface Layer {
   id: string;
   name: string;
   coordinates: [number, number];
+  icon: { src: string }; // Asegúrate de que el icono sea un objeto con una propiedad src
 }
 
 interface LayersState {
