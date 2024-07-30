@@ -18,6 +18,7 @@ import useStore from "~/store/useStore";
 import alertsStore from "~/store/alertsStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
 import { Map } from "mapbox-gl";
+import Draggable from "react-draggable";
 
 interface Alert {
   id: string;
@@ -145,48 +146,50 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const toggleModalVisibility = () => setIsModalVisible(!isModalVisible);
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.navbarContainer}>
-        <div className={styles.barraLateral}>
-          <FontAwesomeIcon
-            icon={faFire}
-            className={`${styles.icon} ${
-              activeIcon === "fire" && isModalVisible ? styles.active : ""
-            }`}
-            onClick={() => handleIconClick("fire")}
-          />
-          <FontAwesomeIcon
-            icon={faBell}
-            className={`${styles.icon} ${
-              activeIcon === "bell" && isModalVisible ? styles.active : ""
-            }`}
-            onClick={() => handleIconClick("bell")}
-          />
-          <FontAwesomeIcon
-            icon={faLayerGroup}
-            className={`${styles.icon} ${
-              activeIcon === "layer" && isModalVisible ? styles.active : ""
-            }`}
-            onClick={() => handleIconClick("layer")}
-          />
-          <FontAwesomeIcon
-            icon={faGear}
-            className={`${styles.icon} ${
-              activeIcon === "gear" && isModalVisible ? styles.active : ""
-            }`}
-            onClick={() => handleIconClick("gear")}
-          />
+    <Draggable>
+      <div className={styles.navbar}>
+        <div className={styles.navbarContainer}>
+          <div className={styles.barraLateral}>
+            <FontAwesomeIcon
+              icon={faFire}
+              className={`${styles.icon} ${
+                activeIcon === "fire" && isModalVisible ? styles.active : ""
+              }`}
+              onClick={() => handleIconClick("fire")}
+            />
+            <FontAwesomeIcon
+              icon={faBell}
+              className={`${styles.icon} ${
+                activeIcon === "bell" && isModalVisible ? styles.active : ""
+              }`}
+              onClick={() => handleIconClick("bell")}
+            />
+            <FontAwesomeIcon
+              icon={faLayerGroup}
+              className={`${styles.icon} ${
+                activeIcon === "layer" && isModalVisible ? styles.active : ""
+              }`}
+              onClick={() => handleIconClick("layer")}
+            />
+            <FontAwesomeIcon
+              icon={faGear}
+              className={`${styles.icon} ${
+                activeIcon === "gear" && isModalVisible ? styles.active : ""
+              }`}
+              onClick={() => handleIconClick("gear")}
+            />
+          </div>
+          {isModalVisible && (
+            <div className={styles.menu}>{getCurrentModalComponent()}</div>
+          )}
         </div>
-        {isModalVisible && (
-          <div className={styles.menu}>{getCurrentModalComponent()}</div>
+        <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
+        <div className={styles.flex}></div>
+        {map && alertsVisible && (
+          <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />
         )}
       </div>
-      <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
-      <div className={styles.flex}></div>
-      {map && alertsVisible && (
-        <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />
-      )}
-    </div>
+    </Draggable>
   );
 };
 
