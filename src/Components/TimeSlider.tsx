@@ -6,7 +6,6 @@ import {
   faBackward,
 } from "@fortawesome/free-solid-svg-icons";
 import { type Map } from "mapbox-gl";
-import SliderMarker from "./SliderMarker";
 import RangeSlider from "./RangeSlider";
 
 interface TimesliderProps {
@@ -101,33 +100,12 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   return (
     <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
       <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem] ">
-        <div className="flex flex-row space-x-4">
-          <button>
-            <FontAwesomeIcon
-              icon={faBackward}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
-          </button>
-          <button>
-            <FontAwesomeIcon
-              icon={faPlay}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
-          </button>
-          <button>
-            <FontAwesomeIcon
-              icon={faForward}
-              className="h-[1.2rem] w-[1.2rem] text-white"
-            />
-          </button>
-        </div>
         <div className="flex flex-col">
           <div className="text-white">{currentTime}</div>
           <div className="text-[#5ec2fb]">{currentDate}</div>
         </div>
         <div className="flex flex-grow flex-col">
           <RangeSlider map={map} />
-          <SliderMarker min={0} max={240} step={24} />
         </div>
       </div>
       <div className="z-1 mt-4 h-[2rem] w-full bg-[#111]">
