@@ -8,6 +8,7 @@ import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
 import EmergencyServicesLayer from "~/Components/Layers/EmergencyServicesLayer";
 import InfrastructureLayer from "~/Components/Layers/InfrastructureLayer";
+import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import Image from "next/image";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
@@ -79,6 +80,7 @@ export default function Home() {
         <Timeslider map={map!} scale={kilometersPerPixel} />
         {map && <EmergencyServicesLayer map={map} />}
         {map && <InfrastructureLayer map={map} />}
+        {map && <EmergencyAlerts map={map} />}
         <Image
           src="/Phoenix-eye.png"
           alt="Logo"
