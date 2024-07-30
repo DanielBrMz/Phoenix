@@ -1,17 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
 import useLayersStore from "~/store/layersStore";
-
-interface Instance {
-  id: string;
-  coordinates: [number, number];
-}
-
-interface Layer {
-  name: string;
-  icon: { src: string };
-  instances: Instance[];
-}
+import { Instance, Service as Layer } from "~/types/layerInterfaces";
 
 interface ServicesLayerProps {
   map: Map | null;

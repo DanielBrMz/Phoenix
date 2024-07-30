@@ -2,22 +2,7 @@ import React from "react";
 import { servicesDetails } from "~/data/layers/servicesDetails";
 import useLayersStore from "~/store/layersStore";
 import { StaticImageData } from "next/image";
-
-interface Instance {
-  id: string;
-  coordinates: [number, number];
-}
-
-interface Service {
-  name: string;
-  icon: StaticImageData;
-  instances: Instance[];
-}
-
-interface Category {
-  type: string;
-  services: Service[];
-}
+import { Category, Service } from "~/types/layerInterfaces";
 
 const LayersModal = () => {
   const { toggleLayer } = useLayersStore();

@@ -3,23 +3,9 @@ import firefighter from "../../assets/emergencyIcons/bombero.png";
 import hospital from "../../assets/emergencyIcons/hospital.png";
 import police from "../../assets/emergencyIcons/policia.png";
 import electricityPole from "../../assets/infrastructureIcons/torre.png";
-export interface ServiceInstance {
-  id: string;
-  coordinates: [number, number];
-}
+import { Category } from "../../types/layerInterfaces";
 
-export interface Service {
-  name: string;
-  icon: StaticImageData;
-  instances: ServiceInstance[];
-}
-
-export interface ServiceCategory {
-  type: string;
-  services: Service[];
-}
-
-export const servicesDetails: ServiceCategory[] = [
+export const servicesDetails: Category[] = [
   {
     type: "Emergency Services",
     services: [
