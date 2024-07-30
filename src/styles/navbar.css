@@ -39,8 +39,19 @@
   align-items: center;
   justify-content: center;
 }
+
 .icon {
-  color: #f57f61;
+  color: white;
+  cursor: pointer;
   width: 30px;
   height: 30px;
+}
+
+.icon.active {
+  color: #f57f61;
+}
+
+.cerradura {
+  background-color: purple;
+  width: 100px;
 }

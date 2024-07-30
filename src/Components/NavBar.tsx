@@ -1,32 +1,61 @@
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import React, { useState } from "react";
 import {
-  faCalendar,
-  faCloudSun,
   faFire,
   faGear,
   faLayerGroup,
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect, useState } from "react";
-import RiskForecastModal from "./RiskForecastModal";
-import PredictionModal from "./PredictionModal";
-import AlertsModal from "~/Components/AlertsModal";
-import type { Receiver } from "~/utils/receivers";
+import AlertsModal from "~/pages/MenuPages/AlertsModal";
+import LayersModal from "~/pages/MenuPages/LayersModal";
+import SettingsModal from "~/pages/MenuPages/SettingsModal";
+import PredictionModal from "~/pages/MenuPages/PredictionModal";
 
 const NavBar = () => {
+  const [activeComponent, setActiveComponent] = useState<JSX.Element | null>(
+    null,
+  );
+  const [activeIcon, setActiveIcon] = useState<string | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const handleIconClick = (component: JSX.Element, icon: string) => {
+    setActiveComponent(component);
+    setActiveIcon(icon);
+    setIsModalVisible(true);
+  };
+
+  const toggleModalVisibility = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
     <div className="navbar">
       <div className="navbarContainer">
         <div className="barraLateral">
-          <FontAwesomeIcon icon={faFire} className="icon" />
-          <FontAwesomeIcon icon={faBell} className="icon" />
-          <FontAwesomeIcon icon={faLayerGroup} className="icon" />
-          <FontAwesomeIcon icon={faGear} className="icon" />
+          <FontAwesomeIcon
+            icon={faFire}
+            className={`icon ${activeIcon === "fire" ? "active" : ""}`}
+            onClick={() => handleIconClick(<PredictionModal />, "fire")}
+          />
+          <FontAwesomeIcon
+            icon={faBell}
+            className={`icon ${activeIcon === "bell" ? "active" : ""}`}
+            onClick={() => handleIconClick(<AlertsModal />, "bell")}
+          />
+          <FontAwesomeIcon
+            icon={faLayerGroup}
+            className={`icon ${activeIcon === "layer" ? "active" : ""}`}
+            onClick={() => handleIconClick(<LayersModal />, "layer")}
+          />
+          <FontAwesomeIcon
+            icon={faGear}
+            className={`icon ${activeIcon === "gear" ? "active" : ""}`}
+            onClick={() => handleIconClick(<SettingsModal />, "gear")}
+          />
         </div>
-        <div className="menu">Menu</div>
+        {isModalVisible && <div className="menu">{activeComponent}</div>}
       </div>
-
+      <div className="cerradura" onClick={toggleModalVisibility}></div>
       <div className="flex"></div>
     </div>
   );
