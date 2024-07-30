@@ -42,8 +42,7 @@
 .icon {
   color: white;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  height: 10%;
 }
 
 .icon.active {
