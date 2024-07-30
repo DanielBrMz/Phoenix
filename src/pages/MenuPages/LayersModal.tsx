@@ -1,30 +1,23 @@
 import React from "react";
-import {
-  emergencyServicesDetails,
-  infrastructureDetails,
-} from "~/data/layers/servicesDetails";
+import { servicesDetails } from "~/data/layers/servicesDetails";
 import useLayersStore from "~/store/layersStore";
 
 const LayersModal = () => {
-  const { addLayer, removeLayer } = useLayersStore();
+  const { toggleLayer } = useLayersStore();
 
   const handleCheckboxChange = (event, service) => {
-    if (event.target.checked) {
-      addLayer(service);
-    } else {
-      removeLayer(service.id);
-    }
+    toggleLayer(service);
   };
 
-  const renderCheckboxes = (details) => {
-    return details.map((service) => (
-      <div key={service.id}>
+  const renderCheckboxes = (services) => {
+    return services.map((service) => (
+      <div key={service.name}>
         <input
           type="checkbox"
-          id={service.id}
+          id={service.name}
           onChange={(e) => handleCheckboxChange(e, service)}
         />
-        <label htmlFor={service.id}>{service.name}</label>
+        <label htmlFor={service.name}>{service.name}</label>
       </div>
     ));
   };
@@ -33,14 +26,12 @@ const LayersModal = () => {
     <div className="App">
       <header className="App-header">
         <h1>Dropdown Example</h1>
-        <div>
-          <h2>Emergency Services</h2>
-          {renderCheckboxes(emergencyServicesDetails)}
-        </div>
-        <div>
-          <h2>Infrastructure</h2>
-          {renderCheckboxes(infrastructureDetails)}
-        </div>
+        {servicesDetails.map((category) => (
+          <div key={category.type}>
+            <h2>{category.type}</h2>
+            {renderCheckboxes(category.services)}
+          </div>
+        ))}
       </header>
     </div>
   );

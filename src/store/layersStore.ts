@@ -1,28 +1,37 @@
 import create from "zustand";
 
-interface Layer {
+interface Instance {
   id: string;
-  name: string;
   coordinates: [number, number];
-  icon: { src: string }; // Asegúrate de que el icono sea un objeto con una propiedad src
+}
+
+interface Layer {
+  name: string;
+  icon: string;
+  instances: Instance[];
 }
 
 interface LayersState {
   selectedLayers: Layer[];
-  addLayer: (layer: Layer) => void;
-  removeLayer: (id: string) => void;
+  toggleLayer: (layer: Layer) => void;
 }
 
 const useLayersStore = create<LayersState>((set) => ({
   selectedLayers: [],
-  addLayer: (layer) =>
-    set((state) => ({
-      selectedLayers: [...state.selectedLayers, layer],
-    })),
-  removeLayer: (id) =>
-    set((state) => ({
-      selectedLayers: state.selectedLayers.filter((layer) => layer.id !== id),
-    })),
+  toggleLayer: (layer) =>
+    set((state) => {
+      const isSelected = state.selectedLayers.some(
+        (selectedLayer) => selectedLayer.name === layer.name,
+      );
+      console.log("Toggling layer:", layer.name, "Selected:", !isSelected);
+      return {
+        selectedLayers: isSelected
+          ? state.selectedLayers.filter(
+              (selectedLayer) => selectedLayer.name !== layer.name,
+            )
+          : [...state.selectedLayers, layer],
+      };
+    }),
 }));
 
 export default useLayersStore;
