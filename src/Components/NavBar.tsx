@@ -13,10 +13,23 @@ import PredictionStep from "~/pages/MenuPages/PredictionStep";
 import AlertsModal from "~/pages/MenuPages/AlertsModal";
 import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";
+import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import useStore from "~/store/useStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
+import { Map } from "mapbox-gl";
 
-const NavBar = () => {
+interface Alert {
+  id: string;
+  hourPrediction: number;
+  sendTime: string;
+  coordinates: [number, number];
+}
+
+interface NavBarProps {
+  map: Map | null;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const [selectedData, setSelectedData] = useState<{
     country?: string;
     state?: string;
@@ -24,6 +37,7 @@ const NavBar = () => {
   }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
+  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null); // Estado para la alerta seleccionada
   const {
     activeStep,
     setActiveStep,
@@ -67,6 +81,12 @@ const NavBar = () => {
     }
   };
 
+  const handleAlertClick = (alert: Alert) => {
+    setSelectedAlert(alert);
+    setActiveIcon("bell");
+    setIsModalVisible(true);
+  };
+
   const getCurrentStepComponent = () => {
     switch (activeStep) {
       case 0:
@@ -106,7 +126,7 @@ const NavBar = () => {
   const getCurrentModalComponent = () => {
     switch (activeIcon) {
       case "bell":
-        return <AlertsModal />;
+        return <AlertsModal alert={selectedAlert} />; // Pasar la alerta seleccionada
       case "layer":
         return <LayersModal />;
       case "gear":
@@ -157,6 +177,7 @@ const NavBar = () => {
       </div>
       <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
       <div className={styles.flex}></div>
+      {map && <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />}
     </div>
   );
 };

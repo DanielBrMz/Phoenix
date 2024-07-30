@@ -2,11 +2,22 @@ import React, { useEffect } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
 import { loraDevices } from "~/data/loraDevices";
 
-interface EmergencyAlertsProps {
-  map: Map | null;
+interface Alert {
+  id: string;
+  hourPrediction: number;
+  sendTime: string;
+  coordinates: [number, number];
 }
 
-const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({ map }) => {
+interface EmergencyAlertsProps {
+  map: Map | null;
+  onAlertClick: (alert: Alert) => void;
+}
+
+const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({
+  map,
+  onAlertClick,
+}) => {
   useEffect(() => {
     if (!map) return;
 
@@ -18,12 +29,17 @@ const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({ map }) => {
       el.style.height = "20px";
       el.style.backgroundSize = "100%";
       el.style.borderRadius = "50%";
+      el.style.cursor = "pointer";
+
+      el.addEventListener("click", () => {
+        onAlertClick(alert);
+      });
 
       new mapboxgl.Marker(el)
         .setLngLat(alert.coordinates as [number, number])
         .addTo(map);
     });
-  }, [map]);
+  }, [map, onAlertClick]);
 
   return null;
 };
