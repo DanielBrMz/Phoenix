@@ -1,31 +1,50 @@
 .layersContainer {
-  width: 300px; /* Ajusta el tamaño del contenedor según sea necesario */
-  background-color: #333;
-  color: white;
-  border-radius: 8px;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.layersTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f57f61;
+  align-self: center;
+}
+
+.line {
+  height: 3px; /* Ajusta el grosor de la línea */
+  width: 100%; /* Ajusta el ancho de la línea según sea necesario */
+  background-color: black; /* Ajusta el color de la línea */
+  margin: 20px 0; /* Ajusta el margen según sea necesario */
 }
 
 .categoryContainer {
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .categoryButton {
   width: 100%;
-  background-color: #444;
+  background-color: black;
   color: white;
+  font-size: 18px;
+
   padding: 10px;
   text-align: left;
   border: none;
   cursor: pointer;
-  font-size: 18px;
-  border-radius: 4px;
   transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
 }
 
 .categoryButton:hover,
 .categoryButton.active {
-  background-color: #555;
+  background-color: #f57f61;
 }
 
 .dropdownContent {
@@ -74,4 +93,17 @@
   width: 90%;
   font-size: 20px;
   color: white;
+}
+
+.layersExitButton {
+  background-color: black;
+  width: 90%;
+  height: 40px;
+  align-self: center;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #c3c3c3;
+  border-width: 1px;
 }

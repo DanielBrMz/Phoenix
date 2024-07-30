@@ -41,6 +41,8 @@ const LayersModal = () => {
 
   return (
     <div className={styles.layersContainer}>
+      <h2 className={styles.layersTitle}>LAYERS</h2>
+      <div className={styles.line}></div>
       {servicesDetails.map((category: Category) => (
         <div key={category.type} className={styles.categoryContainer}>
           <button
@@ -58,6 +60,8 @@ const LayersModal = () => {
           )}
         </div>
       ))}
+      <div className={styles.line}></div>
+      <button className={styles.layersExitButton}>EXIT</button>
     </div>
   );
 };
