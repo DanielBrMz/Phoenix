@@ -22,6 +22,8 @@
   border-color: #f57f61;
   border-width: 1px;
   border-style: solid;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   padding-top: 20px;
   padding-bottom: 20px;
   width: 60px;
@@ -33,6 +35,8 @@
   border-color: #f57f61;
   border-width: 1px;
   border-style: solid;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
   width: 400px;
   display: flex;
   align-items: center;
