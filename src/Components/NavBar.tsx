@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   faFire,
   faGear,
@@ -15,6 +15,7 @@ import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";
 import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import useStore from "~/store/useStore";
+import alertStore from "~/store/alertsStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
 import { Map } from "mapbox-gl";
 
@@ -38,7 +39,8 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
-  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null); // Estado para la alerta seleccionada
+  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
+  const alertVisible = alertStore((state) => state.alertVisible);
   const {
     activeStep,
     setActiveStep,
@@ -127,7 +129,7 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const getCurrentModalComponent = () => {
     switch (activeIcon) {
       case "bell":
-        return <AlertsModal alert={selectedAlert} />; // Pasar la alerta seleccionada
+        return <AlertsModal alert={selectedAlert} />;
       case "layer":
         return <LayersModal />;
       case "gear":
@@ -178,7 +180,9 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
       </div>
       <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
       <div className={styles.flex}></div>
-      {map && <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />}
+      {map && alertVisible && (
+        <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />
+      )}
     </div>
   );
 };

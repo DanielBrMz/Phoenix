@@ -1,6 +1,6 @@
 import create from "zustand";
 
-interface SettingsState {
+interface PredictionState {
   activeStep: number;
   inPredictionStep: boolean;
   setActiveStep: (step: number) => void;
@@ -9,7 +9,7 @@ interface SettingsState {
   resetStep: () => void;
 }
 
-const useStore = create<SettingsState>((set) => ({
+const useStore = create<PredictionState>((set) => ({
   activeStep: 0,
   inPredictionStep: false,
   setActiveStep: (step: number) => set({ activeStep: step }),
