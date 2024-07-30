@@ -20,7 +20,7 @@ import styles from "../styles/NavbarStyles/Navbar.module.css";
 import { Map } from "mapbox-gl";
 import Draggable from "react-draggable";
 // Importing an image
-import agarradera from "../assets/Agarradera.png";
+import agarradera from "../assets/agarradera2.png";
 
 interface Alert {
   id: string;
