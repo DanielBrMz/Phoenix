@@ -6,6 +6,7 @@ interface Alert {
   id: string;
   hourPrediction: number;
   sendTime: string;
+  receivedTime: string;
   coordinates: [number, number];
 }
 
