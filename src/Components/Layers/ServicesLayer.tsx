@@ -2,6 +2,17 @@ import React, { useEffect, useRef } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
 import useLayersStore from "~/store/layersStore";
 
+interface Instance {
+  id: string;
+  coordinates: [number, number];
+}
+
+interface Layer {
+  name: string;
+  icon: { src: string };
+  instances: Instance[];
+}
+
 interface ServicesLayerProps {
   map: Map | null;
 }
@@ -18,7 +29,11 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
     markersRef.current = [];
 
     // Function to add markers to the map
-    const addMarkers = (instances, markerClass, icon) => {
+    const addMarkers = (
+      instances: Instance[],
+      markerClass: string,
+      icon: string,
+    ) => {
       instances.forEach((instance) => {
         console.log("Adding marker at coordinates:", instance.coordinates);
         const el = document.createElement("div");

@@ -1,4 +1,5 @@
 import create from "zustand";
+import { StaticImageData } from "next/image";
 
 interface Instance {
   id: string;
@@ -7,7 +8,7 @@ interface Instance {
 
 interface Layer {
   name: string;
-  icon: string;
+  icon: StaticImageData;
   instances: Instance[];
 }
 

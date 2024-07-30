@@ -1,15 +1,35 @@
 import React from "react";
 import { servicesDetails } from "~/data/layers/servicesDetails";
 import useLayersStore from "~/store/layersStore";
+import { StaticImageData } from "next/image";
+
+interface Instance {
+  id: string;
+  coordinates: [number, number];
+}
+
+interface Service {
+  name: string;
+  icon: StaticImageData;
+  instances: Instance[];
+}
+
+interface Category {
+  type: string;
+  services: Service[];
+}
 
 const LayersModal = () => {
   const { toggleLayer } = useLayersStore();
 
-  const handleCheckboxChange = (event, service) => {
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    service: Service,
+  ) => {
     toggleLayer(service);
   };
 
-  const renderCheckboxes = (services) => {
+  const renderCheckboxes = (services: Service[]) => {
     return services.map((service) => (
       <div key={service.name}>
         <input
@@ -26,7 +46,7 @@ const LayersModal = () => {
     <div className="App">
       <header className="App-header">
         <h1>Dropdown Example</h1>
-        {servicesDetails.map((category) => (
+        {servicesDetails.map((category: Category) => (
           <div key={category.type}>
             <h2>{category.type}</h2>
             {renderCheckboxes(category.services)}
