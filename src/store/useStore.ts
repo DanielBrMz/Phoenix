@@ -7,6 +7,8 @@ interface PredictionState {
   stayInPredictionStep: () => void;
   leavePredictionStep: () => void;
   resetStep: () => void;
+  alertsVisible: boolean;
+  toggleAlertsVisible: () => void;
 }
 
 const useStore = create<PredictionState>((set) => ({
@@ -16,6 +18,9 @@ const useStore = create<PredictionState>((set) => ({
   stayInPredictionStep: () => set({ inPredictionStep: true }),
   leavePredictionStep: () => set({ inPredictionStep: false }),
   resetStep: () => set({ activeStep: 0, inPredictionStep: false }),
+  alertsVisible: false,
+  toggleAlertsVisible: () =>
+    set((state) => ({ alertsVisible: !state.alertsVisible })),
 }));
 
 export default useStore;
