@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import mapboxgl, { Map } from "mapbox-gl";
-import {
-  infrastructureDetails,
-  emergencyServicesDetails,
-} from "~/data/layers/servicesDetails";
+import useLayersStore from "~/store/layersStore";
 
 interface ServicesLayerProps {
   map: Map | null;
 }
 
 const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
+  const selectedLayers = useLayersStore((state) => state.selectedLayers);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
+
   useEffect(() => {
     if (!map) return;
 
+    // Clear existing markers
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current = [];
+
     // Function to add markers to the map
-    const addMarkers = (
-      details: typeof infrastructureDetails | typeof emergencyServicesDetails,
-      markerClass: string,
-    ) => {
+    const addMarkers = (details, markerClass) => {
       details.forEach((service) => {
         const el = document.createElement("div");
         el.className = markerClass;
@@ -26,18 +27,17 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
         el.style.height = "32px";
         el.style.backgroundSize = "100%";
 
-        new mapboxgl.Marker(el)
+        const marker = new mapboxgl.Marker(el)
           .setLngLat(service.coordinates as [number, number])
           .addTo(map);
+
+        markersRef.current.push(marker);
       });
     };
 
-    // Adding infrastructure markers
-    addMarkers(infrastructureDetails, "infrastructure-marker");
-
-    // Adding emergency services markers
-    addMarkers(emergencyServicesDetails, "emergency-marker");
-  }, [map]);
+    // Adding selected layers markers
+    addMarkers(selectedLayers, "selected-layer-marker");
+  }, [map, selectedLayers]);
 
   return null;
 };

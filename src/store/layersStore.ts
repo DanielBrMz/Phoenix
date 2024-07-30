@@ -1,31 +1,27 @@
 import create from "zustand";
 
-interface LayersState {
-  hospitalsVisible: boolean;
-  toggleHospitalsVisible: () => void;
-  firefightersVisible: boolean;
-  toggleFirefightersVisible: () => void;
-  policeVisible: boolean;
-  togglePoliceVisible: () => void;
-  electricityPolesVisible: boolean;
-  toggleElectricityPolesVisible: () => void;
+interface Layer {
+  id: string;
+  name: string;
+  coordinates: [number, number];
 }
 
-const layersStore = create<LayersState>((set) => ({
-  hospitalsVisible: false,
-  toggleHospitalsVisible: () =>
-    set((state) => ({ hospitalsVisible: !state.hospitalsVisible })),
-  firefightersVisible: false,
-  toggleFirefightersVisible: () =>
-    set((state) => ({ firefightersVisible: !state.firefightersVisible })),
-  policeVisible: false,
-  togglePoliceVisible: () =>
-    set((state) => ({ policeVisible: !state.policeVisible })),
-  electricityPolesVisible: false,
-  toggleElectricityPolesVisible: () =>
+interface LayersState {
+  selectedLayers: Layer[];
+  addLayer: (layer: Layer) => void;
+  removeLayer: (id: string) => void;
+}
+
+const useLayersStore = create<LayersState>((set) => ({
+  selectedLayers: [],
+  addLayer: (layer) =>
     set((state) => ({
-      electricityPolesVisible: !state.electricityPolesVisible,
+      selectedLayers: [...state.selectedLayers, layer],
+    })),
+  removeLayer: (id) =>
+    set((state) => ({
+      selectedLayers: state.selectedLayers.filter((layer) => layer.id !== id),
     })),
 }));
 
-export default layersStore;
+export default useLayersStore;
