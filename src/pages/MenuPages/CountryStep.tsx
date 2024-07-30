@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import wildfiresData from "~/data/wildfires";
+import styles from "~/styles/NavbarStyles/CountryStep.module.css";
 
 interface Props {
   onNext: (country: string) => void;
@@ -23,8 +24,9 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
   };
 
   return (
-    <div>
+    <div className={styles.coutryStepContainer}>
       <h2>Select a Country</h2>
+      <br />
       <div>
         {Object.keys(wildfiresData).map((country) => (
           <p

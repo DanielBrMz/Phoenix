@@ -6,11 +6,8 @@ import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
-import addReceiversToMap from "~/utils/mapUtils/addReceiversToMap";
 import EmergencyServicesLayer from "~/Components/Layers/EmergencyServicesLayer";
 import InfrastructureLayer from "~/Components/Layers/InfrastructureLayer";
-import { cacheReceivers } from "~/utils/localCache";
-import { generateMockReceivers, type Receiver } from "~/utils/receivers";
 import Image from "next/image";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
@@ -22,16 +19,6 @@ const INITIAL_PITCH = 60;
 export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
-  const [selectedReceiver, setSelectedReceiver] = useState<Receiver | null>(
-    null,
-  );
-
-  const handleReceiverClick = useCallback(
-    (e: MapMouseEvent, receiver: Receiver) => {
-      setSelectedReceiver(receiver);
-    },
-    [setSelectedReceiver],
-  );
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -52,15 +39,6 @@ export default function Home() {
     map.on("style.load", () => {
       addCustomSources(map);
       addCustomLayers(map);
-
-      // Add receivers to map
-      // let receivers = getCachedReceivers()
-      let receivers: Receiver[] = [];
-      if (receivers.length == 0) {
-        receivers = generateMockReceivers(CENTER_COORDS, 20);
-      }
-      addReceiversToMap(map, receivers, handleReceiverClick);
-      cacheReceivers(receivers);
 
       map.setFog({
         color: "rgb(186, 210, 235)",
@@ -85,7 +63,7 @@ export default function Home() {
         map.remove();
       };
     });
-  }, [handleReceiverClick]);
+  }, []);
 
   return (
     <>
@@ -97,7 +75,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
         <div id="map" style={{ width: "100%", height: "100vh" }}></div>
         {/* <div className="w-full h-full bg-[#777]" /> */}
-        <NavBar selectedReceiver={selectedReceiver} />
+        <NavBar />
         <Timeslider map={map!} scale={kilometersPerPixel} />
         {map && <EmergencyServicesLayer map={map} />}
         {map && <InfrastructureLayer map={map} />}
