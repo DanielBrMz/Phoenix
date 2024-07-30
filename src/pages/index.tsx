@@ -6,9 +6,7 @@ import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
-import EmergencyServicesLayer from "~/Components/Layers/EmergencyServicesLayer";
-import InfrastructureLayer from "~/Components/Layers/InfrastructureLayer";
-import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
+import ServicesLayer from "~/Components/Layers/ServicesLayer";
 import Image from "next/image";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
@@ -78,8 +76,7 @@ export default function Home() {
         {/* <div className="w-full h-full bg-[#777]" /> */}
         <NavBar map={map} />
         <Timeslider map={map!} scale={kilometersPerPixel} />
-        {map && <EmergencyServicesLayer map={map} />}
-        {map && <InfrastructureLayer map={map} />}
+        {map && <ServicesLayer map={map} />}
         <Image
           src="/Phoenix-eye.png"
           alt="Logo"
