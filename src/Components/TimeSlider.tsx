@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { type Map } from "mapbox-gl";
 import RangeSlider from "./RangeSlider";
+import useStore from "~/store/useStore";
 
 interface TimesliderProps {
   map: Map;
@@ -28,6 +29,9 @@ interface WeatherData {
 }
 
 const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
+  const { inPredictionStep } = useStore((state) => ({
+    inPredictionStep: state.inPredictionStep,
+  }));
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [lat, setLat] = useState(0);
@@ -105,7 +109,7 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
           <div className="text-[#5ec2fb]">{currentDate}</div>
         </div>
         <div className="flex flex-grow flex-col">
-          <RangeSlider map={map} />
+          {inPredictionStep && <RangeSlider map={map} />}
         </div>
       </div>
       <div className="z-1 mt-4 h-[2rem] w-full bg-[#111]">
