@@ -1,0 +1,45 @@
+.layersContainer {
+  width: 300px; /* Ajusta el tamaño del contenedor según sea necesario */
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.categoryContainer {
+  margin-bottom: 10px;
+}
+
+.categoryButton {
+  width: 100%;
+  background-color: #444;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.categoryButton:hover {
+  background-color: #555;
+}
+
+.dropdownContent {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 4px;
+  max-height: 200px; /* Ajusta la altura máxima según sea necesario */
+  overflow-y: auto;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.checkboxContainer input {
+  margin-right: 10px;
+}

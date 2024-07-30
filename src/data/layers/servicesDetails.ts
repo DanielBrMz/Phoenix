@@ -7,10 +7,35 @@ import { Category } from "../../types/layerInterfaces";
 
 export const servicesDetails: Category[] = [
   {
+    type: "Observation Data",
+    services: [
+      {
+        name: "VIIRS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "MODIS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Live satellite (GOES-16)",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Fire history",
+        icon: electricityPole,
+        instances: [],
+      },
+    ],
+  },
+  {
     type: "Emergency Services",
     services: [
       {
-        name: "hospital",
+        name: "Hospitals",
         icon: hospital,
         instances: [
           { id: "e1", coordinates: [-110.894, 31.283] },
@@ -18,7 +43,7 @@ export const servicesDetails: Category[] = [
         ],
       },
       {
-        name: "firefighter",
+        name: "Firefighters",
         icon: firefighter,
         instances: [
           { id: "e3", coordinates: [-110.882, 31.275] },
@@ -26,7 +51,17 @@ export const servicesDetails: Category[] = [
         ],
       },
       {
-        name: "police",
+        name: "Coast Guard",
+        icon: hospital,
+        instances: [],
+      },
+      {
+        name: "Civil Protection",
+        icon: hospital,
+        instances: [],
+      },
+      {
+        name: "Police Stations",
         icon: police,
         instances: [
           { id: "e5", coordinates: [-110.911, 31.275] },
@@ -36,10 +71,10 @@ export const servicesDetails: Category[] = [
     ],
   },
   {
-    type: "Infrastructure",
+    type: "Infrastructure & Services",
     services: [
       {
-        name: "electricity_pole",
+        name: "Electricity Poles",
         icon: electricityPole,
         instances: [
           { id: "i1", coordinates: [-110.908, 31.261] },
@@ -49,6 +84,96 @@ export const servicesDetails: Category[] = [
           { id: "i5", coordinates: [-110.9005, 31.273] },
           { id: "i6", coordinates: [-110.892, 31.266] },
         ],
+      },
+      {
+        name: "Industrial Complexes",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Gas Stations",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Power Plants",
+        icon: electricityPole,
+        instances: [],
+      },
+    ],
+  },
+  {
+    type: "Human Habitation",
+    services: [
+      {
+        name: "VIIRS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "MODIS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Live satellite (GOES-16)",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Fire history",
+        icon: electricityPole,
+        instances: [],
+      },
+    ],
+  },
+  {
+    type: "Environmental & Resources",
+    services: [
+      {
+        name: "VIIRS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "MODIS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Live satellite (GOES-16)",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Fire history",
+        icon: electricityPole,
+        instances: [],
+      },
+    ],
+  },
+  {
+    type: "Monitoring & Surveillance",
+    services: [
+      {
+        name: "VIIRS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "MODIS hotspots",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Live satellite (GOES-16)",
+        icon: electricityPole,
+        instances: [],
+      },
+      {
+        name: "Fire history",
+        icon: electricityPole,
+        instances: [],
       },
     ],
   },

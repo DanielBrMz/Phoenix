@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { servicesDetails } from "~/data/layers/servicesDetails";
 import useLayersStore from "~/store/layersStore";
-import { StaticImageData } from "next/image";
 import { Category, Service } from "~/types/layerInterfaces";
+import styles from "~/styles/NavbarStyles/LayersModal.module.css";
 
 const LayersModal = () => {
   const { toggleLayer } = useLayersStore();
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -14,9 +15,13 @@ const LayersModal = () => {
     toggleLayer(service);
   };
 
+  const toggleDropdown = (category: string) => {
+    setActiveCategory(activeCategory === category ? null : category);
+  };
+
   const renderCheckboxes = (services: Service[]) => {
     return services.map((service) => (
-      <div key={service.name}>
+      <div key={service.name} className={styles.checkboxContainer}>
         <input
           type="checkbox"
           id={service.name}
@@ -28,16 +33,22 @@ const LayersModal = () => {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Dropdown Example</h1>
-        {servicesDetails.map((category: Category) => (
-          <div key={category.type}>
-            <h2>{category.type}</h2>
-            {renderCheckboxes(category.services)}
-          </div>
-        ))}
-      </header>
+    <div className={styles.layersContainer}>
+      {servicesDetails.map((category: Category) => (
+        <div key={category.type} className={styles.categoryContainer}>
+          <button
+            className={styles.categoryButton}
+            onClick={() => toggleDropdown(category.type)}
+          >
+            {category.type}
+          </button>
+          {activeCategory === category.type && (
+            <div className={styles.dropdownContent}>
+              {renderCheckboxes(category.services)}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
