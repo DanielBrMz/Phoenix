@@ -1,4 +1,6 @@
 import React from "react";
+import useStore from "~/store/useStore";
+
 interface Props {
   country: string;
   state: string;
@@ -14,6 +16,13 @@ const PredictionStep: React.FC<Props> = ({
   onBack,
   onReset,
 }) => {
+  const leavePredictionStep = useStore((state) => state.leavePredictionStep);
+
+  const handleReset = () => {
+    leavePredictionStep();
+    onReset();
+  };
+
   return (
     <div>
       <h1>Review your selection</h1>
@@ -21,7 +30,7 @@ const PredictionStep: React.FC<Props> = ({
       <p>State: {state}</p>
       <p>Wildfire: {wildfire}</p>
       <button onClick={onBack}>Go Back</button>
-      <button onClick={onReset}>Start Over</button>
+      <button onClick={handleReset}>Start Over</button>
     </div>
   );
 };

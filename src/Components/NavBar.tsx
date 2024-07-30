@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   faFire,
   faGear,
@@ -13,9 +13,9 @@ import PredictionStep from "~/pages/MenuPages/PredictionStep";
 import AlertsModal from "~/pages/MenuPages/AlertsModal";
 import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";
+import useStore from "~/store/useStore";
 
 const NavBar = () => {
-  const [activeStep, setActiveStep] = useState<number>(0);
   const [selectedData, setSelectedData] = useState<{
     country?: string;
     state?: string;
@@ -23,6 +23,21 @@ const NavBar = () => {
   }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
+  const {
+    activeStep,
+    setActiveStep,
+    inPredictionStep,
+    stayInPredictionStep,
+    leavePredictionStep,
+    resetStep,
+  } = useStore((state) => ({
+    activeStep: state.activeStep,
+    setActiveStep: state.setActiveStep,
+    inPredictionStep: state.inPredictionStep,
+    stayInPredictionStep: state.stayInPredictionStep,
+    leavePredictionStep: state.leavePredictionStep,
+    resetStep: state.resetStep,
+  }));
 
   const handleNext = (data: string) => {
     setSelectedData((prev) => {
@@ -31,19 +46,22 @@ const NavBar = () => {
       if (activeStep === 2) return { ...prev, wildfire: data };
       return prev;
     });
-    setActiveStep((prev) => prev + 1);
+    setActiveStep(activeStep + 1);
+    if (activeStep === 2) {
+      stayInPredictionStep();
+    }
   };
 
-  const handleBack = () => setActiveStep((prev) => prev - 1);
+  const handleBack = () => setActiveStep(activeStep - 1);
   const handleReset = () => {
+    resetStep();
     setSelectedData({});
-    setActiveStep(0);
   };
 
   const handleIconClick = (icon: string) => {
     setActiveIcon(icon);
     setIsModalVisible(true);
-    if (icon === "fire") {
+    if (icon === "fire" && !inPredictionStep) {
       setActiveStep(0);
     }
   };
