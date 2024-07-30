@@ -14,6 +14,7 @@ import AlertsModal from "~/pages/MenuPages/AlertsModal";
 import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";
 import useStore from "~/store/useStore";
+import styles from "../styles/NavbarStyles/Navbar.module.css";
 
 const NavBar = () => {
   const [selectedData, setSelectedData] = useState<{
@@ -118,44 +119,44 @@ const NavBar = () => {
   const toggleModalVisibility = () => setIsModalVisible(!isModalVisible);
 
   return (
-    <div className="navbar">
-      <div className="navbarContainer">
-        <div className="barraLateral">
+    <div className={styles.navbar}>
+      <div className={styles.navbarContainer}>
+        <div className={styles.barraLateral}>
           <FontAwesomeIcon
             icon={faFire}
-            className={`icon ${
-              activeIcon === "fire" && isModalVisible ? "active" : ""
+            className={`${styles.icon} ${
+              activeIcon === "fire" && isModalVisible ? styles.active : ""
             }`}
             onClick={() => handleIconClick("fire")}
           />
           <FontAwesomeIcon
             icon={faBell}
-            className={`icon ${
-              activeIcon === "bell" && isModalVisible ? "active" : ""
+            className={`${styles.icon} ${
+              activeIcon === "bell" && isModalVisible ? styles.active : ""
             }`}
             onClick={() => handleIconClick("bell")}
           />
           <FontAwesomeIcon
             icon={faLayerGroup}
-            className={`icon ${
-              activeIcon === "layer" && isModalVisible ? "active" : ""
+            className={`${styles.icon} ${
+              activeIcon === "layer" && isModalVisible ? styles.active : ""
             }`}
             onClick={() => handleIconClick("layer")}
           />
           <FontAwesomeIcon
             icon={faGear}
-            className={`icon ${
-              activeIcon === "gear" && isModalVisible ? "active" : ""
+            className={`${styles.icon} ${
+              activeIcon === "gear" && isModalVisible ? styles.active : ""
             }`}
             onClick={() => handleIconClick("gear")}
           />
         </div>
         {isModalVisible && (
-          <div className="menu">{getCurrentModalComponent()}</div>
+          <div className={styles.menu}>{getCurrentModalComponent()}</div>
         )}
       </div>
-      <div className="cerradura" onClick={toggleModalVisibility}></div>
-      <div className="flex"></div>
+      <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
+      <div className={styles.flex}></div>
     </div>
   );
 };

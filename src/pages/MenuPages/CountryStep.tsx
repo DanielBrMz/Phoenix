@@ -14,6 +14,10 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
     }
   };
 
+  const handleCancel = () => {
+    setSelectedCountry("");
+  };
+
   const handleCountryClick = (country: string) => {
     setSelectedCountry(country);
   };
@@ -37,8 +41,9 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
       </div>
       <br />
       <button onClick={handleNext} disabled={!selectedCountry}>
-        Next
+        Ok
       </button>
+      <button onClick={handleCancel}>Cancel</button>
     </div>
   );
 };

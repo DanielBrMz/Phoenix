@@ -45,9 +45,9 @@ const StateStep: React.FC<Props> = ({ country, onBack, onNext }) => {
         ))}
       </div>
 
-      <button onClick={onBack}>Go Back</button>
+      <button onClick={onBack}>Cancel</button>
       <button onClick={handleNext} disabled={!selectedState}>
-        Next
+        Ok
       </button>
     </div>
   );
