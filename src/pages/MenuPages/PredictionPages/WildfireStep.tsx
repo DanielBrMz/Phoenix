@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import wildfiresData from "~/data/wildfires";
-import styles from "~/styles/NavbarStyles/PredictionSection/PredictionSection.module.css";
+import styles from "~/styles/NavbarStyles/PredictionSection.module.css";
 
 interface Props {
   country: string;
