@@ -19,6 +19,8 @@ import alertsStore from "~/store/alertsStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
 import { Map } from "mapbox-gl";
 import Draggable from "react-draggable";
+// Importing an image
+import agarradera from "../assets/Agarradera.png";
 
 interface Alert {
   id: string;
@@ -182,8 +184,14 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
           {isModalVisible && (
             <div className={styles.menu}>{getCurrentModalComponent()}</div>
           )}
+          <div
+            className={styles.handleContainer}
+            onClick={toggleModalVisibility}
+          >
+            <img src={agarradera.src} className={styles.handle} />
+          </div>
         </div>
-        <div className={styles.cerradura} onClick={toggleModalVisibility}></div>
+
         <div className={styles.flex}></div>
         {map && alertsVisible && (
           <EmergencyAlerts map={map} onAlertClick={handleAlertClick} />

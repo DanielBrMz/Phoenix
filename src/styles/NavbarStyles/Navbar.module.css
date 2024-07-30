@@ -53,7 +53,12 @@
   color: #f57f61;
 }
 
-.cerradura {
-  background-color: purple;
-  width: 100px;
+.handleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.handle {
+  width: 30px;
+  height: 200px;
 }
