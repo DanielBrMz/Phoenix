@@ -15,6 +15,7 @@ import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";
 import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import useStore from "~/store/useStore";
+import alertsStore from "~/store/alertsStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
 import { Map } from "mapbox-gl";
 
@@ -39,6 +40,10 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
+  const { alertsVisible, toggleAlertsVisible } = alertsStore((state) => ({
+    alertsVisible: state.alertsVisible,
+    toggleAlertsVisible: state.toggleAlertsVisible,
+  }));
   const {
     activeStep,
     setActiveStep,
@@ -46,7 +51,6 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
     stayInPredictionStep,
     leavePredictionStep,
     resetStep,
-    alertsVisible,
   } = useStore((state) => ({
     activeStep: state.activeStep,
     setActiveStep: state.setActiveStep,
@@ -54,7 +58,6 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
     stayInPredictionStep: state.stayInPredictionStep,
     leavePredictionStep: state.leavePredictionStep,
     resetStep: state.resetStep,
-    alertsVisible: state.alertsVisible,
   }));
 
   const handleNext = (data: string) => {

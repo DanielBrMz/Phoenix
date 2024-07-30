@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "~/styles/NavbarStyles/AlertModal.module.css";
-import useStore from "~/store/useStore";
+import alertsStore from "~/store/alertsStore";
 
 interface Alert {
   id: string;
@@ -15,7 +15,7 @@ interface AlertsModalProps {
 }
 
 const AlertsModal: React.FC<AlertsModalProps> = ({ alert }) => {
-  const { alertsVisible, toggleAlertsVisible } = useStore((state) => ({
+  const { alertsVisible, toggleAlertsVisible } = alertsStore((state) => ({
     alertsVisible: state.alertsVisible,
     toggleAlertsVisible: state.toggleAlertsVisible,
   }));
