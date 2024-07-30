@@ -6,10 +6,10 @@ import {
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CountryStep from "~/pages/MenuPages/CountryStep";
-import StateStep from "~/pages/MenuPages/StateStep";
-import WildfireStep from "~/pages/MenuPages/WildfireStep";
-import PredictionStep from "~/pages/MenuPages/PredictionStep";
+import CountryStep from "~/pages/MenuPages/PredictionPages/CountryStep";
+import StateStep from "~/pages/MenuPages/PredictionPages/StateStep";
+import WildfireStep from "~/pages/MenuPages/PredictionPages/WildfireStep";
+import PredictionStep from "~/pages/MenuPages/PredictionPages/PredictionStep";
 import AlertsModal from "~/pages/MenuPages/AlertsModal";
 import LayersModal from "~/pages/MenuPages/LayersModal";
 import SettingsModal from "~/pages/MenuPages/SettingsModal";

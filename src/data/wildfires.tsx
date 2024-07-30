@@ -5,7 +5,7 @@ export interface WildfiresData {
 }
 
 const wildfiresData: WildfiresData = {
-  USA: {
+  "United States": {
     California: ["Fire1", "Fire2", "Fire3"],
     "New York": ["Fire1", "Fire2"],
     Texas: ["Fire1", "Fire2", "Fire3", "Fire4"],
@@ -19,6 +19,11 @@ const wildfiresData: WildfiresData = {
     Jalisco: ["Fire1", "Fire2", "Fire3"],
     "Nuevo Leon": ["Fire1", "Fire2"],
     Chihuahua: ["Fire1"],
+  },
+  Brazil: {
+    "Rio de Janeiro": ["Fire1", "Fire2"],
+    "Sao Paulo": ["Fire1", "Fire2", "Fire3"],
+    "Minas Gerais": ["Fire1", "Fire2"],
   },
 };
 
