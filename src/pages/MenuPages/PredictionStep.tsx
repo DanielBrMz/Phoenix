@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface Props {
   country: string;
   state: string;
   wildfire: string;
   onBack: () => void;
+  onReset: () => void;
 }
 
 const PredictionStep: React.FC<Props> = ({
@@ -12,11 +13,8 @@ const PredictionStep: React.FC<Props> = ({
   state,
   wildfire,
   onBack,
+  onReset,
 }) => {
-  const handleReset = () => {
-    // Reseteo del flujo si es necesario
-  };
-
   return (
     <div>
       <h1>Review your selection</h1>
@@ -24,7 +22,7 @@ const PredictionStep: React.FC<Props> = ({
       <p>State: {state}</p>
       <p>Wildfire: {wildfire}</p>
       <button onClick={onBack}>Go Back</button>
-      <button onClick={handleReset}>Start Over</button>
+      <button onClick={onReset}>Start Over</button>
     </div>
   );
 };

@@ -35,6 +35,11 @@ const NavBar = () => {
     setActiveStep((prev) => prev - 1);
   };
 
+  const handleReset = () => {
+    setSelectedData({});
+    setActiveStep(0);
+  };
+
   const getCurrentStepComponent = () => {
     switch (activeStep) {
       case 0:
@@ -63,6 +68,7 @@ const NavBar = () => {
             state={selectedData.state!}
             wildfire={selectedData.wildfire!}
             onBack={handleBack}
+            onReset={handleReset}
           />
         );
       default:
