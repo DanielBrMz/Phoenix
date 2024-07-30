@@ -10,6 +10,9 @@ import CountryStep from "~/pages/MenuPages/CountryStep";
 import StateStep from "~/pages/MenuPages/StateStep";
 import WildfireStep from "~/pages/MenuPages/WildfireStep";
 import PredictionStep from "~/pages/MenuPages/PredictionStep";
+import AlertsModal from "~/pages/MenuPages/AlertsModal";
+import LayersModal from "~/pages/MenuPages/LayersModal";
+import SettingsModal from "~/pages/MenuPages/SettingsModal";
 
 const NavBar = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -19,25 +22,30 @@ const NavBar = () => {
     wildfire?: string;
   }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [activeIcon, setActiveIcon] = useState<string | null>(null);
 
   const handleNext = (data: string) => {
-    if (activeStep === 0) {
-      setSelectedData({ country: data });
-    } else if (activeStep === 1) {
-      setSelectedData((prev) => ({ ...prev, state: data }));
-    } else if (activeStep === 2) {
-      setSelectedData((prev) => ({ ...prev, wildfire: data }));
-    }
+    setSelectedData((prev) => {
+      if (activeStep === 0) return { country: data };
+      if (activeStep === 1) return { ...prev, state: data };
+      if (activeStep === 2) return { ...prev, wildfire: data };
+      return prev;
+    });
     setActiveStep((prev) => prev + 1);
   };
 
-  const handleBack = () => {
-    setActiveStep((prev) => prev - 1);
-  };
-
+  const handleBack = () => setActiveStep((prev) => prev - 1);
   const handleReset = () => {
     setSelectedData({});
     setActiveStep(0);
+  };
+
+  const handleIconClick = (icon: string) => {
+    setActiveIcon(icon);
+    setIsModalVisible(true);
+    if (icon === "fire") {
+      setActiveStep(0);
+    }
   };
 
   const getCurrentStepComponent = () => {
@@ -76,9 +84,20 @@ const NavBar = () => {
     }
   };
 
-  const toggleModalVisibility = () => {
-    setIsModalVisible(!isModalVisible);
+  const getCurrentModalComponent = () => {
+    switch (activeIcon) {
+      case "bell":
+        return <AlertsModal />;
+      case "layer":
+        return <LayersModal />;
+      case "gear":
+        return <SettingsModal />;
+      default:
+        return getCurrentStepComponent();
+    }
   };
+
+  const toggleModalVisibility = () => setIsModalVisible(!isModalVisible);
 
   return (
     <div className="navbar">
@@ -86,27 +105,35 @@ const NavBar = () => {
         <div className="barraLateral">
           <FontAwesomeIcon
             icon={faFire}
-            className={`icon ${isModalVisible ? "active" : ""}`}
-            onClick={toggleModalVisibility}
+            className={`icon ${
+              activeIcon === "fire" && isModalVisible ? "active" : ""
+            }`}
+            onClick={() => handleIconClick("fire")}
           />
           <FontAwesomeIcon
             icon={faBell}
-            className={`icon ${isModalVisible ? "active" : ""}`}
-            onClick={toggleModalVisibility}
+            className={`icon ${
+              activeIcon === "bell" && isModalVisible ? "active" : ""
+            }`}
+            onClick={() => handleIconClick("bell")}
           />
           <FontAwesomeIcon
             icon={faLayerGroup}
-            className={`icon ${isModalVisible ? "active" : ""}`}
-            onClick={toggleModalVisibility}
+            className={`icon ${
+              activeIcon === "layer" && isModalVisible ? "active" : ""
+            }`}
+            onClick={() => handleIconClick("layer")}
           />
           <FontAwesomeIcon
             icon={faGear}
-            className={`icon ${isModalVisible ? "active" : ""}`}
-            onClick={toggleModalVisibility}
+            className={`icon ${
+              activeIcon === "gear" && isModalVisible ? "active" : ""
+            }`}
+            onClick={() => handleIconClick("gear")}
           />
         </div>
         {isModalVisible && (
-          <div className="menu">{getCurrentStepComponent()}</div>
+          <div className="menu">{getCurrentModalComponent()}</div>
         )}
       </div>
       <div className="cerradura" onClick={toggleModalVisibility}></div>
