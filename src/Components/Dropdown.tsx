@@ -28,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, options }) => {
   return (
     <div className="dropdown">
       <div className="dropdown-header" onClick={toggleDropdown}>
-        {selectedOptions.length > 0 ? selectedOptions.join(", ") : title}
+        {title}
         <span className={`dropdown-arrow ${isOpen ? "open" : ""}`}>▼</span>
       </div>
       {isOpen && (

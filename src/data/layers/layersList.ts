@@ -1,8 +1,3 @@
-import firefighter from "../assets/emergencyIcons/bombero.png";
-import hospital from "../assets/emergencyIcons/hospital.png";
-import police from "../assets/emergencyIcons/policia.png";
-import electricityPole from "../assets/infrastructureIcons/torre.png";
-
 interface EmergencyServices {
   type: string;
   services: string[];
@@ -14,7 +9,7 @@ interface Infrastructure {
 }
 
 export const emergencyServicesList: EmergencyServices = {
-  type: "Emergency Services",
+  type: "EMERGENCY SERVICES",
   services: [
     "Hospitals",
     "Firefighters",
@@ -25,6 +20,6 @@ export const emergencyServicesList: EmergencyServices = {
 };
 
 export const infrastructureList: Infrastructure = {
-  type: "Infrastructure",
+  type: "INFRASTRUCTURE & SERVICES",
   services: ["Electricity Poles", "Gas Stations", "Telephone Poles"],
 };
