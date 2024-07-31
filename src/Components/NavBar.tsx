@@ -152,34 +152,36 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
       <div className={styles.navbar}>
         <div className={styles.navbarContainer}>
           <div className={styles.barraLateral}>
-            <FontAwesomeIcon
-              icon={faFire}
-              className={`${styles.icon} ${
-                activeIcon === "fire" && isModalVisible ? styles.active : ""
-              }`}
-              onClick={() => handleIconClick("fire")}
-            />
-            <FontAwesomeIcon
-              icon={faBell}
-              className={`${styles.icon} ${
-                activeIcon === "bell" && isModalVisible ? styles.active : ""
-              }`}
-              onClick={() => handleIconClick("bell")}
-            />
-            <FontAwesomeIcon
-              icon={faLayerGroup}
-              className={`${styles.icon} ${
-                activeIcon === "layer" && isModalVisible ? styles.active : ""
-              }`}
-              onClick={() => handleIconClick("layer")}
-            />
-            <FontAwesomeIcon
-              icon={faGear}
-              className={`${styles.icon} ${
-                activeIcon === "gear" && isModalVisible ? styles.active : ""
-              }`}
-              onClick={() => handleIconClick("gear")}
-            />
+            <div className={styles.navbarIconsContainer}>
+              <FontAwesomeIcon
+                icon={faFire}
+                className={`${styles.icon} ${
+                  activeIcon === "fire" && isModalVisible ? styles.active : ""
+                }`}
+                onClick={() => handleIconClick("fire")}
+              />
+              <FontAwesomeIcon
+                icon={faBell}
+                className={`${styles.icon} ${
+                  activeIcon === "bell" && isModalVisible ? styles.active : ""
+                }`}
+                onClick={() => handleIconClick("bell")}
+              />
+              <FontAwesomeIcon
+                icon={faLayerGroup}
+                className={`${styles.icon} ${
+                  activeIcon === "layer" && isModalVisible ? styles.active : ""
+                }`}
+                onClick={() => handleIconClick("layer")}
+              />
+              <FontAwesomeIcon
+                icon={faGear}
+                className={`${styles.icon} ${
+                  activeIcon === "gear" && isModalVisible ? styles.active : ""
+                }`}
+                onClick={() => handleIconClick("gear")}
+              />
+            </div>
           </div>
           {isModalVisible && (
             <div className={styles.menu}>{getCurrentModalComponent()}</div>

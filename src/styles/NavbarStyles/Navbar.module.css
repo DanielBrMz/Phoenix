@@ -13,10 +13,8 @@
 }
 
 .barraLateral {
-  color: red;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-direction: column;
   background-color: rgba(33, 38, 43, 0.8); /* #21262b with 80% opacity */
   border-color: #f57f61;
@@ -26,7 +24,16 @@
   border-bottom-left-radius: 6px;
   padding-top: 20px;
   padding-bottom: 20px;
+  width: 70px;
+}
+
+.navbarIconsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
   width: 80px;
+  height: 300px;
 }
 
 .menu {
@@ -46,8 +53,8 @@
 .icon {
   color: white;
   cursor: pointer;
-  height: 9%;
-  width: 50%;
+  height: 30px;
+  width: 60px;
 }
 
 .icon.active {
