@@ -29,8 +29,8 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
         const el = document.createElement("div");
         el.className = markerClass;
         el.style.backgroundImage = `url(${icon})`;
-        el.style.width = "32px";
-        el.style.height = "32px";
+        el.style.width = "42px";
+        el.style.height = "42px";
         el.style.backgroundSize = "100%";
         el.style.backgroundRepeat = "no-repeat";
         el.style.backgroundPosition = "center";
