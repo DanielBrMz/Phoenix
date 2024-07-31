@@ -57,6 +57,7 @@ const WildfireStep: React.FC<Props> = ({ country, state, onBack, onNext }) => {
           onClick={handleNext}
           disabled={!selectedWildfire}
           className={styles.predictionStepButtonOk}
+          style={{ backgroundColor: selectedWildfire ? "#f57f61" : "black" }}
         >
           OK
         </button>

@@ -54,6 +54,7 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
           onClick={handleNext}
           disabled={!selectedCountry}
           className={styles.predictionStepButtonOk}
+          style={{ backgroundColor: selectedCountry ? "#f57f61" : "black" }}
         >
           Ok
         </button>

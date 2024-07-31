@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlay,
-  faForward,
-  faBackward,
-} from "@fortawesome/free-solid-svg-icons";
+
 import { type Map } from "mapbox-gl";
 import RangeSlider from "./RangeSlider";
 import useStore from "~/store/useStore";
+import styles from "~/styles/SliderStyles/SliderStyles.module.css";
 
 interface TimesliderProps {
   map: Map;
@@ -102,31 +98,73 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   }, []);
 
   return (
-    <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222] ">
-      <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem] ">
-        <div className="flex flex-col">
-          <div className="text-white">{currentTime}</div>
-          <div className="text-[#5ec2fb]">{currentDate}</div>
-        </div>
-        <div className="flex flex-grow flex-col">
-          {inPredictionStep && <RangeSlider map={map} />}
-        </div>
-      </div>
-      <div className="z-1 mt-4 h-[2rem] w-full bg-[#111]">
-        {locationData && (
-          <div className="flex flex-row justify-around">
-            <p className="text-white">Latitude: {map && lat.toFixed(3)}</p>
-            <p className="text-white">Longitude: {map && lng.toFixed(3)}</p>
-            <p className="text-white">Eye Level: {scale.toFixed(3)}</p>
-            <p className="text-white">
-              {" "}
-              Temperature:{" "}
-              {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}{" "}
-            </p>
-            <p className="text-white">Territory: {locationData.city}</p>
+    <div>
+      {inPredictionStep ? (
+        <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222]">
+          <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem]">
+            <div className="flex flex-col">
+              <div className="text-white">{currentTime}</div>
+              <div className="text-[#5ec2fb]">{currentDate}</div>
+            </div>
+            <div className="flex flex-grow flex-col">
+              {inPredictionStep && <RangeSlider map={map} />}
+            </div>
           </div>
-        )}
-      </div>
+          <div className="z-1 mt-4 h-[2rem] w-full bg-[#111]">
+            {locationData && (
+              <div className="flex flex-row justify-around">
+                <p className="text-white">Latitude: {lat.toFixed(3)}</p>
+                <p className="text-white">Longitude: {lng.toFixed(3)}</p>
+                <p className="text-white">Eye Level: {scale.toFixed(3)}</p>
+                <p className="text-white">
+                  Temperature:{" "}
+                  {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}
+                </p>
+                <p className="text-white">Territory: {locationData.city}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className={styles.wholeSliderContainer}>
+          <div className={styles.sliderContainer}>
+            <div className={styles.leftSlider}>
+              <div className={styles.timeText}>{currentTime}</div>
+              <div>{currentDate}</div>
+            </div>
+            <div className={styles.mediumSlider}>
+              {locationData && (
+                <div>
+                  <h2 className={styles.sliderTitle}>
+                    Location and Weather Data
+                  </h2>
+                  <div className={styles.mediumSliderInfo}>
+                    <p className={styles.sliderInfoLabels}>
+                      Latitude: {lat.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Longitude: {lng.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Eye Level: {scale.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Temperature:{" "}
+                      {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Territory: {locationData.city}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles.rightSlider}>
+              <p>6 KM</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

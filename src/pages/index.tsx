@@ -110,13 +110,13 @@ export default function Home() {
           <NavBar map={map} />
           {map && <Timeslider map={map} scale={kilometersPerPixel} />}
           {map && <ServicesLayer map={map} />}
-          <Image
+          {/* <Image
             src={PhoenixEyeLogo}
             alt="Logo"
             width={128}
             height={128}
             className="z-1 absolute bottom-4 left-8"
-          />
+          /> */}
         </main>
       )}
     </>
