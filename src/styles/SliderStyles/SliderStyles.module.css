@@ -11,6 +11,7 @@
   justify-content: flex-end;
   background-color: rgba(33, 38, 43, 0.8); /* #21262b with 80% opacity */
   border-radius: 8px;
+  font-size: 22px;
 }
 
 .sliderContainer {
@@ -27,7 +28,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 16px;
+  /* font-size: 16px; */
   font-weight: 800;
   color: #f57f61;
 }
@@ -54,14 +55,19 @@
 }
 
 .sliderInfoLabels {
-  background-color: #252525;
-  padding: 4px;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Color #252525 con 50% de transparencia */
+  padding: 8px;
   border-radius: 4px;
 }
 
 .sliderTitle {
   color: white;
-  font-size: 18px;
+  /* font-size: 18px; */
   font-weight: 800;
   text-transform: uppercase;
   color: #f57f61;
@@ -73,7 +79,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 16px;
+  /* font-size: 16px; */
   font-weight: 800;
   color: #f57f61;
 }
