@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import wildfiresData from "~/data/wildfires";
+import { wildfiresDetails } from "~/data/wildfires";
 import styles from "~/styles/NavbarStyles/PredictionSection.module.css";
 
 interface Props {
@@ -13,8 +13,11 @@ const StateStep: React.FC<Props> = ({ country, onBack, onNext }) => {
   const [states, setStates] = useState<string[]>([]);
 
   useEffect(() => {
-    if (wildfiresData[country]) {
-      setStates(Object.keys(wildfiresData[country]));
+    const selectedCountry = wildfiresDetails.find(
+      (data) => data.country === country,
+    );
+    if (selectedCountry) {
+      setStates(selectedCountry.states.map((state) => state.name));
     }
   }, [country]);
 

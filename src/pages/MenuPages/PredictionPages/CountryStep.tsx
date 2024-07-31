@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import wildfiresData from "~/data/wildfires";
+import { wildfiresDetails } from "~/data/wildfires";
 import styles from "~/styles/NavbarStyles/PredictionSection.module.css";
 
 interface Props {
@@ -28,17 +28,17 @@ const CountryStep: React.FC<Props> = ({ onNext }) => {
       <h2 className={styles.predictionStepTitle}>SELECT COUNTRY</h2>
       <div className={styles.line}></div>
       <div className={styles.predictionStepSelections}>
-        {Object.keys(wildfiresData).map((country) => (
+        {wildfiresDetails.map((data) => (
           <p
-            key={country}
+            key={data.country}
             style={{
               cursor: "pointer",
-              color: selectedCountry === country ? "#f57f61" : "white",
+              color: selectedCountry === data.country ? "#f57f61" : "white",
             }}
-            onClick={() => handleCountryClick(country)}
+            onClick={() => handleCountryClick(data.country)}
             className={styles.predictionStepSelctionsText}
           >
-            {country}
+            {data.country}
           </p>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import wildfiresData from "~/data/wildfires";
+import { wildfiresDetails } from "~/data/wildfires";
 import styles from "~/styles/NavbarStyles/PredictionSection.module.css";
 
 interface Props {
@@ -14,8 +14,16 @@ const WildfireStep: React.FC<Props> = ({ country, state, onBack, onNext }) => {
   const [wildfires, setWildfires] = useState<string[]>([]);
 
   useEffect(() => {
-    if (wildfiresData[country] && wildfiresData[country][state]) {
-      setWildfires(wildfiresData[country][state]);
+    const selectedCountry = wildfiresDetails.find(
+      (data) => data.country === country,
+    );
+    if (selectedCountry) {
+      const selectedState = selectedCountry.states.find(
+        (s) => s.name === state,
+      );
+      if (selectedState) {
+        setWildfires(selectedState.wildfires.map((wildfire) => wildfire.name));
+      }
     }
   }, [country, state]);
 
@@ -36,7 +44,7 @@ const WildfireStep: React.FC<Props> = ({ country, state, onBack, onNext }) => {
       <div className={styles.predictionStepSelections}>
         {wildfires.map((wildfire) => (
           <p
-            key={state}
+            key={wildfire}
             onClick={() => handleWildfireClick(wildfire)}
             style={{
               cursor: "pointer",
