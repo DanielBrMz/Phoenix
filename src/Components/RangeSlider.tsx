@@ -92,15 +92,15 @@ export default function RangeSlider({ map }: RangeSliderProps) {
   const getPopupTextAndTransform = () => {
     switch (value) {
       case 0:
-        return { text: "0 HOUR PREDICTION", transform: -35 };
+        return { text: "0 HOUR PREDICTION", transform: -40 };
       case 12:
-        return { text: "12 HOUR PREDICTION", transform: 65 };
+        return { text: "12 HOUR PREDICTION", transform: 100 };
       case 24:
-        return { text: "24 HOUR PREDICTION", transform: 170 };
+        return { text: "24 HOUR PREDICTION", transform: 240 };
       case 36:
-        return { text: "36 HOUR PREDICTION", transform: 270 };
+        return { text: "36 HOUR PREDICTION", transform: 380 };
       case 48:
-        return { text: "48 HOUR PREDICTION", transform: 370 };
+        return { text: "48 HOUR PREDICTION", transform: 520 };
       default:
         return { text: "", transform: 0 };
     }
