@@ -71,7 +71,7 @@
 }
 
 .alertDetailsTitle {
-  font-size: 16px;
+  font-size: 21.5px;
   color: white;
   font-weight: 800;
   text-transform: uppercase;
@@ -80,7 +80,7 @@
 .alertDetailsDescription {
   margin-top: 10px;
   color: #c8c8c8;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .alertExitButton {
