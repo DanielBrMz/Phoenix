@@ -39,6 +39,17 @@ const PredictionStep: React.FC<Props> = ({
       data: [
         { label: "Start Time", value: selectedWildfire?.actualData.startTime },
         { label: "End Time", value: selectedWildfire?.actualData.endTime },
+        { label: "Sheltering", value: selectedWildfire?.actualData.sheltering },
+        { label: "Live Moist", value: selectedWildfire?.actualData.liveMoist },
+        {
+          label: "Elev. Difference",
+          value: selectedWildfire?.actualData.elevDifference,
+        },
+        { label: "Aspect", value: selectedWildfire?.actualData.aspect },
+        { label: "Size", value: selectedWildfire?.actualData.size },
+        { label: "Fuel", value: selectedWildfire?.actualData.fuel },
+        { label: "Slope", value: selectedWildfire?.actualData.slope },
+        { label: "Frp", value: selectedWildfire?.actualData.frp },
       ],
     },
     {
@@ -51,6 +62,35 @@ const PredictionStep: React.FC<Props> = ({
         {
           label: "Wind Eye-Level",
           value: selectedWildfire?.weatherConditions.windEyeLevel,
+        },
+        {
+          label: "Air Temp.",
+          value: selectedWildfire?.weatherConditions.airTemp,
+        },
+        {
+          label: "Rel. Humidity",
+          value: selectedWildfire?.weatherConditions.relHumidity,
+        },
+        {
+          label: "Precipitation",
+          value: selectedWildfire?.weatherConditions.precipitation,
+        },
+        {
+          label: "Shading",
+          value: selectedWildfire?.weatherConditions.shading,
+        },
+        { label: "Clouds", value: selectedWildfire?.weatherConditions.clouds },
+        {
+          label: "Solar Radiation",
+          value: selectedWildfire?.weatherConditions.solarRadiation,
+        },
+        {
+          label: "Heat Index",
+          value: selectedWildfire?.weatherConditions.heatIndex,
+        },
+        {
+          label: "Brightness",
+          value: selectedWildfire?.weatherConditions.brightness,
         },
       ],
     },
@@ -78,9 +118,7 @@ const PredictionStep: React.FC<Props> = ({
           ))}
         </>
       )}
-      <button onClick={handleReset} className={styles.predictionExitButton}>
-        EXIT
-      </button>
+      <button onClick={handleReset}>EXIT</button>
     </div>
   );
 };
