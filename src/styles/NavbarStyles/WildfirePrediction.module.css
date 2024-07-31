@@ -37,16 +37,15 @@
   border-radius: 5px;
   padding: 4px;
   margin-bottom: 4px;
+  font-size: 20px;
 }
 
 .labelTitle {
   color: #a4ebff;
-  font-size: 16px;
 }
 
 .labelDescription {
   color: white;
-  font-size: 16px;
 }
 
 .predictionExitButton {

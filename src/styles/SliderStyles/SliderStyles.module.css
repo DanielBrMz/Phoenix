@@ -3,7 +3,7 @@
   bottom: 1.25rem; /* 5 * 0.25rem */
   left: 50%;
   display: flex;
-  height: 7rem;
+  height: 150px;
   width: 80%; /* 4/5 */
   transform: translateX(-50%);
   flex-direction: column;
@@ -71,7 +71,7 @@
   font-weight: 800;
   text-transform: uppercase;
   color: #f57f61;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .rightSlider {
