@@ -9,6 +9,7 @@ import NavBar from "~/Components/NavBar";
 import ServicesLayer from "~/Components/Layers/ServicesLayer";
 import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
+import StartPage from "./StartPage";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -90,16 +91,19 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
           rel="stylesheet"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100..800&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       {!userLogin ? (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-gray-200">
-          <button
-            onClick={handleLogin}
-            className="rounded-full bg-blue-500 px-8 py-4 text-white hover:bg-blue-600"
-          >
-            Iniciar
-          </button>
-        </div>
+        <StartPage onLogin={handleLogin} />
       ) : (
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
           <div id="map" style={{ width: "100%", height: "100vh" }}></div>
