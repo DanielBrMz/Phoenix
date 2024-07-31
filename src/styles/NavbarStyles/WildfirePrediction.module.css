@@ -1,0 +1,51 @@
+.wildfirePredictionContainer {
+  background-color: red;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.wildfirePredictionTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f57f61;
+  align-self: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.wildfireSections {
+  background-color: #676358;
+  padding: 6px;
+  border-radius: 5px;
+  color: #f57f61;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.wildfireDataLabelsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #45423b;
+  border-radius: 5px;
+  padding: 4px;
+  margin-bottom: 4px;
+}
+
+.labelTitle {
+  color: #a4ebff;
+  font-size: 16px;
+}
+
+.labelDescription {
+  color: white;
+  font-size: 16px;
+}
