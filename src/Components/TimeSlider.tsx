@@ -98,36 +98,44 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   }, []);
 
   return (
-    <div>
-      {inPredictionStep ? (
-        <div className="fixed bottom-5 left-1/2 flex h-[7rem] w-4/5 -translate-x-1/2 transform flex-col items-center justify-end bg-[#222]">
-          <div className="flex w-full flex-row items-center justify-start space-x-8 pl-[5rem] pr-[5rem]">
-            <div className="flex flex-col">
-              <div className="text-white">{currentTime}</div>
-              <div className="text-[#5ec2fb]">{currentDate}</div>
+    <div className={styles.wholeSliderContainer}>
+      <div className={styles.sliderContainer}>
+        {inPredictionStep ? (
+          <>
+            <div className={styles.leftSlider}>
+              <div className={styles.timeText}>{currentTime}</div>
+              <div>{currentDate}</div>
             </div>
-            <div className="flex flex-grow flex-col">
-              {inPredictionStep && <RangeSlider map={map} />}
+            <div className={styles.mediumSlider}>
+              {locationData && (
+                <>
+                  <div className="flex flex-grow flex-col">
+                    {inPredictionStep && <RangeSlider map={map} />}
+                  </div>
+                  <div className={styles.mediumSliderInfo}>
+                    <p className={styles.sliderInfoLabels}>
+                      Latitude: {lat.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Longitude: {lng.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Eye Level: {scale.toFixed(3)}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Temperature:{" "}
+                      {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}
+                    </p>
+                    <p className={styles.sliderInfoLabels}>
+                      Territory: {locationData.city}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
-          <div className="z-1 mt-4 h-[2rem] w-full bg-[#111]">
-            {locationData && (
-              <div className="flex flex-row justify-around">
-                <p className="text-white">Latitude: {lat.toFixed(3)}</p>
-                <p className="text-white">Longitude: {lng.toFixed(3)}</p>
-                <p className="text-white">Eye Level: {scale.toFixed(3)}</p>
-                <p className="text-white">
-                  Temperature:{" "}
-                  {weatherData?.data[0]?.coordinates[0]?.dates[0]?.value}
-                </p>
-                <p className="text-white">Territory: {locationData.city}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className={styles.wholeSliderContainer}>
-          <div className={styles.sliderContainer}>
+          </>
+        ) : (
+          <>
             <div className={styles.leftSlider}>
               <div className={styles.timeText}>{currentTime}</div>
               <div>{currentDate}</div>
@@ -159,12 +167,12 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
                 </div>
               )}
             </div>
-            <div className={styles.rightSlider}>
-              <p>6 KM</p>
-            </div>
-          </div>
+          </>
+        )}
+        <div className={styles.rightSlider}>
+          <p>6 KM</p>
         </div>
-      )}
+      </div>
     </div>
   );
 };
