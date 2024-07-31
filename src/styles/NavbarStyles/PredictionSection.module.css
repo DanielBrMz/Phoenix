@@ -18,8 +18,14 @@
 .line {
   height: 3px; /* Ajusta el grosor de la línea */
   width: 100%; /* Ajusta el ancho de la línea según sea necesario */
-  background-color: black; /* Ajusta el color de la línea */
+  background-color: rgb(
+    23,
+    23,
+    23,
+    0.6
+  ); /* Color negro con 50% de transparencia */
   margin: 20px 0; /* Ajusta el margen según sea necesario */
+  /* box-shadow: 0 0 5px 0 rgb(29, 29, 29);  Sombra con 50% de transparencia */
 }
 
 .predictionStepSelections {
@@ -51,9 +57,7 @@
   width: 50%;
   height: 40px;
   border-radius: 5px;
-  border-style: solid;
-  border-color: #c3c3c3;
-  border-width: 1px;
+
   text-transform: uppercase;
   font-size: 20px;
 }
@@ -64,9 +68,7 @@
   width: 50%;
   height: 40px;
   border-radius: 5px;
-  border-style: solid;
-  border-color: #c3c3c3;
-  border-width: 1px;
+
   text-transform: uppercase;
   font-size: 20px;
 }
