@@ -77,13 +77,13 @@ export default function RangeSlider({ map }: RangeSliderProps) {
       case 0:
         return { text: "0 HOUR PREDICTION", transform: -35 };
       case 12:
-        return { text: "12 HOUR PREDICTION", transform: 40 };
+        return { text: "12 HOUR PREDICTION", transform: 65 };
       case 24:
-        return { text: "24 HOUR PREDICTION", transform: 115 };
+        return { text: "24 HOUR PREDICTION", transform: 170 };
       case 36:
-        return { text: "36 HOUR PREDICTION", transform: 200 };
+        return { text: "36 HOUR PREDICTION", transform: 270 };
       case 48:
-        return { text: "48 HOUR PREDICTION", transform: 280 };
+        return { text: "48 HOUR PREDICTION", transform: 370 };
       default:
         return { text: "", transform: 0 };
     }
@@ -93,38 +93,29 @@ export default function RangeSlider({ map }: RangeSliderProps) {
     getPopupTextAndTransform();
 
   return (
-    <>
-      <style>
-        {`
-
-
-
-        `}
-      </style>
-      <Box className="relative mx-4">
-        <div className="popUpContainer">
-          <div
-            className={styles.predictionPopup}
-            style={{
-              left: `${calculateLeftPosition()}px`,
-              transform: `translateX(${transformNumber}%)`,
-            }}
-          >
-            <p>{popUpText}</p>
-          </div>
-          <AirbnbSlider
-            value={value}
-            onChange={handleSliderChange}
-            defaultValue={0}
-            min={0}
-            max={48}
-            step={12}
-            marks={new Array(5).fill(0).map((_, index) => ({
-              value: index * 12,
-            }))}
-          />
+    <Box className="relative mx-4">
+      <div className="popUpContainer">
+        <div
+          className={styles.predictionPopup}
+          style={{
+            left: `${calculateLeftPosition()}px`,
+            transform: `translateX(${transformNumber}%)`,
+          }}
+        >
+          <p>{popUpText}</p>
         </div>
-      </Box>
-    </>
+        <AirbnbSlider
+          value={value}
+          onChange={handleSliderChange}
+          defaultValue={0}
+          min={0}
+          max={48}
+          step={12}
+          marks={new Array(5).fill(0).map((_, index) => ({
+            value: index * 12,
+          }))}
+        />
+      </div>
+    </Box>
   );
 }
