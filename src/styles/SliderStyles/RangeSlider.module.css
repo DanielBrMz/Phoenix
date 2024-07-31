@@ -1,0 +1,17 @@
+.predictionPopup {
+  position: absolute;
+  width: 140px;
+  bottom: 40px;
+  background-color: orange;
+  padding: 4px;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.popUpContainer {
+  display: flex;
+  flex-direction: column;
+}

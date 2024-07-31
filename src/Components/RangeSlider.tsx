@@ -3,6 +3,7 @@ import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { setHeatmapRadius } from "~/utils/mapUtils/addCustomLayers";
+import styles from "~/styles/SliderStyles/RangeSlider.module.css";
 
 interface RangeSliderProps {
   map: mapboxgl.Map;
@@ -71,53 +72,44 @@ export default function RangeSlider({ map }: RangeSliderProps) {
     }
   };
 
-  let popUpText = "";
-  let transformNumber = 0;
-  if (value === 0) {
-    popUpText = "0 HOUR PREDICTION";
-    transformNumber = -35;
-  } else if (value === 12) {
-    popUpText = "12 HOUR PREDICTION";
-    transformNumber = 130;
-  } else if (value === 24) {
-    popUpText = "24 HOUR PREDICTION";
-    transformNumber = 295;
-  } else if (value === 36) {
-    popUpText = "36 HOUR PREDICTION";
-    transformNumber = 460;
-  } else {
-    popUpText = "48 HOUR PREDICTION";
-    transformNumber = 630;
-  }
+  const getPopupTextAndTransform = () => {
+    switch (value) {
+      case 0:
+        return { text: "0 HOUR PREDICTION", transform: -35 };
+      case 12:
+        return { text: "12 HOUR PREDICTION", transform: 40 };
+      case 24:
+        return { text: "24 HOUR PREDICTION", transform: 115 };
+      case 36:
+        return { text: "36 HOUR PREDICTION", transform: 200 };
+      case 48:
+        return { text: "48 HOUR PREDICTION", transform: 280 };
+      default:
+        return { text: "", transform: 0 };
+    }
+  };
+
+  const { text: popUpText, transform: transformNumber } =
+    getPopupTextAndTransform();
 
   return (
     <>
       <style>
         {`
-          .prediction-popup {
-            position: absolute;
-            left: ${calculateLeftPosition()}px;
-            transform: translateX(${transformNumber}%); // Centra el popup sobre el thumb
-            width: 140px;
-            bottom: 40px;
-            background-color: orange;
-            padding: 4px;
-            text-align: center;
-            border-radius: 8px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-          }
 
-          .popUpContainer {
-          display: flex;
-          flex-direction: column;
-          }
+
+
         `}
       </style>
       <Box className="relative mx-4">
         <div className="popUpContainer">
-          <div className="prediction-popup">
+          <div
+            className={styles.predictionPopup}
+            style={{
+              left: `${calculateLeftPosition()}px`,
+              transform: `translateX(${transformNumber}%)`,
+            }}
+          >
             <p>{popUpText}</p>
           </div>
           <AirbnbSlider
