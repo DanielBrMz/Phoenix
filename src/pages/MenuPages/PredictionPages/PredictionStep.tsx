@@ -118,7 +118,9 @@ const PredictionStep: React.FC<Props> = ({
           ))}
         </>
       )}
-      <button onClick={handleReset}>EXIT</button>
+      <button onClick={handleReset} className={styles.predictionExitButton}>
+        EXIT
+      </button>
     </div>
   );
 };
