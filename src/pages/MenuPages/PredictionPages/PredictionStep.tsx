@@ -38,7 +38,6 @@ const PredictionStep: React.FC<Props> = ({
       sectionTitle: "ACTUAL DATA",
       data: [
         { label: "Start Time", value: selectedWildfire?.actualData.startTime },
-        { label: "End Time", value: selectedWildfire?.actualData.endTime },
         { label: "Sheltering", value: selectedWildfire?.actualData.sheltering },
         { label: "Live Moist", value: selectedWildfire?.actualData.liveMoist },
         {

@@ -17,7 +17,6 @@ interface Wildfire {
 
 interface ActualData {
   startTime: string;
-  endTime: string;
   sheltering: string;
   liveMoist: string;
   elevDifference: string;
@@ -53,7 +52,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -87,7 +85,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -126,7 +123,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -160,7 +156,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -199,7 +194,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -232,8 +226,7 @@ export const wildfiresDetails: Wildfires[] = [
             id: "mex_no_1",
             name: "Nogales Wildfire",
             actualData: {
-              startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
+              startTime: "07/29/24 9:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -261,7 +254,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Imuris Wildfire",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -289,7 +281,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Hermosillo Wildfire",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -317,7 +308,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Yecora Wildfire",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -351,7 +341,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
@@ -385,7 +374,6 @@ export const wildfiresDetails: Wildfires[] = [
             name: "Fire1",
             actualData: {
               startTime: "06/10/23 09:00",
-              endTime: "06/18/23 09:00",
               sheltering: "Fully Sheltered",
               liveMoist: "Fully Cured",
               elevDifference: "Below 1000 ft",
