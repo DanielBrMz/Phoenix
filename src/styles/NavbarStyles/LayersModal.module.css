@@ -32,7 +32,7 @@
 
 .categoryButton {
   width: 100%;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   font-size: 18px;
 
@@ -42,9 +42,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-transform: uppercase;
-  border-style: solid;
+  /* border-style: solid;
   border-color: white;
-  border-width: 1px;
+  border-width: 1px; */
 }
 
 .categoryButton:hover,
@@ -53,11 +53,12 @@
 }
 
 .dropdownContent {
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
   border-radius: 4px;
   max-height: 200px; /* Ajusta la altura máxima según sea necesario */
   overflow-y: auto;
+  font-size: 20px;
 }
 
 .checkboxContainer {
