@@ -101,7 +101,7 @@ const PredictionStep: React.FC<Props> = ({
       {selectedWildfire && (
         <>
           <h2 className={styles.wildfirePredictionTitle}>
-            {selectedWildfire.name} WILDFIRE
+            {selectedWildfire.name}
           </h2>
           {wildfireInfo.map((section, index) => (
             <div key={index}>
