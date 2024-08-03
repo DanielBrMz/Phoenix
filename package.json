@@ -36,6 +36,7 @@
     "react-redux": "^9.1.2",
     "react-slider": "^2.0.6",
     "redux": "^5.0.1",
+    "sharp": "^0.33.4",
     "superjson": "^1.13.3",
     "tailwind-scrollbar": "^3.0.5",
     "use-position": "^1.0.0",
