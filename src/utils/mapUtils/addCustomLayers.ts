@@ -1,14 +1,13 @@
-import mapboxgl from "mapbox-gl";
-import type { Map } from "mapbox-gl";
+import type { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
 
-type SymbolLayout = mapboxgl.AnyLayout & {
+type SymbolLayout = AnyLayout & {
   "text-field"?: string;
 };
 
 const addCustomLayers = (map: Map) => {
-  const layers: mapboxgl.AnyLayer[] = map.getStyle().layers;
+  const layers: AnyLayer[] = map.getStyle().layers;
   const labelLayer = layers.find((layer) => {
-    const typedLayer = layer as mapboxgl.Layer & { layout?: SymbolLayout };
+    const typedLayer = layer as Layer & { layout?: SymbolLayout };
     return (
       typedLayer.type === "symbol" &&
       typedLayer.layout &&
