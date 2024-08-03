@@ -30,22 +30,22 @@ dependencies:
     specifier: ^2.2.7
     version: 2.2.7(react-redux@9.1.2)(react@18.2.0)
   '@t3-oss/env-nextjs':
-    specifier: ^0.6.0
+    specifier: ^0.6.1
     version: 0.6.1(typescript@5.2.2)(zod@3.22.4)
   '@tanstack/react-query':
-    specifier: ^4.32.6
+    specifier: ^4.36.1
     version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
   '@trpc/client':
-    specifier: ^10.37.1
+    specifier: ^10.40.0
     version: 10.40.0(@trpc/server@10.40.0)
   '@trpc/next':
-    specifier: ^10.37.1
+    specifier: ^10.40.0
     version: 10.40.0(@tanstack/react-query@4.36.1)(@trpc/client@10.40.0)(@trpc/react-query@10.40.0)(@trpc/server@10.40.0)(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
   '@trpc/react-query':
-    specifier: ^10.37.1
+    specifier: ^10.40.0
     version: 10.40.0(@tanstack/react-query@4.36.1)(@trpc/client@10.40.0)(@trpc/server@10.40.0)(react-dom@18.2.0)(react@18.2.0)
   '@trpc/server':
-    specifier: ^10.37.1
+    specifier: ^10.40.0
     version: 10.40.0
   '@turf/turf':
     specifier: ^6.5.0
@@ -54,7 +54,7 @@ dependencies:
     specifier: ^0.2.3
     version: 0.2.3
   axios:
-    specifier: ^1.5.1
+    specifier: ^1.6.0
     version: 1.6.0
   geojson:
     specifier: ^0.5.0
@@ -63,7 +63,7 @@ dependencies:
     specifier: ^2.15.0
     version: 2.15.0
   next:
-    specifier: ^13.4.19
+    specifier: ^13.5.4
     version: 13.5.4(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: 18.2.0
@@ -87,7 +87,7 @@ dependencies:
     specifier: ^5.0.1
     version: 5.0.1
   superjson:
-    specifier: ^1.13.1
+    specifier: ^1.13.3
     version: 1.13.3
   tailwind-scrollbar:
     specifier: ^3.0.5
@@ -96,7 +96,7 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0(react@18.2.0)
   zod:
-    specifier: ^3.21.4
+    specifier: ^3.22.4
     version: 3.22.4
   zustand:
     specifier: ^4.5.4
@@ -107,7 +107,7 @@ devDependencies:
     specifier: ^0.14.0
     version: 0.14.0
   '@types/eslint':
-    specifier: ^8.44.2
+    specifier: ^8.44.3
     version: 8.44.3
   '@types/geojson':
     specifier: ^7946.0.11
@@ -116,46 +116,46 @@ devDependencies:
     specifier: ^2.7.15
     version: 2.7.15
   '@types/node':
-    specifier: ^18.16.0
+    specifier: ^18.18.4
     version: 18.18.4
   '@types/react':
-    specifier: ^18.2.20
+    specifier: ^18.2.27
     version: 18.2.27
   '@types/react-dom':
-    specifier: ^18.2.7
+    specifier: ^18.2.12
     version: 18.2.12
   '@types/use-position':
     specifier: ^1.0.2
     version: 1.0.2
   '@typescript-eslint/eslint-plugin':
-    specifier: ^6.3.0
+    specifier: ^6.7.5
     version: 6.7.5(@typescript-eslint/parser@6.7.5)(eslint@8.51.0)(typescript@5.2.2)
   '@typescript-eslint/parser':
-    specifier: ^6.3.0
+    specifier: ^6.7.5
     version: 6.7.5(eslint@8.51.0)(typescript@5.2.2)
   autoprefixer:
-    specifier: ^10.4.14
+    specifier: ^10.4.16
     version: 10.4.16(postcss@8.4.31)
   eslint:
-    specifier: ^8.47.0
+    specifier: ^8.51.0
     version: 8.51.0
   eslint-config-next:
-    specifier: ^13.4.19
+    specifier: ^13.5.4
     version: 13.5.4(eslint@8.51.0)(typescript@5.2.2)
   postcss:
-    specifier: ^8.4.27
+    specifier: ^8.4.31
     version: 8.4.31
   prettier:
-    specifier: ^3.0.0
+    specifier: ^3.0.3
     version: 3.0.3
   prettier-plugin-tailwindcss:
-    specifier: ^0.5.1
+    specifier: ^0.5.5
     version: 0.5.5(prettier@3.0.3)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
   typescript:
-    specifier: ^5.1.6
+    specifier: ^5.2.2
     version: 5.2.2
 
 packages:
@@ -2472,7 +2472,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.1
-      caniuse-lite: 1.0.30001547
+      caniuse-lite: 1.0.30001647
       fraction.js: 4.3.6
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -2565,7 +2565,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001547
+      caniuse-lite: 1.0.30001647
       electron-to-chromium: 1.4.548
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
@@ -2592,8 +2592,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  /caniuse-lite@1.0.30001547:
-    resolution: {integrity: sha512-W7CrtIModMAxobGhz8iXmDfuJiiKg1WADMO/9x7/CLNin5cpSbuBjooyoIUVB5eyCc36QuTVlkVa1iB2S5+/eA==}
+  /caniuse-lite@1.0.30001647:
+    resolution: {integrity: sha512-n83xdNiyeNcHpzWY+1aFbqCK7LuLfBricc4+alSQL2Xb6OR3XpnQAmlDG+pQcdTfiHRuLcQ96VOfrPSGiNJYSg==}
 
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -4022,7 +4022,7 @@ packages:
       '@next/env': 13.5.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001547
+      caniuse-lite: 1.0.30001647
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)

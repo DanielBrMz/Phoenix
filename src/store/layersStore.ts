@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import type { Service as Layer } from "../types/layerInterfaces";
 
 interface LayersState {
