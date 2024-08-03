@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import mapboxgl, { Map } from "mapbox-gl";
+import { useEffect, useRef } from "react";
+import mapboxgl from "mapbox-gl";
 import useLayersStore from "~/store/layersStore";
-import { Instance, Service as Layer } from "~/types/layerInterfaces";
+import type { Map } from "mapbox-gl";
+import type { Instance } from "~/types/layerInterfaces";
 
 interface ServicesLayerProps {
   map: Map | null;

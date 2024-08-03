@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { servicesDetails } from "~/data/layers/servicesDetails";
 import useLayersStore from "~/store/layersStore";
-import { Category, Service } from "~/types/layerInterfaces";
+import type { Category, Service } from "~/types/layerInterfaces";
 import styles from "~/styles/NavbarStyles/LayersModal.module.css";
 
 const LayersModal = () => {

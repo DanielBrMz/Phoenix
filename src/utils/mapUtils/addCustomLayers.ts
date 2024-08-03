@@ -1,4 +1,5 @@
-import mapboxgl, { Map } from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
+import type { Map } from "mapbox-gl";
 
 type SymbolLayout = mapboxgl.AnyLayout & {
   "text-field"?: string;

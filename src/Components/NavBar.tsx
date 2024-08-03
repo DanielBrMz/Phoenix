@@ -17,9 +17,9 @@ import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import useStore from "~/store/useStore";
 import alertsStore from "~/store/alertsStore";
 import styles from "../styles/NavbarStyles/Navbar.module.css";
-import { Map } from "mapbox-gl";
+import type { Map } from "mapbox-gl";
 import Draggable from "react-draggable";
-// Importing an image
+import Image from "next/image"; // Importing Image from next/image
 import agarradera from "../assets/agarradera2.png";
 
 interface Alert {
@@ -43,23 +43,20 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
-  const { alertsVisible, toggleAlertsVisible } = alertsStore((state) => ({
+  const { alertsVisible } = alertsStore((state) => ({
     alertsVisible: state.alertsVisible,
-    toggleAlertsVisible: state.toggleAlertsVisible,
   }));
   const {
     activeStep,
     setActiveStep,
     inPredictionStep,
     stayInPredictionStep,
-    leavePredictionStep,
     resetStep,
   } = useStore((state) => ({
     activeStep: state.activeStep,
     setActiveStep: state.setActiveStep,
     inPredictionStep: state.inPredictionStep,
     stayInPredictionStep: state.stayInPredictionStep,
-    leavePredictionStep: state.leavePredictionStep,
     resetStep: state.resetStep,
   }));
 
@@ -123,7 +120,6 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
             country={selectedData.country!}
             state={selectedData.state!}
             wildfire={selectedData.wildfire!}
-            onBack={handleBack}
             onReset={handleReset}
           />
         );
@@ -190,7 +186,13 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
             className={styles.handleContainer}
             onClick={toggleModalVisibility}
           >
-            <img src={agarradera.src} className={styles.handle} />
+            <Image
+              src={agarradera.src}
+              alt="handle"
+              width={50} // You can adjust the width and height as per your requirement
+              height={50} // You can adjust the width and height as per your requirement
+              className={styles.handle}
+            />
           </div>
         </div>
 

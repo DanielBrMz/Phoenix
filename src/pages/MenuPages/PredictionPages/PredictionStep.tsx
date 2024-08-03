@@ -7,7 +7,6 @@ interface Props {
   country: string;
   state: string;
   wildfire: string;
-  onBack: () => void;
   onReset: () => void;
 }
 
@@ -15,7 +14,6 @@ const PredictionStep: React.FC<Props> = ({
   country,
   state,
   wildfire,
-  onBack,
   onReset,
 }) => {
   const leavePredictionStep = useStore((state) => state.leavePredictionStep);

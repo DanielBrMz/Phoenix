@@ -1,9 +1,8 @@
-import { StaticImageData } from "next/image";
 import firefighter from "../../assets/emergencyIcons/bombero.png";
 import hospital from "../../assets/emergencyIcons/hospital.png";
 import police from "../../assets/emergencyIcons/policia.png";
 import electricityPole from "../../assets/infrastructureIcons/torre.png";
-import { Category } from "../../types/layerInterfaces";
+import type { Category } from "../../types/layerInterfaces";
 
 export const servicesDetails: Category[] = [
   {

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-
-import { type Map } from "mapbox-gl";
+import React, { useEffect, useState, useCallback } from "react";
+import type { Map } from "mapbox-gl";
 import RangeSlider from "./RangeSlider";
 import useStore from "~/store/useStore";
 import styles from "~/styles/SliderStyles/SliderStyles.module.css";
@@ -35,26 +34,16 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-  useEffect(() => {
-    if (map) {
-      map.on("moveend", () => {
-        setLat(map.getCenter().lat);
-        setLng(map.getCenter().lng);
-        fetchLocationData();
-      });
-    }
-  }, [map]);
-
-  const fetchLocationData = () => {
+  const fetchLocationData = useCallback(() => {
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode?latitude=${lat}&longitude=${lng}&localityLanguage=en`,
     )
       .then((response) => response.json() as Promise<LocationData>)
       .then((data) => setLocationData(data))
       .catch((error) => console.error(error));
-  };
+  }, [lat, lng]);
 
-  const fetchWeatherData = () => {
+  const fetchWeatherData = useCallback(() => {
     const username = "molinagroup_barreras_daniel";
     const password = "VfCzr02qA5";
     fetch(
@@ -68,12 +57,22 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
       .then((response) => response.json() as Promise<WeatherData>)
       .then((data) => setWeatherData(data))
       .catch((error) => console.error(error));
-  };
+  }, [lat, lng]);
+
+  useEffect(() => {
+    if (map) {
+      map.on("moveend", () => {
+        setLat(map.getCenter().lat);
+        setLng(map.getCenter().lng);
+        fetchLocationData();
+      });
+    }
+  }, [map, fetchLocationData]);
 
   useEffect(() => {
     const intervalId = setInterval(fetchWeatherData, 5 * 60 * 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [fetchWeatherData]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

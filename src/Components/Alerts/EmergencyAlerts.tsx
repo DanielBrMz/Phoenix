@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import mapboxgl, { Map } from "mapbox-gl";
+import { useEffect } from "react";
+import mapboxgl from "mapbox-gl";
 import { loraDevices } from "~/data/loraDevices";
+import type { Map } from "mapbox-gl";
 
 interface Alert {
   id: string;

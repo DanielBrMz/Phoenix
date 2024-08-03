@@ -10,7 +10,7 @@ interface RangeSliderProps {
   map: mapboxgl.Map;
 }
 
-const AirbnbSlider = styled(Slider)(({ theme }) => ({
+const AirbnbSlider = styled(Slider)(() => ({
   color: "#f57f61",
   height: 4,
   "& .MuiSlider-thumb": {
@@ -96,7 +96,7 @@ export default function RangeSlider({ map }: RangeSliderProps) {
       case 12:
         return { text: "12 HOUR PREDICTION", transform: 100 };
       case 24:
-        return { text: "24 HOUR PREDICTION", transform: 240 };
+        return { text: "24 HOUR PREDICTION", transform: 280 };
       case 36:
         return { text: "36 HOUR PREDICTION", transform: 380 };
       case 48:

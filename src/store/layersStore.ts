@@ -1,6 +1,6 @@
 import create from "zustand";
-import { StaticImageData } from "next/image";
-import { Instance, Service as Layer } from "../types/layerInterfaces";
+import type { Service as Layer } from "../types/layerInterfaces";
+
 interface LayersState {
   selectedLayers: Layer[];
   toggleLayer: (layer: Layer) => void;
