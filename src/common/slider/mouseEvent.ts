@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+/* import type { RefObject } from "react";
 import type { StyleRangeSliderType } from "./slider";
 
 type MouseEventHandlerProps = {
@@ -95,3 +95,4 @@ function nope(): void {
   throw new Error("Function not implemented.");
 }
 
+ */

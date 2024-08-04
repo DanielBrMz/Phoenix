@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+/* 
 import React, { Component, createRef, type RefObject } from "react";
 import { classNames } from "~/types";
 import styled from "styled-components";
@@ -238,3 +239,4 @@ export default class Slider extends Component<SliderProps> {
     );
   }
 }
+ */
