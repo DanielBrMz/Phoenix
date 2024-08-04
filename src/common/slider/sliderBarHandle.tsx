@@ -1,4 +1,4 @@
-import React, {Component, RefObject} from 'react';
+/* import React, {Component, RefObject} from 'react';
 import classnames from '~/types';
 import styled from 'styled-components';
 import MouseEventHandler from './mouseEvent';
@@ -84,3 +84,4 @@ export default class SliderBarHandle extends Component {
     );
   }
 }
+ */

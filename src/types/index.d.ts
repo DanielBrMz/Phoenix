@@ -1,4 +1,4 @@
-import * as React from 'react';
+/* import * as React from 'react';
 
 declare function KeyMirror<T>(obj: T): {[K in keyof T]: K};
 export = KeyMirror;
@@ -21,4 +21,4 @@ export type TimeRangeFilterProps = {
     setFilter: (v: number[]) => void;
     toggleAnimation: () => void;
     timeline: Timeline;
-  };
+  }; */

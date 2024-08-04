@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+/* import React, { ReactNode } from 'react'
 import styles from "../styles/Home.module.css";
 
 import { Map, Source, Layer, SkyLayer, AnyLayer, SymbolLayer } from "react-map-gl";
@@ -183,3 +183,4 @@ export default function MyMap({
     </div>
   );
 }
+ */

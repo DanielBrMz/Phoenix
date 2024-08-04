@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+/* import React, {useState, useCallback} from 'react';
 import styled, {withTheme} from 'styled-components';
 import RangeBrushFactory, {OnBrush, RangeBrushProps} from './range-brush';
 import HistogramPlotFactory from './histogram-plot';
@@ -140,3 +140,4 @@ export default function RangePlotFactory(
 
   return withTheme(RangePlot);
 }
+ */

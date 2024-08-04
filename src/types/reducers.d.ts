@@ -1,12 +1,9 @@
-export type TimeRangeFilter = FilterBase<LineChart> &
-  TimeRangeFieldDomain & {
-    type: 'timeRange';
-    fieldType: 'timestamp';
+export type TimeRangeFilter = {
+    type: "timeRange";
+    fieldType: "timestamp";
     fixedDomain: true;
     value: [number, number];
-    bins?: Object;
-    plotType: {
-      [key: string]: any;
-    };
+    bins?: unknown;
+    plotType: Record<string, unknown>;
     animationWindow: string;
-  };
+  }; /* */
