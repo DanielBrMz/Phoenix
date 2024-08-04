@@ -1,14 +1,9 @@
-// SPDX-License-Identifier: MIT
-// Copyright contributors to the kepler.gl project
-
+/*
 import React from 'react';
 import TimeRangeSliderFactory from '../common/TimeRangeSlider';
 import {DEFAULT_TIME_FORMAT, FILTER_VIEW_TYPES} from '../constants/settings';
 import {TimeRangeFilter} from '../types/reducers';
 import {TimeRangeFilterProps} from '../types/index';
-/*
- * TimeRangeFilter -> TimeRangeSlider -> RangeSlider
- */
 export function timeRangeSliderFieldsSelector(filter: TimeRangeFilter) {
   const hasUserFormat = typeof filter.timeFormat === 'string';
   const timeFormat =
@@ -60,3 +55,4 @@ function TimeRangeFilterFactory(TimeRangeSlider: ReturnType<typeof TimeRangeSlid
 }
 
 export default TimeRangeFilterFactory;
+*/

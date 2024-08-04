@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+/* import React, {useMemo} from 'react';
 import throttle from 'lodash.throttle';
 import styled from 'styled-components';
 
@@ -172,3 +172,4 @@ export default function TimeRangeSliderFactory(
 
   return React.memo(TimeRangeSlider);
 }
+ */

@@ -1,0 +1,94 @@
+.alertsContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.alertsTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f57f61;
+  align-self: center;
+}
+
+.line {
+  height: 3px; /* Ajusta el grosor de la línea */
+  width: 100%; /* Ajusta el ancho de la línea según sea necesario */
+  background-color: rgb(
+    23,
+    23,
+    23,
+    0.6
+  ); /* Color negro con 50% de transparencia */
+  margin: 20px 0; /* Ajusta el margen según sea necesario */
+  /* box-shadow: 0 0 5px 0 rgb(29, 29, 29);  Sombra con 50% de transparencia */
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+  cursor: pointer; /* Añadir cursor de puntero para indicar que es interactivo */
+}
+
+.checkboxAlerts {
+  width: 26px;
+  height: 26px;
+  background-color: white; /* Color de fondo por defecto */
+  transition: background-color 0.3s ease; /* Añadir transición para un cambio suave de color */
+}
+
+.checkboxChecked {
+  background-color: #f57f61; /* Color de fondo cuando está activo */
+}
+
+.checkboxAlertsSubtitle {
+  width: 90%;
+  font-size: 20px;
+  color: white;
+}
+
+.noAlertText {
+  font-size: 20px;
+  color: white;
+  align-self: center;
+  text-transform: uppercase;
+  padding-top: 10px;
+}
+
+.alertDetailsContainer {
+  margin: 15px;
+  border-radius: 10px;
+  border-color: "white";
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.alertDetailsTitle {
+  font-size: 21.5px;
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.alertDetailsDescription {
+  margin-top: 10px;
+  color: #c8c8c8;
+  font-size: 20px;
+}
+
+.alertExitButton {
+  background-color: black;
+  width: 90%;
+  height: 45px;
+  align-self: center;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+}

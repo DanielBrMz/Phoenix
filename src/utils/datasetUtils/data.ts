@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { snapToMarks } from "./plot";
 import assert from 'assert';
 
-export function clamp([min, max]: [number, number], val: number = 0): number {
+export function clamp([min, max]: [number, number], val = 0): number {
   return val <= min ? min : val >= max ? max : val;
 }
 
-export function getSampleData(data: string | any[], sampleSize = 500, getValue = (d: number) => d) {
+export function getSampleData(data: string | number[], sampleSize = 500, getValue = (d: number) => d) {
   const sampleStep = Math.max(Math.floor(data.length / sampleSize), 1);
-  const output: any[] = [];
+  const output: number[] = [];
   for (let i = 0; i < data.length; i += sampleStep) {
-    output.push(getValue(data[i]));
+    output.push(getValue(data[i] as number));
   }
 
   return output;
@@ -18,7 +19,7 @@ export function getSampleData(data: string | any[], sampleSize = 500, getValue =
 /**
  * Whether d is a number, this filtered out NaN as well
  */
-export function isNumber(d: any): boolean {
+export function isNumber(d: unknown) {
     return Number.isFinite(d);
   }
 
@@ -70,7 +71,7 @@ export function normalizeSliderValue(
     step: number,
     marks?: number[]
   ): number {
-    if (marks && marks.length) {
+    if (marks?.length) {
       // Use in slider, given a number and an array of numbers, return the nears number from the array
       return snapToMarks(val, marks);
     }

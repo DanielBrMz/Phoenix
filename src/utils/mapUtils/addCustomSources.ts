@@ -1,4 +1,4 @@
-import type {Map} from "mapbox-gl";
+import type { Map } from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
 
 const addCustomSources = (map: Map) => {
@@ -13,6 +13,6 @@ const addCustomSources = (map: Map) => {
     "polygon",
     createGeoJSONCircles([-110.8968082457804, 31.26933620026809], 0.5),
   );
-}
+};
 
 export default addCustomSources;

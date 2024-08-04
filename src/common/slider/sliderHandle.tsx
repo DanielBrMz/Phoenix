@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+/* // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
 import React, {Component, createRef, CSSProperties, RefObject} from 'react';
@@ -191,3 +191,4 @@ export default class SliderHandle extends Component {
     );
   }
 }
+ */
