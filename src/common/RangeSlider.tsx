@@ -44,7 +44,7 @@ interface RangeSliderProps {
   value0: number;
   value1: number;
   onChange?: (val: number[], e?: Event | null) => void; // TODO
-  histogram?: any[];
+  histogram?: unknown[];
   isRanged?: boolean;
   isEnlarged?: boolean;
   showInput?: boolean;
@@ -79,10 +79,10 @@ export default function RangeSliderFactory(
       sliderHandleWidth: 12,
       inputTheme: '',
       inputSize: 'small',
-      onChange: () => {}
+      onChange: () => {return;}
     };
 
-    static getDerivedStateFromProps(props, state) {
+    static getDerivedStateFromProps(props: { value0: unknown; value1: any; }, state: { prevValue0: any; prevValue1: any; }) {
       let update: {value1?: any; prevValue1?: any; value0?: any; prevValue0?: any} | null = null;
       const {value0, value1} = props;
       if (props.value0 !== state.prevValue0 && !isNaN(value0)) {

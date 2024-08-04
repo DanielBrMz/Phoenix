@@ -1,12 +1,15 @@
-import React, {Component, createRef, RefObject} from 'react';
-import { classNames } from '~/types';
-import styled from 'styled-components';
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import React, { Component, createRef, type RefObject } from "react";
+import { classNames } from "~/types";
+import styled from "styled-components";
 
-import SliderHandle from './sliderHandle';
-import SliderBarHandle from './sliderBarHandle';
-import {normalizeSliderValue, clamp} from '~/utils/datasetUtils/data';
+import SliderHandle from "./sliderHandle";
+import SliderBarHandle from "./sliderBarHandle";
+import { normalizeSliderValue, clamp } from "~/utils/datasetUtils/data";
 
-function noop() {}
+function noop() {
+  return;
+}
 
 interface StyledRangeSliderProps {
   vertical?: boolean;
@@ -14,9 +17,10 @@ interface StyledRangeSliderProps {
 
 const StyledRangeSlider = styled.div<StyledRangeSliderProps>`
   position: relative;
-  background-color: ${props => props.theme.sliderBarBgd};
-  ${props => `${props.vertical ? 'width' : 'height'}: ${props.theme.sliderBarHeight}px`};
-  ${props => `${props.vertical ? 'height' : 'width'}: 100%`};
+  background-color: ${(props) => props.theme.sliderBarBgd};
+  ${(props) =>
+    `${props.vertical ? "width" : "height"}: ${props.theme.sliderBarHeight}px`};
+  ${(props) => `${props.vertical ? "height" : "width"}: 100%`};
 `;
 
 export type StyleRangeSliderType = typeof StyledRangeSlider & HTMLDivElement;
@@ -38,15 +42,15 @@ type SliderProps = {
   minValue: number;
   maxValue: number;
   sliderHandleWidth: number;
-  onSlider0Change: (val: number) => any;
-  onSlider1Change: (val: number) => any;
+  onSlider0Change: (val: number) => unknown;
+  onSlider1Change: (val: number) => unknown;
   onSliderBarChange: (val0: number, val1: number) => void;
   step: number;
   enableBarDrag: boolean;
   showTooltip: boolean;
   vertical: boolean;
   marks?: number[];
-  classSet?: {[key: string]: boolean};
+  classSet?: Record<string, boolean>;
   disabled: boolean;
   className?: string;
   style?: object;
@@ -54,7 +58,7 @@ type SliderProps = {
 
 export default class Slider extends Component<SliderProps> {
   static defaultProps = {
-    title: '',
+    title: "",
     isRanged: true,
     value0: 0,
     value1: 100,
@@ -68,15 +72,16 @@ export default class Slider extends Component<SliderProps> {
     onSliderBarChange: noop,
     disabled: false,
     vertical: false,
-    showTooltip: false
+    showTooltip: false,
   };
 
-  private anchor: number = 0;
+  private anchor = 0;
 
   public ref: RefObject<typeof SliderWrapper & HTMLDivElement> = createRef<
     typeof SliderWrapper & HTMLDivElement
   >();
-  public track: RefObject<StyleRangeSliderType> = createRef<StyleRangeSliderType>();
+  public track: RefObject<StyleRangeSliderType> =
+    createRef<StyleRangeSliderType>();
 
   constructor(public props: SliderProps) {
     super(props);
@@ -91,7 +96,9 @@ export default class Slider extends Component<SliderProps> {
     if (!this.ref.current) {
       return 0;
     }
-    return this.props.vertical ? this.ref.current.offsetHeight : this.ref.current.offsetWidth;
+    return this.props.vertical
+      ? this.ref.current.offsetHeight
+      : this.ref.current.offsetWidth;
   }
 
   private getDeltaVal(x: number) {
@@ -113,29 +120,35 @@ export default class Slider extends Component<SliderProps> {
   }
 
   private normalizeValue(val: number) {
-    const {minValue, step, marks} = this.props;
+    const { minValue, step, marks } = this.props;
     return normalizeSliderValue(val, minValue, step, marks);
   }
 
   slide0Listener = (x: number) => {
-    const {value1, minValue} = this.props;
+    const { value1, minValue } = this.props;
     const val = this.getValue(minValue, x);
     this.props.onSlider0Change(clamp([minValue, value1], val));
   };
 
   slide1Listener = (x: number) => {
-    const {minValue, maxValue, value0} = this.props;
+    const { minValue, maxValue, value0 } = this.props;
     const val = this.getValue(minValue, x);
     this.props.onSlider1Change(clamp([value0, maxValue], val));
   };
 
   sliderBarListener = (x: number) => {
-    const {value0, value1, minValue, maxValue} = this.props;
+    const { value0, value1, minValue, maxValue } = this.props;
     // for slider bar, we use distance delta
     const anchor = this.anchor;
     const length = value1 - value0; // the length of the selected range shouldn't change when clamping
-    const val0 = clamp([minValue, maxValue - length], this.getValue(value0, x - anchor));
-    const val1 = clamp([val0 + length, maxValue], this.getValue(value1, x - anchor));
+    const val0 = clamp(
+      [minValue, maxValue - length],
+      this.getValue(value0, x - anchor),
+    );
+    const val1 = clamp(
+      [val0 + length, maxValue],
+      this.getValue(value1, x - anchor),
+    );
 
     const deltaX = this.getDeltaX(val0 - this.props.value0);
     this.props.onSliderBarChange(val0, val1);
@@ -167,7 +180,7 @@ export default class Slider extends Component<SliderProps> {
       vertical,
       sliderHandleWidth,
       showTooltip,
-      style
+      style,
     } = this.props;
     const value0 = !isRanged && minValue > 0 ? minValue : this.props.value0;
     const currValDelta = value1 - value0;
@@ -178,13 +191,21 @@ export default class Slider extends Component<SliderProps> {
 
     return (
       <SliderWrapper
-        className={classNames('kg-slider', {...classSet, disabled}, className)}
+        className={classNames(
+          "kg-slider",
+          { ...classSet, disabled },
+          className,
+        )}
         ref={this.ref}
         isRanged={isRanged}
         vertical={vertical}
         style={style}
       >
-        <StyledRangeSlider className="kg-range-slider" vertical={vertical} ref={this.track}>
+        <StyledRangeSlider
+          className="kg-range-slider"
+          vertical={vertical}
+          ref={this.track}
+        >
           <SliderHandle
             left={this.calcHandleLeft0(width, v0Left)}
             valueListener={this.slide0Listener}
