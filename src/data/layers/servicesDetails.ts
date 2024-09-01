@@ -46,14 +46,16 @@ export const servicesDetails: Category[] = [
         instances: [
           { id: "e1", coordinates: [-110.894, 31.283] },
           { id: "e2", coordinates: [-110.905, 31.2655] },
+          { id: "e3", coordinates: [-121.912, 40.333] }, // South-east
         ],
       },
       {
         name: "Firefighters",
         icon: firefighter,
         instances: [
-          { id: "e3", coordinates: [-110.882, 31.275] },
-          { id: "e4", coordinates: [-110.905, 31.278] },
+          { id: "f1", coordinates: [-110.882, 31.275] },
+          { id: "f2", coordinates: [-110.905, 31.278] },
+          { id: "f3", coordinates: [-121.925, 40.332] },
         ],
       },
       // {
@@ -89,6 +91,10 @@ export const servicesDetails: Category[] = [
           { id: "i4", coordinates: [-110.9045, 31.2675] },
           { id: "i5", coordinates: [-110.9005, 31.273] },
           { id: "i6", coordinates: [-110.892, 31.266] },
+          { id: "i7", coordinates: [-121.9337, 40.3266] },
+          { id: "i8", coordinates: [-121.9342, 40.3266] },
+          { id: "i9", coordinates: [-121.9337, 40.339] },
+          { id: "i10", coordinates: [-121.9342, 40.339] },
         ],
       },
       {
@@ -105,6 +111,7 @@ export const servicesDetails: Category[] = [
         instances: [
           { id: "g1", coordinates: [-110.914, 31.272] },
           { id: "g2", coordinates: [-110.916, 31.278] },
+          { id: "g3", coordinates: [-121.916, 40.336] },
         ],
       },
       {
@@ -128,7 +135,10 @@ export const servicesDetails: Category[] = [
       {
         name: "Schools",
         icon: colegio,
-        instances: [{ id: "s1", coordinates: [-110.911, 31.262] }],
+        instances: [
+          { id: "s1", coordinates: [-110.911, 31.262] },
+          { id: "s2", coordinates: [-121.9135, 40.3355] },
+        ],
       },
     ],
   },
@@ -146,6 +156,7 @@ export const servicesDetails: Category[] = [
         instances: [
           { id: "a1", coordinates: [-110.893, 31.27] },
           { id: "a2", coordinates: [-110.899, 31.278] },
+          { id: "a3", coordinates: [-121.892, 40.341] },
         ],
       },
       {
