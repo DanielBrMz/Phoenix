@@ -10,6 +10,7 @@ import ServicesLayer from "~/Components/Layers/ServicesLayer";
 import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
+import { wildfiresStore } from "~/store/wildfiresStore"; // Import wildfiresStore
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -21,6 +22,9 @@ export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [userLogin, setIsUserLogin] = useState(false);
+  const selectedCoordinates = wildfiresStore(
+    (state) => state.selectedCoordinates,
+  ); // Access selectedCoordinates
 
   useEffect(() => {
     if (userLogin) {
@@ -70,6 +74,26 @@ export default function Home() {
       });
     }
   }, [userLogin]);
+
+  useEffect(() => {
+    if (selectedCoordinates && map) {
+      flyToLocation(selectedCoordinates, 15);
+    }
+  }, [selectedCoordinates, map]);
+
+  const flyToLocation = (coords: [number, number], zoom = 15) => {
+    if (map) {
+      map.flyTo({
+        center: coords,
+        zoom: zoom,
+        speed: 0.8,
+        curve: 1,
+        easing(t) {
+          return t;
+        },
+      });
+    }
+  };
 
   const handleLogin = () => {
     setIsUserLogin(true);

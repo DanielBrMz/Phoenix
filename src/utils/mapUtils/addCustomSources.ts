@@ -1,5 +1,6 @@
 import type { Map } from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
+import { wildfiresDetails } from "~/data/wildfires";
 
 const addCustomSources = (map: Map) => {
   map.addSource("mapbox-dem", {
@@ -9,10 +10,15 @@ const addCustomSources = (map: Map) => {
     maxzoom: 14,
   });
 
-  map.addSource(
-    "polygon",
-    createGeoJSONCircles([-110.8968082457804, 31.26933620026809], 0.5),
-  );
+  wildfiresDetails.forEach((country) => {
+    country.states.forEach((state) => {
+      state.wildfires.forEach((wildfire) => {
+        const sourceId = `wildfire-${wildfire.id}`;
+        const geoJSONSource = createGeoJSONCircles(wildfire.coordinates, 0.5);
+        map.addSource(sourceId, geoJSONSource);
+      });
+    });
+  });
 };
 
 export default addCustomSources;

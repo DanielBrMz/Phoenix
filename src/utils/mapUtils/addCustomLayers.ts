@@ -1,4 +1,5 @@
 import type { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
+import { wildfiresDetails } from "~/data/wildfires";
 
 type SymbolLayout = AnyLayout & {
   "text-field"?: string;
@@ -15,7 +16,7 @@ const addCustomLayers = (map: Map) => {
     );
   });
 
-  // Añade capa de etiquetas de lugares
+  // Add place labels layer
   map.addLayer({
     id: "place-labels",
     source: "composite",
@@ -28,37 +29,44 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
-  // Añade capa de calor
-  map.addLayer({
-    id: "polygon",
-    type: "heatmap",
-    source: "polygon",
-    layout: {},
-    paint: {
-      "heatmap-color": [
-        "interpolate",
-        ["linear"],
-        ["heatmap-density"],
-        0,
-        "rgba(33,102,172,0)",
-        0.2,
-        "rgb(103,169,207)",
-        0.4,
-        "rgb(209,229,240)",
-        0.6,
-        "rgb(253,219,199)",
-        0.8,
-        "rgb(239,138,98)",
-        1,
-        "rgb(178,24,43)",
-      ],
-      "heatmap-opacity": 0.6,
-      "heatmap-radius": 10, // Valor fijo para mantener el tamaño
-      "heatmap-intensity": 1, // Valor fijo para mantener la intensidad
-    },
+  // Add heatmap layers for each wildfire
+  wildfiresDetails.forEach((country) => {
+    country.states.forEach((state) => {
+      state.wildfires.forEach((wildfire) => {
+        const layerId = `heatmap-${wildfire.id}`;
+        map.addLayer({
+          id: layerId,
+          type: "heatmap",
+          source: `wildfire-${wildfire.id}`,
+          layout: {},
+          paint: {
+            "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(33,102,172,0)",
+              0.2,
+              "rgb(103,169,207)",
+              0.4,
+              "rgb(209,229,240)",
+              0.6,
+              "rgb(253,219,199)",
+              0.8,
+              "rgb(239,138,98)",
+              1,
+              "rgb(178,24,43)",
+            ],
+            "heatmap-opacity": 0.6,
+            "heatmap-radius": 10, // Valor fijo para mantener el tamaño
+            "heatmap-intensity": 1, // Valor fijo para mantener la intensidad
+          },
+        });
+      });
+    });
   });
 
-  // Añade capa de edificios 3D
+  // Add 3D buildings layer
   map.addLayer(
     {
       id: "add-3d-buildings",
@@ -94,9 +102,10 @@ const addCustomLayers = (map: Map) => {
   );
 };
 
-// Función para ajustar el radio del heatmap manualmente
-export function setHeatmapRadius(map: Map, radius: number) {
-  map.setPaintProperty("polygon", "heatmap-radius", radius);
+// Function to adjust heatmap radius manually
+export function setHeatmapRadius(map: Map, radius: number, wildfireId: string) {
+  const layerId = `heatmap-${wildfireId}`;
+  map.setPaintProperty(layerId, "heatmap-radius", radius);
 }
 
 export default addCustomLayers;

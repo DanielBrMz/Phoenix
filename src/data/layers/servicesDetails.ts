@@ -2,6 +2,13 @@ import firefighter from "../../assets/emergencyIcons/bombero.png";
 import hospital from "../../assets/emergencyIcons/hospital.png";
 import police from "../../assets/emergencyIcons/policia.png";
 import electricityPole from "../../assets/infrastructureIcons/torre.png";
+import industria from "../../assets/infrastructureIcons/industria.png";
+import gasolinera from "../../assets/infrastructureIcons/gas.png";
+import plantaEnergia from "../../assets/infrastructureIcons/planta-de-energia.png";
+import hotel from "../../assets/humanHabitationIcons/hotel.png";
+import colegio from "../../assets/humanHabitationIcons/colegio.png";
+import agricultura from "../../assets/enviromentalIcons/agricultura.png";
+import mina from "../../assets/enviromentalIcons/mina.png";
 import type { Category } from "../../types/layerInterfaces";
 
 export const servicesDetails: Category[] = [
@@ -39,26 +46,28 @@ export const servicesDetails: Category[] = [
         instances: [
           { id: "e1", coordinates: [-110.894, 31.283] },
           { id: "e2", coordinates: [-110.905, 31.2655] },
+          { id: "e3", coordinates: [-121.912, 40.333] }, // South-east
         ],
       },
       {
         name: "Firefighters",
         icon: firefighter,
         instances: [
-          { id: "e3", coordinates: [-110.882, 31.275] },
-          { id: "e4", coordinates: [-110.905, 31.278] },
+          { id: "f1", coordinates: [-110.882, 31.275] },
+          { id: "f2", coordinates: [-110.905, 31.278] },
+          { id: "f3", coordinates: [-121.925, 40.332] },
         ],
       },
-      {
-        name: "Coast Guard",
-        icon: hospital,
-        instances: [],
-      },
-      {
-        name: "Civil Protection",
-        icon: hospital,
-        instances: [],
-      },
+      // {
+      //   name: "Coast Guard",
+      //   icon: hospital,
+      //   instances: [],
+      // },
+      // {
+      //   name: "Civil Protection",
+      //   icon: hospital,
+      //   instances: [],
+      // },
       {
         name: "Police Stations",
         icon: police,
@@ -82,22 +91,33 @@ export const servicesDetails: Category[] = [
           { id: "i4", coordinates: [-110.9045, 31.2675] },
           { id: "i5", coordinates: [-110.9005, 31.273] },
           { id: "i6", coordinates: [-110.892, 31.266] },
+          { id: "i7", coordinates: [-121.9337, 40.3266] },
+          { id: "i8", coordinates: [-121.9342, 40.3266] },
+          { id: "i9", coordinates: [-121.9337, 40.339] },
+          { id: "i10", coordinates: [-121.9342, 40.339] },
         ],
       },
       {
         name: "Industrial Complexes",
-        icon: electricityPole,
-        instances: [],
+        icon: industria,
+        instances: [
+          { id: "i1", coordinates: [-110.912, 31.28] },
+          { id: "i2", coordinates: [-110.91, 31.281] },
+        ],
       },
       {
         name: "Gas Stations",
-        icon: electricityPole,
-        instances: [],
+        icon: gasolinera,
+        instances: [
+          { id: "g1", coordinates: [-110.914, 31.272] },
+          { id: "g2", coordinates: [-110.916, 31.278] },
+          { id: "g3", coordinates: [-121.916, 40.336] },
+        ],
       },
       {
         name: "Power Plants",
-        icon: electricityPole,
-        instances: [],
+        icon: plantaEnergia,
+        instances: [{ id: "p1", coordinates: [-110.886, 31.265] }],
       },
     ],
   },
@@ -105,24 +125,20 @@ export const servicesDetails: Category[] = [
     type: "Human Habitation",
     services: [
       {
-        name: "VIIRS hotspots",
-        icon: electricityPole,
-        instances: [],
+        name: "Hotels",
+        icon: hotel,
+        instances: [
+          { id: "h1", coordinates: [-110.918, 31.267] },
+          { id: "h2", coordinates: [-110.899, 31.28] },
+        ],
       },
       {
-        name: "MODIS hotspots",
-        icon: electricityPole,
-        instances: [],
-      },
-      {
-        name: "Live satellite (GOES-16)",
-        icon: electricityPole,
-        instances: [],
-      },
-      {
-        name: "Fire history",
-        icon: electricityPole,
-        instances: [],
+        name: "Schools",
+        icon: colegio,
+        instances: [
+          { id: "s1", coordinates: [-110.911, 31.262] },
+          { id: "s2", coordinates: [-121.9135, 40.3355] },
+        ],
       },
     ],
   },
@@ -130,50 +146,44 @@ export const servicesDetails: Category[] = [
     type: "Environmental & Resources",
     services: [
       {
-        name: "VIIRS hotspots",
+        name: "Protected Areas",
         icon: electricityPole,
         instances: [],
       },
       {
-        name: "MODIS hotspots",
-        icon: electricityPole,
-        instances: [],
+        name: "Agricultural facilities & farms",
+        icon: agricultura,
+        instances: [
+          { id: "a1", coordinates: [-110.893, 31.27] },
+          { id: "a2", coordinates: [-110.899, 31.278] },
+          { id: "a3", coordinates: [-121.892, 40.341] },
+        ],
       },
       {
-        name: "Live satellite (GOES-16)",
-        icon: electricityPole,
-        instances: [],
+        name: "Mine",
+        icon: mina,
+        instances: [{ id: "m1", coordinates: [-110.895, 31.254] }],
       },
       {
-        name: "Fire history",
+        name: "Historical buildings",
         icon: electricityPole,
         instances: [],
       },
     ],
   },
-  {
-    type: "Monitoring & Surveillance",
-    services: [
-      {
-        name: "VIIRS hotspots",
-        icon: electricityPole,
-        instances: [],
-      },
-      {
-        name: "MODIS hotspots",
-        icon: electricityPole,
-        instances: [],
-      },
-      {
-        name: "Live satellite (GOES-16)",
-        icon: electricityPole,
-        instances: [],
-      },
-      {
-        name: "Fire history",
-        icon: electricityPole,
-        instances: [],
-      },
-    ],
-  },
+  // {
+  //   type: "Monitoring & Surveillance",
+  //   services: [
+  //     {
+  //       name: "Cameras",
+  //       icon: electricityPole,
+  //       instances: [],
+  //     },
+  //     {
+  //       name: "Drones",
+  //       icon: electricityPole,
+  //       instances: [],
+  //     },
+  //   ],
+  // },
 ];
