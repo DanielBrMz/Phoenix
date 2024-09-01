@@ -125,7 +125,7 @@ export default function Home() {
             height={100}
             className="z-1 absolute bottom-4 left-8"
           />
-          {showPopUp && <PopUp onClose={() => setShowPopUp(false)} />}{" "}
+          {showPopUp && <PopUp onClose={() => setShowPopUp(false)} />}
         </main>
       )}
     </>

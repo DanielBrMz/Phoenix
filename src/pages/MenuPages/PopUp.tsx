@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "~/styles/PopUp/PopUp.module.css";
 
 interface PopUpProps {
   onClose: () => void;
@@ -11,56 +12,68 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
   const prevPage = () => setPage(page - 1);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="rounded bg-white p-4 text-center">
+    <div className={styles.popUpOuterContainer}>
+      <div className={styles.popUpContainer}>
         {page === 1 && (
-          <>
-            <h2 className="text-xl font-bold">Pop Up1</h2>
-            <button
-              className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
-              onClick={nextPage}
-            >
-              Siguiente
+          <div className={styles.popUpInnerContainer}>
+            <h2 className={styles.popUpHeader}>
+              Discover our advanced
+              <span className={styles.firstHeaderSpan}> fire prediction!</span>
+            </h2>
+            <div className={styles.GIFContainer}>IMAGE</div>
+            <p className={styles.descriptionText}>
+              Learn how our advanced machine learning models analyze real-time
+              data to predict wildfires. Get a clear view of potential risk
+              areas.
+            </p>
+            <button className={styles.buttonNext} onClick={nextPage}>
+              Next
             </button>
-          </>
+          </div>
         )}
         {page === 2 && (
-          <>
-            <h2 className="text-xl font-bold">Pop Up2</h2>
-            <div className="mt-4 flex justify-between">
-              <button
-                className="rounded bg-gray-500 px-4 py-2 text-white"
-                onClick={prevPage}
-              >
-                Atrás
+          <div className={styles.popUpInnerContainer}>
+            <h2 className={styles.popUpHeader}>
+              Stay <span className={styles.secondHeaderSpan}>Alert</span> with
+              Our Device!
+            </h2>
+            <div className={styles.GIFContainer}>IMAGE</div>
+            <p className={styles.descriptionText}>
+              Meet our EMERGENCY RESPONSE DEVICE. Receive instant alerts about
+              nearby fires, including an accurate estimated arrival time. Act
+              quickly and safely!
+            </p>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.buttonBack} onClick={prevPage}>
+                Back
               </button>
-              <button
-                className="rounded bg-blue-500 px-4 py-2 text-white"
-                onClick={nextPage}
-              >
-                Siguiente
+              <button className={styles.buttonNext} onClick={nextPage}>
+                Next
               </button>
             </div>
-          </>
+          </div>
         )}
         {page === 3 && (
-          <>
-            <h2 className="text-xl font-bold">Pop Up3</h2>
-            <div className="mt-4 flex justify-between">
-              <button
-                className="rounded bg-gray-500 px-4 py-2 text-white"
-                onClick={prevPage}
-              >
-                Atrás
+          <div className={styles.popUpInnerContainer}>
+            <h2 className={styles.popUpHeader}>
+              <span className={styles.thirdHeaderSpan}>Plan </span> ahead, stay
+              <span className={styles.thirdHeaderSpan}> prepared</span>
+            </h2>
+            <div className={styles.GIFContainer}>IMAGE</div>
+            <p className={styles.descriptionText}>
+              Visualize the location of hospitals, schools, and other points of
+              interest on an interactive map. Plan evacuation routes and
+              coordinate emergency actions effectively.
+            </p>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.buttonBack} onClick={prevPage}>
+                Back
               </button>
-              <button
-                className="rounded bg-red-500 px-4 py-2 text-white"
-                onClick={onClose}
-              >
-                Cerrar
+              <button className={styles.buttonClose} onClick={onClose}>
+                Close
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

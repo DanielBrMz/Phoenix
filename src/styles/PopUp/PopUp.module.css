@@ -1,0 +1,96 @@
+.popUpOuterContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+.popUpContainer {
+  background-color: rgba(0, 11, 19, 0.7); /* #21262b with 80% opacity */
+  padding: 20px;
+  border-radius: 8px;
+  width: 700px;
+  height: 700px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.popUpHeader {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.75rem;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.popUpInnerContainer {
+  padding: 30px;
+}
+
+.GIFContainer {
+  background-color: red;
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+}
+
+.descriptionText {
+  font-size: 20px;
+  color: white;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.buttonNext {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.buttonBack {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.buttonClose {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.firstHeaderSpan {
+  color: rgba(249, 115, 22, 1);
+}
+
+.secondHeaderSpan {
+  color: rgba(34, 194, 94, 1);
+}
+
+.thirdHeaderSpan {
+  color: #007bff;
+}
