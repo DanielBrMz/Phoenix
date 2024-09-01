@@ -50,8 +50,8 @@ export const wildfiresDetails: Wildfires[] = [
         wildfires: [
           {
             id: "us_ca_1",
-            name: "California Wildfire",
-            coordinates: [-117.16265298633692, 36.76902983954334],
+            name: "Paynes Creek Wildfire",
+            coordinates: [-121.91876, 40.33392],
             actualData: {
               startTime: "06/10/23 09:00",
               sheltering: "Fully Sheltered",
