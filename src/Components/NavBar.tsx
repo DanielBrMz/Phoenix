@@ -121,6 +121,7 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
             state={selectedData.state!}
             wildfire={selectedData.wildfire!}
             onReset={handleReset}
+            map={null}
           />
         );
       default:
@@ -170,13 +171,13 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
                 }`}
                 onClick={() => handleIconClick("layer")}
               />
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faGear}
                 className={`${styles.icon} ${
                   activeIcon === "gear" && isModalVisible ? styles.active : ""
                 }`}
                 onClick={() => handleIconClick("gear")}
-              />
+              /> */}
             </div>
           </div>
           {isModalVisible && (
