@@ -3,6 +3,7 @@ import type { Map } from "mapbox-gl";
 import RangeSlider from "./RangeSlider";
 import useStore from "~/store/useStore";
 import styles from "~/styles/SliderStyles/SliderStyles.module.css";
+import { wildfiresStore } from "~/store/wildfiresStore";
 
 interface TimesliderProps {
   map: Map;
@@ -26,6 +27,9 @@ interface WeatherData {
 const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   const { inPredictionStep } = useStore((state) => ({
     inPredictionStep: state.inPredictionStep,
+  }));
+  const { selectedWildfireId } = wildfiresStore((state) => ({
+    selectedWildfireId: state.selectedWildfireId,
   }));
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -99,7 +103,7 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
   return (
     <div className={styles.wholeSliderContainer}>
       <div className={styles.sliderContainer}>
-        {inPredictionStep ? (
+        {selectedWildfireId ? (
           <>
             <div className={styles.leftSlider}>
               <div className={styles.timeText}>{currentTime}</div>
@@ -109,7 +113,9 @@ const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
               {locationData && (
                 <>
                   <div className="flex flex-grow flex-col">
-                    {inPredictionStep && <RangeSlider map={map} />}
+                    {selectedWildfireId && (
+                      <RangeSlider map={map} wildfireId={selectedWildfireId} />
+                    )}
                   </div>
                   <div className={styles.mediumSliderInfo}>
                     <p className={styles.sliderInfoLabels}>

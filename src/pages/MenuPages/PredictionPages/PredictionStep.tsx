@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useStore from "~/store/useStore";
 import { wildfiresDetails } from "~/data/wildfires";
 import styles from "~/styles/NavbarStyles/WildfirePrediction.module.css";
+import { wildfiresStore } from "~/store/wildfiresStore";
 
 interface Props {
   country: string;
@@ -17,12 +18,11 @@ const PredictionStep: React.FC<Props> = ({
   onReset,
 }) => {
   const leavePredictionStep = useStore((state) => state.leavePredictionStep);
+  const setSelectedWildfireId = wildfiresStore(
+    (state) => state.setSelectedWildfireId,
+  );
 
-  const handleReset = () => {
-    leavePredictionStep();
-    onReset();
-  };
-
+  // Aquí definimos selectedWildfire para que esté disponible en el alcance correcto.
   const selectedCountry = wildfiresDetails.find(
     (data) => data.country === country,
   );
@@ -30,6 +30,21 @@ const PredictionStep: React.FC<Props> = ({
   const selectedWildfire = selectedState?.wildfires.find(
     (w) => w.name === wildfire,
   );
+
+  useEffect(() => {
+    if (selectedWildfire) {
+      setSelectedWildfireId(selectedWildfire.id);
+    }
+
+    return () => {
+      setSelectedWildfireId(null);
+    };
+  }, [selectedWildfire, setSelectedWildfireId]);
+
+  const handleReset = () => {
+    leavePredictionStep();
+    onReset();
+  };
 
   const wildfireInfo = [
     {

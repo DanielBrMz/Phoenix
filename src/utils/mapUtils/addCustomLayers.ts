@@ -58,8 +58,8 @@ const addCustomLayers = (map: Map) => {
               "rgb(178,24,43)",
             ],
             "heatmap-opacity": 0.6,
-            "heatmap-radius": 10, // Fixed value to maintain size
-            "heatmap-intensity": 1, // Fixed value to maintain intensity
+            "heatmap-radius": 10, // Valor fijo para mantener el tamaño
+            "heatmap-intensity": 1, // Valor fijo para mantener la intensidad
           },
         });
       });
@@ -103,15 +103,9 @@ const addCustomLayers = (map: Map) => {
 };
 
 // Function to adjust heatmap radius manually
-export function setHeatmapRadius(map: Map, radius: number) {
-  wildfiresDetails.forEach((country) => {
-    country.states.forEach((state) => {
-      state.wildfires.forEach((wildfire) => {
-        const layerId = `heatmap-${wildfire.id}`;
-        map.setPaintProperty(layerId, "heatmap-radius", radius);
-      });
-    });
-  });
+export function setHeatmapRadius(map: Map, radius: number, wildfireId: string) {
+  const layerId = `heatmap-${wildfireId}`;
+  map.setPaintProperty(layerId, "heatmap-radius", radius);
 }
 
 export default addCustomLayers;

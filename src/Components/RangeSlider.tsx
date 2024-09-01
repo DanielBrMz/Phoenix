@@ -8,6 +8,7 @@ import thumbIcon from "~/assets/thumbIcon.png";
 
 interface RangeSliderProps {
   map: mapboxgl.Map;
+  wildfireId: string; // Prop para identificar el incendio
 }
 
 const AirbnbSlider = styled(Slider)(() => ({
@@ -55,7 +56,7 @@ const AirbnbSlider = styled(Slider)(() => ({
   },
 }));
 
-export default function RangeSlider({ map }: RangeSliderProps) {
+export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
   const [value, setValue] = React.useState(0);
   const sliderWidth = 720; // Ancho total del slider
   const min = 0;
@@ -85,7 +86,7 @@ export default function RangeSlider({ map }: RangeSliderProps) {
     }
 
     if (map) {
-      setHeatmapRadius(map, newRadius);
+      setHeatmapRadius(map, newRadius, wildfireId); // Pasa el wildfireId para controlar el heatmap específico
     }
   };
 
