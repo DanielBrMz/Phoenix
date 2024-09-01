@@ -11,6 +11,7 @@ import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
 import { wildfiresStore } from "~/store/wildfiresStore"; // Import wildfiresStore
+import PopUp from "~/pages/MenuPages/PopUp";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -22,6 +23,7 @@ export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [userLogin, setIsUserLogin] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(true); // Add state to control PopUp visibility
   const selectedCoordinates = wildfiresStore(
     (state) => state.selectedCoordinates,
   ); // Access selectedCoordinates
@@ -97,6 +99,7 @@ export default function Home() {
 
   const handleLogin = () => {
     setIsUserLogin(true);
+    setShowPopUp(true); // Show the PopUp when login is successful
   };
 
   return (
@@ -122,6 +125,7 @@ export default function Home() {
             height={100}
             className="z-1 absolute bottom-4 left-8"
           />
+          {showPopUp && <PopUp onClose={() => setShowPopUp(false)} />}{" "}
         </main>
       )}
     </>
