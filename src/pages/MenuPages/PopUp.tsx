@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "~/styles/PopUp/PopUp.module.css";
-
 interface PopUpProps {
   onClose: () => void;
 }
@@ -18,9 +17,11 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
           <div className={styles.popUpInnerContainer}>
             <h2 className={styles.popUpHeader}>
               Discover our advanced
-              <span className={styles.firstHeaderSpan}> fire prediction!</span>
+              <span className={styles.firstHeaderSpan}> fire prediction</span>
             </h2>
-            <div className={styles.GIFContainer}>IMAGE</div>
+
+            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
+
             <p className={styles.descriptionText}>
               Learn how our advanced machine learning models analyze real-time
               data to predict wildfires. Get a clear view of potential risk
@@ -37,7 +38,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               Stay <span className={styles.secondHeaderSpan}>Alert</span> with
               Our Device!
             </h2>
-            <div className={styles.GIFContainer}>IMAGE</div>
+            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
             <p className={styles.descriptionText}>
               Meet our EMERGENCY RESPONSE DEVICE. Receive instant alerts about
               nearby fires, including an accurate estimated arrival time. Act
@@ -59,7 +60,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               <span className={styles.thirdHeaderSpan}>Plan </span> ahead, stay
               <span className={styles.thirdHeaderSpan}> prepared</span>
             </h2>
-            <div className={styles.GIFContainer}>IMAGE</div>
+            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
             <p className={styles.descriptionText}>
               Visualize the location of hospitals, schools, and other points of
               interest on an interactive map. Plan evacuation routes and
