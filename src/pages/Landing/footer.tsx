@@ -1,4 +1,4 @@
-import Icons from "../Landing/icons";
+// import Icons from "../Landing/icons";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <div className="flex flex-col items-start justify-start md:max-w-[200px]">
           <div className="flex items-start">
-            <Icons.logo className="h-7 w-7" />
+            {/* <Icons.logo className="h-7 w-7" /> */}
           </div>
           <p className="text-muted-foreground mt-4 text-start text-sm">
             Build beautiful, functional websites, without writing code

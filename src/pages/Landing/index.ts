@@ -1,7 +1,6 @@
-import Icons from "./icons";
 import Container from "./container";
 import Wrapper from "./wrapper";
-
+import Footer from "./footer";
 import Navbar from "./navbar";
 
-export { Icons, Navbar, Container, Wrapper };
+export { Navbar, Container, Wrapper, Footer };
