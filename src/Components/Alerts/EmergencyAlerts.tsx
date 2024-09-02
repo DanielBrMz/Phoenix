@@ -23,6 +23,7 @@ const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({
 }) => {
   const markersRef = useRef<mapboxgl.Marker[]>([]);
   const alertsVisible = alertsStore((state) => state.alertsVisible);
+  const setSelectedAlert = alertsStore((state) => state.setSelectedAlert); // Get setSelectedAlert function
 
   useEffect(() => {
     if (!map) return;
@@ -45,6 +46,7 @@ const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({
         el.style.cursor = "pointer";
 
         el.addEventListener("click", () => {
+          setSelectedAlert(alert); // Update selected alert in store
           onAlertClick(alert);
         });
 
