@@ -30,7 +30,7 @@ export const LampContainer = ({
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="bg-gradient-conic absolute inset-auto right-1/2 h-56 w-[30rem] overflow-visible from-blue-500 via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
+          className="bg-gradient-conic absolute inset-auto right-1/2 h-56 w-[30rem] overflow-visible from-orange-500 via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
         >
           <div className="bg-background  absolute bottom-0 left-0 z-20 h-40 w-[100%] [mask-image:linear-gradient(to_top,white,transparent)]" />
           <div className="bg-background  absolute bottom-0 left-0 z-20  h-[100%] w-40 [mask-image:linear-gradient(to_right,white,transparent)]" />
@@ -46,7 +46,7 @@ export const LampContainer = ({
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className="bg-gradient-conic absolute inset-auto left-1/2 h-56 w-[30rem] from-transparent via-transparent to-blue-500 text-white [--conic-position:from_290deg_at_center_top]"
+          className="bg-gradient-conic absolute inset-auto left-1/2 h-56 w-[30rem] from-transparent via-transparent to-orange-500 text-white [--conic-position:from_290deg_at_center_top]"
         >
           <div className="bg-background  absolute bottom-0 right-0 z-20  h-[100%] w-40 [mask-image:linear-gradient(to_left,white,transparent)]" />
           <div className="bg-background  absolute bottom-0 right-0 z-20 h-40 w-[100%] [mask-image:linear-gradient(to_top,white,transparent)]" />
@@ -71,7 +71,7 @@ export const LampContainer = ({
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-blue-500"
+          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-orange-500"
         ></motion.div>
 
         <div className="bg-background absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] "></div>
