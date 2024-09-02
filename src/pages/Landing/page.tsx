@@ -120,7 +120,7 @@ const HomePage = () => {
       {/* features */}
       <Wrapper className="relative flex flex-col items-center justify-center py-12">
         <div className="bg-primary absolute -right-1/3 top-0 -z-10 hidden h-72 w-72 rounded-full blur-[10rem] md:block"></div>
-        <div className="absolute -left-1/3 bottom-0 -z-10 hidden h-72 w-72 rounded-full bg-indigo-600 blur-[10rem] md:block"></div>
+        <div className="absolute -left-1/3 bottom-0 -z-10 hidden h-72 w-72 rounded-full bg-orange-500 blur-[10rem] md:block"></div>
         <div className="mx-auto max-w-md text-start md:text-center">
           <SectionBadge title="Features" />
           <h2 className="mt-6 text-3xl font-semibold lg:text-4xl">
@@ -152,7 +152,7 @@ const HomePage = () => {
 
       {/* pricing */}
       <Wrapper className="relative flex flex-col items-center justify-center py-12">
-        <div className="absolute -right-1/3 top-0 -z-10 hidden h-72 w-72 rounded-full bg-blue-500 blur-[10rem] md:block"></div>
+        <div className="absolute -right-1/3 top-0 -z-10 hidden h-72 w-72 rounded-full bg-orange-500 blur-[10rem] md:block"></div>
         <div className="mx-auto max-w-md text-start md:text-center">
           <SectionBadge title="Pricing" />
           <h2 className="mt-6 text-3xl font-semibold lg:text-4xl">
@@ -209,7 +209,7 @@ const HomePage = () => {
 
       {/* testimonials */}
       <Wrapper className="relative flex flex-col items-center justify-center py-12">
-        <div className="absolute -left-1/3 -top-1/4 -z-10 hidden h-72 w-72 rounded-full bg-indigo-500 blur-[10rem] md:block"></div>
+        <div className="absolute -left-1/3 -top-1/4 -z-10 hidden h-72 w-72 rounded-full bg-orange-500 blur-[10rem] md:block"></div>
         <div className="mx-auto max-w-md text-start md:text-center">
           <SectionBadge title="Our Customers" />
           <h2 className="mt-6 text-3xl font-semibold lg:text-4xl">
