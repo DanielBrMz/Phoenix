@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import type { Map } from "mapbox-gl";
 import RangeSlider from "./RangeSlider";
-import useStore from "~/store/useStore";
 import styles from "~/styles/SliderStyles/SliderStyles.module.css";
 import { wildfiresStore } from "~/store/wildfiresStore";
 
@@ -25,9 +24,6 @@ interface WeatherData {
 }
 
 const Timeslider = ({ map, scale }: TimesliderProps): JSX.Element => {
-  const { inPredictionStep } = useStore((state) => ({
-    inPredictionStep: state.inPredictionStep,
-  }));
   const { selectedWildfireId } = wildfiresStore((state) => ({
     selectedWildfireId: state.selectedWildfireId,
   }));
