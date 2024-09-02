@@ -10,11 +10,7 @@ interface Alert {
   coordinates: [number, number];
 }
 
-interface AlertsModalProps {
-  alert?: Alert | null;
-}
-
-const AlertsModal: React.FC<AlertsModalProps> = () => {
+const AlertsModal: React.FC = () => {
   const { alertsVisible, toggleAlertsVisible, selectedAlert } = alertsStore(
     (state) => ({
       alertsVisible: state.alertsVisible,
@@ -42,23 +38,30 @@ const AlertsModal: React.FC<AlertsModalProps> = () => {
         </h2>
       </div>
       <div className={styles.line}></div>
-      {selectedAlert ? (
-        <div className={styles.alertDetailsContainer}>
-          <h2 className={styles.alertDetailsTitle}>
-            ALERT! A fire is predicted to reach the location in{" "}
-            {selectedAlert.hourPrediction}{" "}
-            {selectedAlert.hourPrediction === 1 ? "hour" : "hours"}
-          </h2>
-          <div className={styles.alertDetailsDescription}>
-            <p>Send at: {new Date(selectedAlert.sendTime).toLocaleString()}</p>
-            <p>
-              Received at:{" "}
-              {new Date(selectedAlert.receivedTime).toLocaleString()}
-            </p>
+
+      {alertsVisible ? (
+        selectedAlert ? (
+          <div className={styles.alertDetailsContainer}>
+            <h2 className={styles.alertDetailsTitle}>
+              ALERT! A fire is predicted to reach the location in{" "}
+              {selectedAlert.hourPrediction}{" "}
+              {selectedAlert.hourPrediction === 1 ? "hour" : "hours"}
+            </h2>
+            <div className={styles.alertDetailsDescription}>
+              <p>
+                Send at: {new Date(selectedAlert.sendTime).toLocaleString()}
+              </p>
+              <p>
+                Received at:{" "}
+                {new Date(selectedAlert.receivedTime).toLocaleString()}
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className={styles.noAlertText}>No alert selected</p>
+        )
       ) : (
-        <p className={styles.noAlertText}>No alert selected</p>
+        <p className={styles.noAlertText}>No alert to be displayed</p>
       )}
       <div className={styles.line}></div>
       <button className={styles.alertExitButton}>EXIT</button>
