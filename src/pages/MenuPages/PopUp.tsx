@@ -38,7 +38,11 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               Stay <span className={styles.secondHeaderSpan}>Alert</span> with
               Our Device!
             </h2>
-            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
+            <img
+              src="SECONDGIF.gif"
+              alt="Pop Up 2 GIF"
+              className={styles.gif}
+            />
             <p className={styles.descriptionText}>
               Meet our EMERGENCY RESPONSE DEVICE. Receive instant alerts about
               nearby fires, including an accurate estimated arrival time. Act
@@ -60,7 +64,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               <span className={styles.thirdHeaderSpan}>Plan </span> ahead, stay
               <span className={styles.thirdHeaderSpan}> prepared</span>
             </h2>
-            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
+            <img src="THIRDGIF.gif" alt="Pop Up 3 GIF" className={styles.gif} />
             <p className={styles.descriptionText}>
               Visualize the location of hospitals, schools, and other points of
               interest on an interactive map. Plan evacuation routes and
