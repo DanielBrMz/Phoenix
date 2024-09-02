@@ -7,11 +7,13 @@ import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
 import ServicesLayer from "~/Components/Layers/ServicesLayer";
+import EmergencyAlerts from "~/Components/Alerts/EmergencyAlerts";
 import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
-import { wildfiresStore } from "~/store/wildfiresStore"; // Import wildfiresStore
+import { wildfiresStore } from "~/store/wildfiresStore";
 import PopUp from "~/pages/MenuPages/PopUp";
+import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -23,10 +25,16 @@ export default function Home() {
   const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [userLogin, setIsUserLogin] = useState(false);
-  const [showPopUp, setShowPopUp] = useState(true); // Add state to control PopUp visibility
+  const [showPopUp, setShowPopUp] = useState(true);
   const selectedCoordinates = wildfiresStore(
     (state) => state.selectedCoordinates,
-  ); // Access selectedCoordinates
+  );
+
+  // Define the onAlertClick handler
+  const onAlertClick = (alert: Alert) => {
+    console.log("Alert clicked:", alert);
+    // Add any additional logic you want to handle when an alert is clicked
+  };
 
   useEffect(() => {
     if (userLogin) {
@@ -99,7 +107,7 @@ export default function Home() {
 
   const handleLogin = () => {
     setIsUserLogin(true);
-    setShowPopUp(true); // Show the PopUp when login is successful
+    setShowPopUp(true);
   };
 
   return (
@@ -118,6 +126,10 @@ export default function Home() {
           <NavBar map={map} />
           {map && <Timeslider map={map} scale={kilometersPerPixel} />}
           {map && <ServicesLayer map={map} />}
+          {map && (
+            <EmergencyAlerts map={map} onAlertClick={onAlertClick} />
+          )}{" "}
+          {/* Pass the onAlertClick handler */}
           <Image
             src={PhoenixEyeLogo}
             alt="Logo"
