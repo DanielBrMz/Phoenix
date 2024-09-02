@@ -9,7 +9,7 @@ interface StartPageProps {
 
 const StartPage: React.FC<StartPageProps> = ({ onLogin }) => {
   return (
-    <div className="bg-background text-foreground min-h-screen max-w-full overflow-x-hidden antialiased">
+    <div className="min-h-screen max-w-full overflow-x-hidden bg-slate-950 text-white antialiased">
       <div className="flex w-full flex-col items-center">
         <Navbar />
         <Page />
