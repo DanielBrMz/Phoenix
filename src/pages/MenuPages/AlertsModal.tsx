@@ -2,14 +2,6 @@ import React from "react";
 import styles from "~/styles/NavbarStyles/AlertSection.module.css";
 import alertsStore from "~/store/alertsStore";
 
-interface Alert {
-  id: string;
-  hourPrediction: number;
-  sendTime: string;
-  receivedTime: string;
-  coordinates: [number, number];
-}
-
 const AlertsModal: React.FC = () => {
   const { alertsVisible, toggleAlertsVisible, selectedAlert } = alertsStore(
     (state) => ({

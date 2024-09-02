@@ -3,14 +3,14 @@ import useStore from "~/store/useStore";
 import { wildfiresDetails } from "~/data/wildfires";
 import styles from "~/styles/NavbarStyles/WildfirePrediction.module.css";
 import { wildfiresStore } from "~/store/wildfiresStore";
-import mapboxgl from "mapbox-gl"; // Import mapbox-gl
+import type mapboxgl from "mapbox-gl"; // Use `import type` for mapboxgl
 
 interface Props {
   country: string;
   state: string;
   wildfire: string;
   onReset: () => void;
-  map: mapboxgl.Map | null; // Pass the map instance as a prop
+  map: mapboxgl.Map | null; // Use the imported type
 }
 
 const PredictionStep: React.FC<Props> = ({

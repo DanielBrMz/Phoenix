@@ -21,14 +21,6 @@ import Draggable from "react-draggable";
 import Image from "next/image"; // Importing Image from next/image
 import agarradera from "../assets/agarradera2.png";
 
-interface Alert {
-  id: string;
-  hourPrediction: number;
-  sendTime: string;
-  receivedTime: string;
-  coordinates: [number, number];
-}
-
 interface NavBarProps {
   map: Map | null;
 }

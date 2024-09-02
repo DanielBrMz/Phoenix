@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
@@ -12,8 +12,8 @@ import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
 import { wildfiresStore } from "~/store/wildfiresStore";
-import PopUp from "~/pages/MenuPages/PopUp";
 import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
+import PopUp from "~/pages/MenuPages/PopUp";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -35,6 +35,24 @@ export default function Home() {
     console.log("Alert clicked:", alert);
     // Add any additional logic you want to handle when an alert is clicked
   };
+
+  // UseCallback to memoize the function
+  const flyToLocation = useCallback(
+    (coords: [number, number], zoom = 15) => {
+      if (map) {
+        map.flyTo({
+          center: coords,
+          zoom: zoom,
+          speed: 0.8,
+          curve: 1,
+          easing(t) {
+            return t;
+          },
+        });
+      }
+    },
+    [map],
+  );
 
   useEffect(() => {
     if (userLogin) {
@@ -89,21 +107,7 @@ export default function Home() {
     if (selectedCoordinates && map) {
       flyToLocation(selectedCoordinates, 15);
     }
-  }, [selectedCoordinates, map]);
-
-  const flyToLocation = (coords: [number, number], zoom = 15) => {
-    if (map) {
-      map.flyTo({
-        center: coords,
-        zoom: zoom,
-        speed: 0.8,
-        curve: 1,
-        easing(t) {
-          return t;
-        },
-      });
-    }
-  };
+  }, [selectedCoordinates, map, flyToLocation]);
 
   const handleLogin = () => {
     setIsUserLogin(true);
@@ -126,10 +130,7 @@ export default function Home() {
           <NavBar map={map} />
           {map && <Timeslider map={map} scale={kilometersPerPixel} />}
           {map && <ServicesLayer map={map} />}
-          {map && (
-            <EmergencyAlerts map={map} onAlertClick={onAlertClick} />
-          )}{" "}
-          {/* Pass the onAlertClick handler */}
+          {map && <EmergencyAlerts map={map} onAlertClick={onAlertClick} />}
           <Image
             src={PhoenixEyeLogo}
             alt="Logo"

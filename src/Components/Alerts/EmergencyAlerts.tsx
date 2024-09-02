@@ -62,7 +62,7 @@ const EmergencyAlerts: React.FC<EmergencyAlertsProps> = ({
 
     // Cleanup markers when component unmounts or before adding new ones
     return clearMarkers;
-  }, [map, onAlertClick, alertsVisible]);
+  }, [map, onAlertClick, alertsVisible, setSelectedAlert]); // Added setSelectedAlert to the dependency array
 
   return null;
 };
