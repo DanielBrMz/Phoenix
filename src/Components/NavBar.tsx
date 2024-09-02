@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   faFire,
-  faGear,
   faLayerGroup,
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +41,6 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   }>({});
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
-  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
   const { alertsVisible } = alertsStore((state) => ({
     alertsVisible: state.alertsVisible,
   }));
@@ -87,8 +85,8 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
     }
   };
 
-  const handleAlertClick = (alert: Alert) => {
-    setSelectedAlert(alert);
+  const handleAlertClick = () => {
+    // Removed the unused alert parameter
     setActiveIcon("bell");
     setIsModalVisible(true);
   };
@@ -132,7 +130,7 @@ const NavBar: React.FC<NavBarProps> = ({ map }) => {
   const getCurrentModalComponent = () => {
     switch (activeIcon) {
       case "bell":
-        return <AlertsModal alert={selectedAlert} />;
+        return <AlertsModal />;
       case "layer":
         return <LayersModal />;
       case "gear":

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "~/styles/PopUp/PopUp.module.css";
+import Image from "next/image";
 interface PopUpProps {
   onClose: () => void;
 }
@@ -20,7 +21,13 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               <span className={styles.firstHeaderSpan}> fire prediction</span>
             </h2>
 
-            <img src="FirstGIF.gif" alt="Pop Up 1 GIF" className={styles.gif} />
+            <Image
+              src="/FirstGIF.gif"
+              alt="Pop Up 1 GIF"
+              className={styles.gif}
+              width={500} // Replace with your actual image width
+              height={300} // Replace with your actual image height
+            />
 
             <p className={styles.descriptionText}>
               Learn how our advanced machine learning models analyze real-time
@@ -38,10 +45,12 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               Stay <span className={styles.secondHeaderSpan}>Alert</span> with
               Our Device!
             </h2>
-            <img
-              src="SECONDGIF.gif"
+            <Image
+              src="/SECONDGIF.gif"
               alt="Pop Up 2 GIF"
               className={styles.gif}
+              width={500} // Replace with your actual image width
+              height={300} // Replace with your actual image height
             />
             <p className={styles.descriptionText}>
               Meet our EMERGENCY RESPONSE DEVICE. Receive instant alerts about
@@ -64,7 +73,13 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               <span className={styles.thirdHeaderSpan}>Plan </span> ahead, stay
               <span className={styles.thirdHeaderSpan}> prepared</span>
             </h2>
-            <img src="THIRDGIF.gif" alt="Pop Up 3 GIF" className={styles.gif} />
+            <Image
+              src="/THIRDGIF.gif"
+              alt="Pop Up 3 GIF"
+              className={styles.gif}
+              width={500} // Replace with your actual image width
+              height={300} // Replace with your actual image height
+            />
             <p className={styles.descriptionText}>
               Visualize the location of hospitals, schools, and other points of
               interest on an interactive map. Plan evacuation routes and
