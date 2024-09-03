@@ -22,7 +22,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
             </h2>
 
             <Image
-              src="/FirstGIF.gif"
+              src="/video1.gif"
               alt="Pop Up 1 GIF"
               className={styles.gif}
               width={500} // Replace with your actual image width
@@ -46,7 +46,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               Our Device!
             </h2>
             <Image
-              src="/SECONDGIF.gif"
+              src="/video2.gif"
               alt="Pop Up 2 GIF"
               className={styles.gif}
               width={500} // Replace with your actual image width
@@ -74,7 +74,7 @@ const PopUp: React.FC<PopUpProps> = ({ onClose }) => {
               <span className={styles.thirdHeaderSpan}> prepared</span>
             </h2>
             <Image
-              src="/THIRDGIF.gif"
+              src="/video3.gif"
               alt="Pop Up 3 GIF"
               className={styles.gif}
               width={500} // Replace with your actual image width
