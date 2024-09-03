@@ -6,19 +6,16 @@ export const getHotspotCoordinates = () => {
 
 export const createHotspotGeoJSON = () => {
   const features = getHotspotCoordinates().map((coordinates) => ({
-    type: "Feature" as const, // Explicitly set type as 'Feature'
+    type: "Feature" as const,
     geometry: {
-      type: "Point" as const, // Explicitly set type as 'Point'
+      type: "Point" as const,
       coordinates: coordinates,
     },
     properties: {},
   }));
 
   return {
-    type: "geojson" as const, // Explicitly set type as 'geojson'
-    data: {
-      type: "FeatureCollection" as const, // Explicitly set type as 'FeatureCollection'
-      features: features,
-    },
+    type: "FeatureCollection" as const, // Return the FeatureCollection directly
+    features: features,
   };
 };

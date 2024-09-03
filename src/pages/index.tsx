@@ -37,7 +37,6 @@ export default function Home() {
   // Define the onAlertClick handler
   const onAlertClick = (alert: Alert) => {
     console.log("Alert clicked:", alert);
-    // Add any additional logic you want to handle when an alert is clicked
   };
 
   const flyToLocation = useCallback(
@@ -106,7 +105,6 @@ export default function Home() {
     }
   }, [userLogin]);
 
-  // Update map when "Fire history" is toggled
   useEffect(() => {
     if (map && map.isStyleLoaded()) {
       const isFireHistorySelected = selectedLayers.some(
@@ -114,12 +112,10 @@ export default function Home() {
       );
 
       if (isFireHistorySelected) {
-        // Add the heatmap layer
         if (!map.getLayer("hotspot-heatmap-layer")) {
           addHotspotHeatmapLayer(map);
         }
       } else {
-        // Remove the heatmap layer if it exists
         if (map.getLayer("hotspot-heatmap-layer")) {
           map.removeLayer("hotspot-heatmap-layer");
         }

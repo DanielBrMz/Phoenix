@@ -103,9 +103,6 @@ const addCustomLayers = (map: Map) => {
     },
     labelLayer?.id,
   );
-
-  // Add hotspot heatmap layer
-  addHotspotHeatmapLayer(map);
 };
 
 // Function to add the hotspot heatmap layer
@@ -119,7 +116,10 @@ export const addHotspotHeatmapLayer = (map: Map) => {
     return;
   }
 
-  const geoJSONSource = createHotspotGeoJSON();
+  const geoJSONSource: mapboxgl.GeoJSONSourceRaw = {
+    type: "geojson",
+    data: createHotspotGeoJSON(), // Directly use the FeatureCollection here
+  };
 
   map.addSource(sourceId, geoJSONSource);
 
