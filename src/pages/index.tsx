@@ -2,7 +2,9 @@ import Head from "next/head";
 import { useEffect, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import addCustomLayers from "~/utils/mapUtils/addCustomLayers";
+import addCustomLayers, {
+  addHotspotHeatmapLayer,
+} from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
@@ -12,6 +14,7 @@ import Image from "next/image";
 import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
 import { wildfiresStore } from "~/store/wildfiresStore";
+import useLayersStore from "~/store/layersStore";
 import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
 import PopUp from "~/pages/MenuPages/PopUp";
 
@@ -29,14 +32,13 @@ export default function Home() {
   const selectedCoordinates = wildfiresStore(
     (state) => state.selectedCoordinates,
   );
+  const { selectedLayers } = useLayersStore();
 
   // Define the onAlertClick handler
   const onAlertClick = (alert: Alert) => {
     console.log("Alert clicked:", alert);
-    // Add any additional logic you want to handle when an alert is clicked
   };
 
-  // UseCallback to memoize the function
   const flyToLocation = useCallback(
     (coords: [number, number], zoom = 15) => {
       if (map) {
@@ -102,6 +104,37 @@ export default function Home() {
       });
     }
   }, [userLogin]);
+
+  useEffect(() => {
+    if (map && map.isStyleLoaded()) {
+      const isFireHistorySelected = selectedLayers.some(
+        (layer) => layer.name === "Fire history",
+      );
+
+      if (isFireHistorySelected) {
+        if (!map.getLayer("hotspot-heatmap-layer")) {
+          addHotspotHeatmapLayer(map);
+        }
+        // Fly to the specified coordinates with zoom out
+        map.flyTo({
+          center: [-110.897, 31.259], // Longitude, Latitude
+          zoom: 9, // Adjust this value for zoom out level
+          speed: 0.8,
+          curve: 1,
+          easing(t) {
+            return t;
+          },
+        });
+      } else {
+        if (map.getLayer("hotspot-heatmap-layer")) {
+          map.removeLayer("hotspot-heatmap-layer");
+        }
+        if (map.getSource("hotspot-heatmap-source")) {
+          map.removeSource("hotspot-heatmap-source");
+        }
+      }
+    }
+  }, [selectedLayers, map]);
 
   useEffect(() => {
     if (selectedCoordinates && map) {
