@@ -97,4 +97,25 @@ export const loraDevices = [
     receivedTime: "2024-07-30T01:41:00",
     coordinates: [-121.912, 40.332] as [number, number],
   },
+  {
+    id: "l15",
+    hourPrediction: 48,
+    sendTime: "2024-07-30T01:30:00",
+    receivedTime: "2024-07-30T01:40:00",
+    coordinates: [-121.927, 40.337] as [number, number],
+  },
+  {
+    id: "l16",
+    hourPrediction: 12,
+    sendTime: "2024-07-30T01:31:00",
+    receivedTime: "2024-07-30T01:41:00",
+    coordinates: [-121.919, 40.332] as [number, number],
+  },
+  {
+    id: "l17",
+    hourPrediction: 36,
+    sendTime: "2024-07-30T01:31:00",
+    receivedTime: "2024-07-30T01:41:00",
+    coordinates: [-121.918, 40.329] as [number, number],
+  },
 ];
