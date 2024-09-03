@@ -115,9 +115,10 @@ export default function Home() {
         if (!map.getLayer("hotspot-heatmap-layer")) {
           addHotspotHeatmapLayer(map);
         }
-        // Set zoom level to zoom out
+        // Fly to the specified coordinates with zoom out
         map.flyTo({
-          zoom: 9, // Adjust this value for more zoomed out
+          center: [-110.897, 31.259], // Longitude, Latitude
+          zoom: 9, // Adjust this value for zoom out level
           speed: 0.8,
           curve: 1,
           easing(t) {
