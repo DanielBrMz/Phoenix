@@ -72,8 +72,8 @@ export default function Home() {
       mapInstance.addControl(new mapboxgl.FullscreenControl());
 
       mapInstance.on("style.load", () => {
-        addCustomSources(mapInstance);
-        addCustomLayers(mapInstance);
+        addCustomSources(mapInstance); // Adds your custom sources
+        addCustomLayers(mapInstance); // Adds your custom layers, including the heatmap
 
         mapInstance.setFog({
           color: "rgb(186, 210, 235)",

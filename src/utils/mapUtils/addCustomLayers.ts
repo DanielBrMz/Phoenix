@@ -1,5 +1,6 @@
-import type { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
+import { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
 import { wildfiresDetails } from "~/data/wildfires";
+import { createHotspotGeoJSON } from "./addhotspots";
 
 type SymbolLayout = AnyLayout & {
   "text-field"?: string;
@@ -58,8 +59,8 @@ const addCustomLayers = (map: Map) => {
               "rgb(178,24,43)",
             ],
             "heatmap-opacity": 0.6,
-            "heatmap-radius": 10, // Valor fijo para mantener el tamaño
-            "heatmap-intensity": 1, // Valor fijo para mantener la intensidad
+            "heatmap-radius": 10, // Fixed value to maintain size
+            "heatmap-intensity": 1, // Fixed value to maintain intensity
           },
         });
       });
@@ -100,6 +101,45 @@ const addCustomLayers = (map: Map) => {
     },
     labelLayer?.id,
   );
+
+  // Add hotspot heatmap layer
+  addHotspotHeatmapLayer(map);
+};
+
+// Function to add the hotspot heatmap layer
+export const addHotspotHeatmapLayer = (map: Map) => {
+  const sourceId = "hotspot-heatmap-source";
+  const geoJSONSource = createHotspotGeoJSON();
+
+  map.addSource(sourceId, geoJSONSource);
+
+  map.addLayer({
+    id: "hotspot-heatmap-layer",
+    type: "heatmap",
+    source: sourceId,
+    paint: {
+      "heatmap-intensity": 1,
+      "heatmap-radius": 20, // Adjust the radius as needed
+      "heatmap-opacity": 0.7,
+      "heatmap-color": [
+        "interpolate",
+        ["linear"],
+        ["heatmap-density"],
+        0,
+        "rgba(33,102,172,0)",
+        0.2,
+        "rgb(103,169,207)",
+        0.4,
+        "rgb(209,229,240)",
+        0.6,
+        "rgb(253,219,199)",
+        0.8,
+        "rgb(239,138,98)",
+        1,
+        "rgb(178,24,43)",
+      ],
+    },
+  });
 };
 
 // Function to adjust heatmap radius manually
