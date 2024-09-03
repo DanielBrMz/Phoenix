@@ -1,6 +1,6 @@
 import { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
 import { wildfiresDetails } from "~/data/wildfires";
-import { createHotspotGeoJSON } from "./addhotspots";
+import { createHotspotGeoJSON } from "./addHotspots";
 
 type SymbolLayout = AnyLayout & {
   "text-field"?: string;
