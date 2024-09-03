@@ -115,6 +115,15 @@ export default function Home() {
         if (!map.getLayer("hotspot-heatmap-layer")) {
           addHotspotHeatmapLayer(map);
         }
+        // Set zoom level to zoom out
+        map.flyTo({
+          zoom: 9, // Adjust this value for more zoomed out
+          speed: 0.8,
+          curve: 1,
+          easing(t) {
+            return t;
+          },
+        });
       } else {
         if (map.getLayer("hotspot-heatmap-layer")) {
           map.removeLayer("hotspot-heatmap-layer");
