@@ -9,7 +9,16 @@ import hotel from "../../assets/humanHabitationIcons/hotel.png";
 import colegio from "../../assets/humanHabitationIcons/colegio.png";
 import agricultura from "../../assets/enviromentalIcons/agricultura.png";
 import mina from "../../assets/enviromentalIcons/mina.png";
+import modisIcon from "../../assets/observationIcons/modis.png";
+import viirsIcon from "../../assets/observationIcons/viirs.png";
 import type { Category } from "../../types/layerInterfaces";
+import hotspots from "./hotspots.json";
+
+// Define a type for the instances
+interface HotspotInstance {
+  id: string;
+  coordinates: [number, number];
+}
 
 export const servicesDetails: Category[] = [
   {
@@ -17,12 +26,12 @@ export const servicesDetails: Category[] = [
     services: [
       {
         name: "VIIRS hotspots",
-        icon: electricityPole,
+        icon: viirsIcon,
         instances: [],
       },
       {
         name: "MODIS hotspots",
-        icon: electricityPole,
+        icon: modisIcon,
         instances: [],
       },
       {
@@ -187,3 +196,30 @@ export const servicesDetails: Category[] = [
   //   ],
   // },
 ];
+
+// Function to update VIIRS and MODIS hotspots
+export const updateHotspotServices = () => {
+  const modisInstances: HotspotInstance[] = [];
+  const viirsInstances: HotspotInstance[] = [];
+
+  hotspots.forEach((hotspot) => {
+    const coordinates: [number, number] = [hotspot.longitude, hotspot.latitude]; // Define coordinates
+    if (hotspot.instrument === "MODIS") {
+      modisInstances.push({ id: hotspot.Datetime, coordinates });
+    } else if (hotspot.instrument === "VIIRS") {
+      viirsInstances.push({ id: hotspot.Datetime, coordinates });
+    }
+  });
+
+  servicesDetails.forEach((category) => {
+    category.services.forEach((service) => {
+      if (service.name === "MODIS hotspots") {
+        service.instances = modisInstances;
+      } else if (service.name === "VIIRS hotspots") {
+        service.instances = viirsInstances;
+      }
+    });
+  });
+};
+
+updateHotspotServices(); // Automatically update the services when this module is loaded
