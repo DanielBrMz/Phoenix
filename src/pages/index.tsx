@@ -159,19 +159,32 @@ export default function Home() {
         <StartPage onLogin={handleLogin} />
       ) : (
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
-          <div id="map" style={{ width: "100%", height: "100vh" }}></div>
-          <NavBar map={map} />
-          {map && <Timeslider map={map} scale={kilometersPerPixel} />}
-          {map && <ServicesLayer map={map} />}
-          {map && <EmergencyAlerts map={map} onAlertClick={onAlertClick} />}
-          <Image
-            src={PhoenixEyeLogo}
-            alt="Logo"
-            width={100}
-            height={100}
-            className="z-1 absolute bottom-4 left-8"
-          />
-          {showPopUp && <PopUp onClose={() => setShowPopUp(false)} />}
+          {/* Background content */}
+          <div
+            className={`${
+              showPopUp ? "pointer-events-none blur-sm" : ""
+            } h-full w-full`}
+          >
+            <div id="map" style={{ width: "100%", height: "100vh" }}></div>
+            <NavBar map={map} />
+            {map && <Timeslider map={map} scale={kilometersPerPixel} />}
+            {map && <ServicesLayer map={map} />}
+            {map && <EmergencyAlerts map={map} onAlertClick={onAlertClick} />}
+            <Image
+              src={PhoenixEyeLogo}
+              alt="Logo"
+              width={100}
+              height={100}
+              className="z-1 absolute bottom-4 left-8"
+            />
+          </div>
+
+          {/* Pop-up */}
+          {showPopUp && (
+            <div className="fixed inset-0 z-10">
+              <PopUp onClose={() => setShowPopUp(false)} />
+            </div>
+          )}
         </main>
       )}
     </>

@@ -4,16 +4,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 50;
+  z-index: 500;
 }
 .popUpContainer {
   background-color: rgba(0, 11, 19, 0.7); /* #21262b with 80% opacity */
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 16px;
   width: 700px;
   height: 700px;
   text-align: center;
