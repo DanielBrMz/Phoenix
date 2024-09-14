@@ -60,7 +60,7 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
   const [value, setValue] = React.useState(0);
   const sliderWidth = 720; // Ancho total del slider
   const min = 0;
-  const max = 48;
+  const max = 96;
   const thumbWidth = 24; // Ancho del thumb
 
   const calculateLeftPosition = () => {
@@ -75,11 +75,11 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
     let newRadius = 0;
     if (sliderValue === 0) {
       newRadius = 10; // Valor fijo por defecto
-    } else if (sliderValue === 12) {
-      newRadius = 20;
     } else if (sliderValue === 24) {
+      newRadius = 20;
+    } else if (sliderValue === 48) {
       newRadius = 40;
-    } else if (sliderValue === 36) {
+    } else if (sliderValue === 72) {
       newRadius = 60;
     } else {
       newRadius = 80;
@@ -94,14 +94,14 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
     switch (value) {
       case 0:
         return { text: "0 HOUR PREDICTION", transform: -40 };
-      case 12:
-        return { text: "12 HOUR PREDICTION", transform: 100 };
       case 24:
-        return { text: "24 HOUR PREDICTION", transform: 280 };
-      case 36:
-        return { text: "36 HOUR PREDICTION", transform: 380 };
+        return { text: "24 HOUR PREDICTION", transform: 100 };
       case 48:
-        return { text: "48 HOUR PREDICTION", transform: 520 };
+        return { text: "48 HOUR PREDICTION", transform: 280 };
+      case 72:
+        return { text: "72 HOUR PREDICTION", transform: 380 };
+      case 96:
+        return { text: "96 HOUR PREDICTION", transform: 520 };
       default:
         return { text: "", transform: 0 };
     }
@@ -127,10 +127,10 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
           onChange={handleSliderChange}
           defaultValue={0}
           min={0}
-          max={48}
-          step={12}
+          max={96}
+          step={24} // Ajustado para cada 24 horas
           marks={new Array(5).fill(0).map((_, index) => ({
-            value: index * 12,
+            value: index * 24,
           }))}
         />
       </div>
