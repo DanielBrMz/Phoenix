@@ -97,11 +97,11 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
       case 24:
         return { text: "24 HOUR PREDICTION", transform: 100 };
       case 48:
-        return { text: "48 HOUR PREDICTION", transform: 280 };
+        return { text: "48 HOUR PREDICTION", transform: 240 };
       case 72:
-        return { text: "72 HOUR PREDICTION", transform: 380 };
+        return { text: "72 HOUR PREDICTION", transform: 385 };
       case 96:
-        return { text: "96 HOUR PREDICTION", transform: 520 };
+        return { text: "96 HOUR PREDICTION", transform: 530 };
       default:
         return { text: "", transform: 0 };
     }
