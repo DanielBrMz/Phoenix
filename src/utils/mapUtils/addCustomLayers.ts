@@ -1,3 +1,4 @@
+// addCustomLayers.ts
 import { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
 import { wildfiresDetails } from "~/data/wildfires";
 import { createHotspotGeoJSON } from "./addHotspots";
@@ -110,7 +111,6 @@ export const addHotspotHeatmapLayer = (map: Map) => {
   const sourceId = "hotspot-heatmap-source";
   const layerId = "hotspot-heatmap-layer";
 
-  // Check if the source already exists
   if (map.getSource(sourceId)) {
     console.warn(`Source with ID ${sourceId} already exists.`);
     return;
@@ -118,12 +118,11 @@ export const addHotspotHeatmapLayer = (map: Map) => {
 
   const geoJSONSource: mapboxgl.GeoJSONSourceRaw = {
     type: "geojson",
-    data: createHotspotGeoJSON(), // Directly use the FeatureCollection here
+    data: createHotspotGeoJSON(),
   };
 
   map.addSource(sourceId, geoJSONSource);
 
-  // Check if the layer already exists
   if (map.getLayer(layerId)) {
     console.warn(`Layer with ID ${layerId} already exists.`);
     return;
@@ -135,7 +134,7 @@ export const addHotspotHeatmapLayer = (map: Map) => {
     source: sourceId,
     paint: {
       "heatmap-intensity": 1,
-      "heatmap-radius": 20, // Adjust the radius as needed
+      "heatmap-radius": 20,
       "heatmap-opacity": 0.7,
       "heatmap-color": [
         "interpolate",
@@ -158,10 +157,65 @@ export const addHotspotHeatmapLayer = (map: Map) => {
   });
 };
 
-// Function to adjust heatmap radius manually
-export function setHeatmapRadius(map: Map, radius: number, wildfireId: string) {
-  const layerId = `heatmap-${wildfireId}`;
-  map.setPaintProperty(layerId, "heatmap-radius", radius);
+// Function to adjust heatmap radius manually and load JSON data for prediction
+export async function setHeatmapRadius(
+  map: Map,
+  data: any,
+  wildfireId: string,
+) {
+  try {
+    const heatmapFeatures = data.frames[0].map((point: any) => ({
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [point.lon, point.lat],
+      },
+      properties: {
+        value: point.value,
+      },
+    }));
+
+    const heatmapSource: mapboxgl.GeoJSONSourceRaw = {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: heatmapFeatures,
+      },
+    };
+
+    const sourceId = `wildfire-${wildfireId}`;
+    if (!map.getSource(sourceId)) {
+      map.addSource(sourceId, heatmapSource);
+      map.addLayer({
+        id: `heatmap-${wildfireId}`,
+        type: "heatmap",
+        source: sourceId,
+        paint: {
+          "heatmap-radius": 20,
+          "heatmap-opacity": 0.6,
+          "heatmap-color": [
+            "interpolate",
+            ["linear"],
+            ["get", "value"],
+            0,
+            "rgba(0, 0, 255, 0)",
+            0.5,
+            "rgb(0, 255, 0)",
+            1,
+            "rgb(255, 0, 0)",
+          ],
+        },
+      });
+    } else {
+      const heatmapSource = map.getSource(sourceId) as mapboxgl.GeoJSONSource;
+      heatmapSource.setData({
+        type: "FeatureCollection",
+        features: heatmapFeatures,
+      });
+    }
+  } catch (error) {
+    console.error("Error updating heatmap data:", error);
+  }
 }
 
 export default addCustomLayers;

@@ -12,10 +12,9 @@ const PredictComponent: React.FC = () => {
   const [requestData, setRequestData] = useState(null);
   const [responseData, setResponseData] = useState<PredictionData[][] | null>(
     null,
-  ); // Estado para la respuesta
+  );
   const [error, setError] = useState<string | null>(null);
 
-  // Cargar los datos del archivo request_data.json
   useEffect(() => {
     const loadJSON = async () => {
       try {
@@ -31,6 +30,11 @@ const PredictComponent: React.FC = () => {
   }, []);
 
   const handlePredict = async () => {
+    if (!requestData) {
+      setError("No hay datos de solicitud disponibles.");
+      return;
+    }
+
     try {
       const response = await fetch("/api/predict", {
         method: "POST",
@@ -55,7 +59,6 @@ const PredictComponent: React.FC = () => {
     <div className={styles.hola}>
       <button onClick={handlePredict}>Enviar solicitud de predicción</button>
 
-      {/* Mostrar los datos en el nuevo formato */}
       {responseData && (
         <div>
           {responseData.map((frame, frameIndex) => (

@@ -6,16 +6,21 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
+    const requestData = req.body; // Recibe los datos directamente
+
     try {
       const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(req.body),
+        body: JSON.stringify(requestData), // Enviar los datos sin modificar
       });
 
-      const data = await response.json(); // Procesar la respuesta de Flask
-      res.status(response.status).json(data); // Enviar la respuesta de vuelta al cliente
+      const data = await response.json();
+      console.log("Data received from Flask API:", data); // Log de la respuesta de Flask
+
+      res.status(200).json(data);
     } catch (error) {
+      console.error("Error al conectar con la API de Flask:", error);
       res.status(500).json({ error: "Error al conectar con la API de Flask" });
     }
   } else {

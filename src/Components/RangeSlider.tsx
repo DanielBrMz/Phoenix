@@ -1,3 +1,4 @@
+// RangeSlider.tsx
 import * as React from "react";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
@@ -8,7 +9,7 @@ import thumbIcon from "~/assets/thumbIcon.png";
 
 interface RangeSliderProps {
   map: mapboxgl.Map;
-  wildfireId: string; // Prop para identificar el incendio
+  wildfireId: string;
 }
 
 const AirbnbSlider = styled(Slider)(() => ({
@@ -58,35 +59,78 @@ const AirbnbSlider = styled(Slider)(() => ({
 
 export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
   const [value, setValue] = React.useState(0);
-  const sliderWidth = 720; // Ancho total del slider
+  const [error, setError] = React.useState<string | null>(null);
+  const sliderWidth = 720;
   const min = 0;
   const max = 96;
-  const thumbWidth = 24; // Ancho del thumb
+  const thumbWidth = 24;
 
   const calculateLeftPosition = () => {
     const position = ((value - min) / (max - min)) * sliderWidth;
-    return position - thumbWidth / 2; // Ajusta la posición para centrar el popup sobre el thumb
+    return position - thumbWidth / 2;
   };
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+  const handleSliderChange = async (
+    event: Event,
+    newValue: number | number[],
+  ) => {
     const sliderValue = newValue as number;
     setValue(sliderValue);
 
-    let newRadius = 0;
     if (sliderValue === 0) {
-      newRadius = 10; // Valor fijo por defecto
-    } else if (sliderValue === 24) {
-      newRadius = 20;
-    } else if (sliderValue === 48) {
-      newRadius = 40;
-    } else if (sliderValue === 72) {
-      newRadius = 60;
-    } else {
-      newRadius = 80;
+      console.log("0 Hour Prediction - No prediction request made");
+      return;
     }
 
-    if (map) {
-      setHeatmapRadius(map, newRadius, wildfireId); // Pasa el wildfireId para controlar el heatmap específico
+    try {
+      const requestData = await loadRequestData();
+      if (requestData) {
+        const predictionData = await fetchPredictionData(requestData);
+        if (predictionData) {
+          setHeatmapRadius(map, predictionData, wildfireId);
+        }
+      }
+    } catch (error) {
+      setError("Error al obtener los datos de predicción");
+      console.error("Error fetching prediction data:", error);
+    }
+  };
+
+  // Cargar siempre request_data1.json independientemente del valor del slider
+  const loadRequestData = async () => {
+    const fileName = `/request_data1.json`;
+    try {
+      const response = await fetch(fileName);
+      if (!response.ok) throw new Error("Error al cargar el archivo JSON");
+      return await response.json(); // Cargar el contenido tal cual, sin modificar
+    } catch (error) {
+      setError("Error al cargar request_data1.json");
+      console.error("Error loading request data:", error);
+      return null;
+    }
+  };
+
+  // Enviar la solicitud de predicción a la API de Next.js
+  const fetchPredictionData = async (requestData: any) => {
+    try {
+      const response = await fetch("/api/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData), // Enviar solo el contenido del JSON sin la clave `frames`
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error fetching prediction data:", errorText);
+        throw new Error(`Failed to fetch prediction: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Data received from /api/predict:", data); // Log de la respuesta de la API
+      return data;
+    } catch (error) {
+      console.error("Error fetching prediction data:", error);
+      throw error;
     }
   };
 
@@ -128,12 +172,13 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
           defaultValue={0}
           min={0}
           max={96}
-          step={24} // Ajustado para cada 24 horas
+          step={24}
           marks={new Array(5).fill(0).map((_, index) => ({
             value: index * 24,
           }))}
         />
       </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </Box>
   );
 }
