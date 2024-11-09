@@ -2,19 +2,27 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/PredictionStyles/Prediction.module.css";
 
+interface PredictionData {
+  lat: number;
+  lon: number;
+  value: number;
+}
+
 const PredictComponent: React.FC = () => {
   const [requestData, setRequestData] = useState(null);
-  const [responseData, setResponseData] = useState(null); // Estado para guardar la respuesta de la API
+  const [responseData, setResponseData] = useState<PredictionData[][] | null>(
+    null,
+  ); // Estado para la respuesta
   const [error, setError] = useState<string | null>(null);
 
   // Cargar los datos del archivo request_data.json
   useEffect(() => {
     const loadJSON = async () => {
       try {
-        const response = await fetch("/request_data.json");
+        const response = await fetch("/request_data4.json");
         if (!response.ok) throw new Error("Error al cargar el archivo JSON");
         const data = await response.json();
-        setRequestData(data); // Almacenar el JSON completo en el estado
+        setRequestData(data);
       } catch (err) {
         setError("Error al cargar el archivo de entrada.");
       }
@@ -31,8 +39,8 @@ const PredictComponent: React.FC = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        setResponseData(data); // Guardar la respuesta en el estado
+        const data: PredictionData[][] = await response.json();
+        setResponseData(data);
         console.log("Respuesta de la API:", data);
       } else {
         const errorText = await response.text();
@@ -46,8 +54,26 @@ const PredictComponent: React.FC = () => {
   return (
     <div className={styles.hola}>
       <button onClick={handlePredict}>Enviar solicitud de predicción</button>
-      {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>}{" "}
-      {/* Mostrar la respuesta en formato JSON */}
+
+      {/* Mostrar los datos en el nuevo formato */}
+      {responseData && (
+        <div>
+          {responseData.map((frame, frameIndex) => (
+            <div key={frameIndex}>
+              <h3>Frame {frameIndex + 1}</h3>
+              <ul>
+                {frame.map((point, pointIndex) => (
+                  <li key={pointIndex}>
+                    Latitud: {point.lat}, Longitud: {point.lon}, Valor:{" "}
+                    {point.value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
       {error && <p>{error}</p>}
     </div>
   );

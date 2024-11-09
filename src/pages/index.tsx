@@ -157,7 +157,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
       </Head>
       {!userLogin ? (
-        //<StartPage onLogin={handleLogin} />
+        // <StartPage onLogin={handleLogin} />
         <PredictComponent />
       ) : (
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
