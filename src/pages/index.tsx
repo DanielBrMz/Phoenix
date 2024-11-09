@@ -17,6 +17,7 @@ import { wildfiresStore } from "~/store/wildfiresStore";
 import useLayersStore from "~/store/layersStore";
 import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
 import PopUp from "~/pages/MenuPages/PopUp";
+import PredictComponent from "~/Components/PredictComponent";
 
 const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
 const MAPBOX_ACCESS_TOKEN =
@@ -156,7 +157,8 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
       </Head>
       {!userLogin ? (
-        <StartPage onLogin={handleLogin} />
+        //<StartPage onLogin={handleLogin} />
+        <PredictComponent />
       ) : (
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
           {/* Background content */}
