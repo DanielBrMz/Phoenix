@@ -157,7 +157,7 @@ export const wildfiresDetails: Wildfires[] = [
           {
             id: "mex_no_1",
             name: "Nogales Wildfire",
-            coordinates: [-110.8968082457804, 31.26933620026809],
+            coordinates: [-110.7533, 30.923788],
             actualData: {
               startTime: "07/29/24 9:00",
               sheltering: "Fully Sheltered",

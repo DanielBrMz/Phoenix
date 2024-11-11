@@ -20,7 +20,8 @@ import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
 import PopUp from "~/pages/MenuPages/PopUp";
 import PredictComponent from "~/Components/PredictComponent";
 
-const CENTER_COORDS: [number, number] = [-110.8968082457804, 31.25933620026809];
+const CENTER_COORDS: [number, number] = [-110.753336, 30.923788];
+
 const MAPBOX_ACCESS_TOKEN =
   "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
 const INITIAL_ZOOM = 15;
