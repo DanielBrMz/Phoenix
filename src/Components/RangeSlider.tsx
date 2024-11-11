@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import styles from "~/styles/SliderStyles/RangeSlider.module.css";
 import thumbIcon from "~/assets/thumbIcon.png";
 import { createPredictionGeoJSON } from "~/utils/mapUtils/addHotspotsPrediction";
+import { useSliderStore } from "~/store/useSliderStore"; // Import Zustand store
 
 interface RangeSliderProps {
   map: mapboxgl.Map;
@@ -57,6 +58,7 @@ const AirbnbSlider = styled(Slider)(() => ({
 }));
 
 export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
+  const { sliderValue, setSliderValue } = useSliderStore();
   const [value, setValue] = React.useState(0);
   const [error, setError] = React.useState<string | null>(null);
   const sliderWidth = 720;

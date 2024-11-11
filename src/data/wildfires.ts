@@ -157,7 +157,7 @@ export const wildfiresDetails: Wildfires[] = [
           {
             id: "mex_no_1",
             name: "Imuris Wildfire",
-            coordinates: [-110.7533, 30.923788],
+            coordinates: [-110.79647656268338, 30.894977311637337],
             actualData: {
               startTime: "07/29/24 9:00",
               sheltering: "Fully Sheltered",

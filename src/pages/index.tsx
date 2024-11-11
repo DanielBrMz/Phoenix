@@ -2,11 +2,6 @@ import Head from "next/head";
 import { useEffect, useState, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import addCustomLayers, {
-  addHotspotHeatmapLayer,
-  addHotspotHeatmapPrediction,
-} from "~/utils/mapUtils/addCustomLayers";
-import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
 import NavBar from "~/Components/NavBar";
 import ServicesLayer from "~/Components/Layers/ServicesLayer";
@@ -16,9 +11,14 @@ import PhoenixEyeLogo from "~/assets/phoenixeyelogo.png";
 import StartPage from "./StartPage";
 import { wildfiresStore } from "~/store/wildfiresStore";
 import useLayersStore from "~/store/layersStore";
+import useStore from "~/store/useStore";
+import addCustomSources from "~/utils/mapUtils/addCustomSources";
+import addCustomLayers, {
+  addHotspotHeatmapPrediction,
+  addHotspotHeatmapLayer,
+} from "~/utils/mapUtils/addCustomLayers";
 import type { Alert } from "~/Components/Alerts/EmergencyAlerts";
 import PopUp from "~/pages/MenuPages/PopUp";
-import PredictComponent from "~/Components/PredictComponent";
 
 const CENTER_COORDS: [number, number] = [-110.753336, 30.923788];
 const MAPBOX_ACCESS_TOKEN =
@@ -27,15 +27,16 @@ const INITIAL_ZOOM = 15;
 const INITIAL_PITCH = 60;
 
 export default function Home() {
-  const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
+  const [kilometersPerPixel, setKilometersPerPixel] = useState(0);
   const [userLogin, setIsUserLogin] = useState(false);
   const [showPopUp, setShowPopUp] = useState(true);
   const selectedCoordinates = wildfiresStore(
     (state) => state.selectedCoordinates,
   );
   const { selectedLayers } = useLayersStore();
-  const [predictionData, setPredictionData] = useState<any>(null);
+  const inPredictionStep = useStore((state) => state.inPredictionStep);
+  const leavePredictionStep = useStore((state) => state.leavePredictionStep);
 
   const onAlertClick = (alert: Alert) => {
     console.log("Alert clicked:", alert);
@@ -58,6 +59,26 @@ export default function Home() {
     [map],
   );
 
+  // Add prediction layer and wildfire layers
+  const addLayers = async (mapInstance: mapboxgl.Map) => {
+    await addCustomSources(mapInstance, {}); // Add initial sources without prediction data
+    addCustomLayers(mapInstance); // Add initial wildfire layers
+  };
+
+  // Remove the prediction heatmap layer
+  const removePredictionLayers = () => {
+    if (map) {
+      if (map.getLayer("prediction-heatmap-layer")) {
+        map.removeLayer("prediction-heatmap-layer");
+        console.log("Removed prediction heatmap layer");
+      }
+      if (map.getSource("prediction-heatmap-source")) {
+        map.removeSource("prediction-heatmap-source");
+        console.log("Removed prediction source");
+      }
+    }
+  };
+
   useEffect(() => {
     if (userLogin) {
       mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -75,11 +96,8 @@ export default function Home() {
       mapInstance.addControl(new mapboxgl.NavigationControl());
       mapInstance.addControl(new mapboxgl.FullscreenControl());
 
-      mapInstance.on("style.load", async () => {
-        if (predictionData) {
-          await addCustomSources(mapInstance, predictionData); // Pasa predictionData a addCustomSources
-          addCustomLayers(mapInstance);
-        }
+      mapInstance.on("style.load", () => {
+        addLayers(mapInstance); // Load initial layers
 
         mapInstance.setFog({
           color: "rgb(186, 210, 235)",
@@ -107,8 +125,9 @@ export default function Home() {
         mapInstance.remove();
       };
     }
-  }, [userLogin, predictionData]);
+  }, [userLogin]);
 
+  // Handle prediction step: add or remove prediction layers
   useEffect(() => {
     if (map && map.isStyleLoaded()) {
       const isFireHistorySelected = selectedLayers.some(
@@ -140,29 +159,17 @@ export default function Home() {
         }
       }
 
-      if (isPredictionSelected && predictionData) {
-        if (!map.getLayer("prediction-heatmap-layer")) {
-          addHotspotHeatmapPrediction(map, predictionData); // Pasa predictionData a addHotspotHeatmapPrediction
-        }
-        map.flyTo({
-          center: [-110.897, 31.259],
-          zoom: 9,
-          speed: 0.8,
-          curve: 1,
-          easing(t) {
-            return t;
-          },
-        });
-      } else {
-        if (map.getLayer("prediction-heatmap-layer")) {
-          map.removeLayer("prediction-heatmap-layer");
-        }
-        if (map.getSource("prediction-heatmap-source")) {
-          map.removeSource("prediction-heatmap-source");
+      if (map) {
+        if (inPredictionStep) {
+          addHotspotHeatmapPrediction(map, {}); // Provide prediction data here if available
+          console.log("Prediction step: Added prediction layers");
+        } else {
+          removePredictionLayers();
+          console.log("Exited prediction step: Removed prediction layers");
         }
       }
     }
-  }, [selectedLayers, map, predictionData]);
+  }, [map, inPredictionStep, selectedLayers]);
 
   useEffect(() => {
     if (selectedCoordinates && map) {
@@ -173,10 +180,6 @@ export default function Home() {
   const handleLogin = () => {
     setIsUserLogin(true);
     setShowPopUp(true);
-  };
-
-  const handlePredictionDataUpdate = (data: any) => {
-    setPredictionData(data);
   };
 
   return (
