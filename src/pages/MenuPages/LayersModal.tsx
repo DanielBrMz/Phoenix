@@ -61,22 +61,6 @@ const LayersModal = () => {
         </div>
       ))}
 
-      {/* Opción para la capa de predicción */}
-      <div className={styles.line}></div>
-      <div className={styles.checkboxContainer}>
-        <input
-          type="checkbox"
-          id="prediction-layer"
-          onChange={() =>
-            toggleLayer({
-              name: "Prediction Data",
-              instances: [],
-            })
-          }
-        />
-        <label htmlFor="prediction-layer">Prediction Data</label>
-      </div>
-
       <button className={styles.layersExitButton}>EXIT</button>
     </div>
   );

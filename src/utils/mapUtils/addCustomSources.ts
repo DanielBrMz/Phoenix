@@ -2,7 +2,7 @@
 import type { Map } from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
 import { wildfiresDetails } from "~/data/wildfires";
-import { createPredictionGeoJSON } from "./createPredictionGeoJSON";
+import { createPredictionGeoJSON } from "./addHotspotsPrediction";
 
 const addCustomSources = async (map: Map) => {
   map.addSource("mapbox-dem", {

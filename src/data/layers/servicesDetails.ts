@@ -180,6 +180,16 @@ export const servicesDetails: Category[] = [
       },
     ],
   },
+  {
+    type: "Prediction",
+    services: [
+      {
+        name: "Prediction",
+        icon: electricityPole,
+        instances: [],
+      },
+    ],
+  },
   // {
   //   type: "Monitoring & Surveillance",
   //   services: [

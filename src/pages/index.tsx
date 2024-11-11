@@ -4,6 +4,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import addCustomLayers, {
   addHotspotHeatmapLayer,
+  addHotspotHeatmapPrediction,
 } from "~/utils/mapUtils/addCustomLayers";
 import addCustomSources from "~/utils/mapUtils/addCustomSources";
 import Timeslider from "~/Components/TimeSlider";
@@ -111,6 +112,10 @@ export default function Home() {
         (layer) => layer.name === "Fire history",
       );
 
+      const isPredictionSelected = selectedLayers.some(
+        (layer) => layer.name === "Prediction",
+      );
+
       if (isFireHistorySelected) {
         if (!map.getLayer("hotspot-heatmap-layer")) {
           addHotspotHeatmapLayer(map);
@@ -130,6 +135,28 @@ export default function Home() {
         }
         if (map.getSource("hotspot-heatmap-source")) {
           map.removeSource("hotspot-heatmap-source");
+        }
+      }
+
+      if (isPredictionSelected) {
+        if (!map.getLayer("prediction-heatmap-layer")) {
+          addHotspotHeatmapPrediction(map);
+        }
+        map.flyTo({
+          center: [-110.897, 31.259],
+          zoom: 9,
+          speed: 0.8,
+          curve: 1,
+          easing(t) {
+            return t;
+          },
+        });
+      } else {
+        if (map.getLayer("prediction-heatmap-layer")) {
+          map.removeLayer("prediction-heatmap-layer");
+        }
+        if (map.getSource("prediction-heatmap-source")) {
+          map.removeSource("prediction-heatmap-source");
         }
       }
     }

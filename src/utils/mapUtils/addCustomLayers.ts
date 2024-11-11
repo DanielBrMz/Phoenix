@@ -2,6 +2,7 @@
 import { Map, AnyLayout, AnyLayer, Layer } from "mapbox-gl";
 import { wildfiresDetails } from "~/data/wildfires";
 import { createHotspotGeoJSON } from "./addHotspots";
+import { createPredictionGeoJSON } from "./addHotspotsPrediction";
 
 type SymbolLayout = AnyLayout & {
   "text-field"?: string;
@@ -28,16 +29,6 @@ const addCustomLayers = (map: Map) => {
       "text-field": ["get", "name"],
       "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
       "text-size": 12,
-    },
-  });
-
-  map.addLayer({
-    id: "prediction-circles-layer",
-    type: "fill",
-    source: "prediction-circles-source",
-    paint: {
-      "fill-color": "rgba(200, 100, 240, 0.5)", // Color de relleno
-      "fill-outline-color": "rgba(200, 100, 240, 1)", // Color del contorno
     },
   });
 
@@ -167,65 +158,74 @@ export const addHotspotHeatmapLayer = (map: Map) => {
   });
 };
 
-// Function to adjust heatmap radius manually and load JSON data for prediction
-export async function setHeatmapRadius(
-  map: Map,
-  data: any,
-  wildfireId: string,
-) {
-  try {
-    const heatmapFeatures = data.frames[0].map((point: any) => ({
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [point.lon, point.lat],
-      },
-      properties: {
-        value: point.value,
-      },
-    }));
+// Function to add the hotspot heatmap layer for prediction data
+export const addHotspotHeatmapPrediction = async (map: Map) => {
+  const sourceId = "prediction-heatmap-source";
+  const layerId = "prediction-heatmap-layer";
 
-    const heatmapSource: mapboxgl.GeoJSONSourceRaw = {
-      type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: heatmapFeatures,
-      },
-    };
-
-    const sourceId = `wildfire-${wildfireId}`;
-    if (!map.getSource(sourceId)) {
-      map.addSource(sourceId, heatmapSource);
-      map.addLayer({
-        id: `heatmap-${wildfireId}`,
-        type: "heatmap",
-        source: sourceId,
-        paint: {
-          "heatmap-radius": 20,
-          "heatmap-opacity": 0.6,
-          "heatmap-color": [
-            "interpolate",
-            ["linear"],
-            ["get", "value"],
-            0,
-            "rgba(0, 0, 255, 0)",
-            0.5,
-            "rgb(0, 255, 0)",
-            1,
-            "rgb(255, 0, 0)",
-          ],
-        },
-      });
-    } else {
-      const heatmapSource = map.getSource(sourceId) as mapboxgl.GeoJSONSource;
-      heatmapSource.setData({
-        type: "FeatureCollection",
-        features: heatmapFeatures,
-      });
-    }
-  } catch (error) {
-    console.error("Error updating heatmap data:", error);
+  if (map.getSource(sourceId)) {
+    console.warn(`Source with ID ${sourceId} already exists.`);
+    return;
   }
-}
+
+  // Usa los datos de predicción con `value` en `properties`
+  const predictionData = await createPredictionGeoJSON();
+  const geoJSONSource: mapboxgl.GeoJSONSourceRaw = {
+    type: "geojson",
+    data: predictionData,
+  };
+
+  map.addSource(sourceId, geoJSONSource);
+
+  if (map.getLayer(layerId)) {
+    console.warn(`Layer with ID ${layerId} already exists.`);
+    return;
+  }
+
+  // Define los umbrales de valor
+  const minValue = 1e-6; // Valor mínimo a considerar
+  const maxValue = 1e-4; // Valor máximo a considerar
+
+  map.addLayer({
+    id: layerId,
+    type: "heatmap",
+    source: sourceId,
+    paint: {
+      // Ajustar `heatmap-weight` para considerar solo valores dentro de los umbrales
+      "heatmap-weight": [
+        "interpolate",
+        ["linear"],
+        ["get", "value"],
+        minValue,
+        0, // Ignorar valores por debajo del mínimo
+        (minValue + maxValue) / 2,
+        0.5, // Valores medios tienen peso medio
+        maxValue,
+        1, // Máximo peso para el valor máximo permitido
+      ],
+      "heatmap-intensity": 1,
+      "heatmap-radius": 20,
+      "heatmap-opacity": 0.7,
+      // Colores interpolados solo para valores dentro del rango
+      "heatmap-color": [
+        "interpolate",
+        ["linear"],
+        ["heatmap-density"],
+        0,
+        "rgba(33,102,172,0)", // Color más claro para valores bajos
+        0.2,
+        "rgb(103,169,207)", // Azul para valores bajos-medios
+        0.4,
+        "rgb(209,229,240)", // Azul claro para valores medios
+        0.6,
+        "rgb(253,219,199)", // Rosado para valores medios-altos
+        0.8,
+        "rgb(239,138,98)", // Naranja para valores altos
+        1,
+        "rgb(178,24,43)", // Rojo oscuro para valores muy altos
+      ],
+    },
+  });
+};
 
 export default addCustomLayers;
