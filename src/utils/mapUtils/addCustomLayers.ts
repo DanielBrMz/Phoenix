@@ -158,7 +158,6 @@ export const addHotspotHeatmapLayer = (map: Map) => {
   });
 };
 
-// Function to add the hotspot heatmap layer for prediction data
 export const addHotspotHeatmapPrediction = async (map: Map) => {
   const sourceId = "prediction-heatmap-source";
   const layerId = "prediction-heatmap-layer";
@@ -183,28 +182,28 @@ export const addHotspotHeatmapPrediction = async (map: Map) => {
   }
 
   // Define los umbrales de valor
-  const minValue = 1e-6; // Valor mínimo a considerar
-  const maxValue = 1e-4; // Valor máximo a considerar
+  const minValue = 0.000000001; // Valor mínimo a considerar
+  const maxValue = 1; // Valor máximo a considerar
 
   map.addLayer({
     id: layerId,
     type: "heatmap",
     source: sourceId,
     paint: {
-      // Ajustar `heatmap-weight` para considerar solo valores dentro de los umbrales
+      // Ajustar `heatmap-weight` para considerar solo valores entre 0.000000001 y 1
       "heatmap-weight": [
         "interpolate",
         ["linear"],
         ["get", "value"],
         minValue,
-        0, // Ignorar valores por debajo del mínimo
+        0, // Peso mínimo para el valor mínimo
         (minValue + maxValue) / 2,
-        0.5, // Valores medios tienen peso medio
+        0.5, // Peso medio para el valor medio del rango
         maxValue,
-        1, // Máximo peso para el valor máximo permitido
+        1, // Peso máximo para el valor máximo
       ],
       "heatmap-intensity": 1,
-      "heatmap-radius": 20,
+      "heatmap-radius": 70,
       "heatmap-opacity": 0.7,
       // Colores interpolados solo para valores dentro del rango
       "heatmap-color": [
