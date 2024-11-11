@@ -35,7 +35,6 @@ export default function Home() {
   );
   const { selectedLayers } = useLayersStore();
 
-  // Define the onAlertClick handler
   const onAlertClick = (alert: Alert) => {
     console.log("Alert clicked:", alert);
   };
@@ -74,9 +73,9 @@ export default function Home() {
       mapInstance.addControl(new mapboxgl.NavigationControl());
       mapInstance.addControl(new mapboxgl.FullscreenControl());
 
-      mapInstance.on("style.load", () => {
-        addCustomSources(mapInstance);
-        addCustomLayers(mapInstance);
+      mapInstance.on("style.load", async () => {
+        await addCustomSources(mapInstance); // Espera a que se agreguen las fuentes
+        addCustomLayers(mapInstance); // Luego agrega las capas
 
         mapInstance.setFog({
           color: "rgb(186, 210, 235)",
@@ -98,11 +97,11 @@ export default function Home() {
               Math.pow(2, mapInstance.getZoom() + 8),
           );
         });
-
-        return () => {
-          mapInstance.remove();
-        };
       });
+
+      return () => {
+        mapInstance.remove();
+      };
     }
   }, [userLogin]);
 
@@ -116,10 +115,9 @@ export default function Home() {
         if (!map.getLayer("hotspot-heatmap-layer")) {
           addHotspotHeatmapLayer(map);
         }
-        // Fly to the specified coordinates with zoom out
         map.flyTo({
-          center: [-110.897, 31.259], // Longitude, Latitude
-          zoom: 9, // Adjust this value for zoom out level
+          center: [-110.897, 31.259],
+          zoom: 9,
           speed: 0.8,
           curve: 1,
           easing(t) {
@@ -160,7 +158,6 @@ export default function Home() {
         <StartPage onLogin={handleLogin} />
       ) : (
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#789]">
-          {/* Background content */}
           <div
             className={`${
               showPopUp ? "pointer-events-none blur-sm" : ""
@@ -179,8 +176,6 @@ export default function Home() {
               className="z-1 absolute bottom-4 left-8"
             />
           </div>
-
-          {/* Pop-up */}
           {showPopUp && (
             <div className="fixed inset-0 z-10">
               <PopUp onClose={() => setShowPopUp(false)} />

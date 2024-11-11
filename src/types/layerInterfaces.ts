@@ -7,7 +7,7 @@ export interface Instance {
 
 export interface Service {
   name: string;
-  icon: StaticImageData;
+  icon?: StaticImageData; // Hace que 'icon' sea opcional
   instances: Instance[];
 }
 

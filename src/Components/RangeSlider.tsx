@@ -116,7 +116,7 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
       const response = await fetch("/api/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData), // Enviar solo el contenido del JSON sin la clave `frames`
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -126,8 +126,8 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
       }
 
       const data = await response.json();
-      console.log("Data received from /api/predict:", data); // Log de la respuesta de la API
-      return data;
+
+      return data; // Retornar los datos directamente
     } catch (error) {
       console.error("Error fetching prediction data:", error);
       throw error;

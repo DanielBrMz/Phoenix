@@ -16,7 +16,6 @@ export default async function handler(
       });
 
       const data = await response.json();
-      console.log("Data received from Flask API:", data); // Log de la respuesta de Flask
 
       res.status(200).json(data);
     } catch (error) {

@@ -1,8 +1,10 @@
+// addCustomSources.ts
 import type { Map } from "mapbox-gl";
 import createGeoJSONCircles from "../createGeoJSONSurface";
 import { wildfiresDetails } from "~/data/wildfires";
+import { createPredictionGeoJSON } from "./createPredictionGeoJSON";
 
-const addCustomSources = (map: Map) => {
+const addCustomSources = async (map: Map) => {
   map.addSource("mapbox-dem", {
     type: "raster-dem",
     url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -19,6 +21,14 @@ const addCustomSources = (map: Map) => {
       });
     });
   });
+
+  const predictionData = await createPredictionGeoJSON();
+  map.addSource("prediction-circles-source", {
+    type: "geojson",
+    data: predictionData,
+  });
+
+  console.log("Fuente 'prediction-circles-source' agregada al mapa");
 };
 
 export default addCustomSources;

@@ -46,7 +46,9 @@ const ServicesLayer: React.FC<ServicesLayerProps> = ({ map }) => {
 
     // Adding grouped layers markers
     selectedLayers.forEach((layer) => {
-      addMarkers(layer.instances, "selected-layer-marker", layer.icon.src);
+      if (layer.icon) {
+        addMarkers(layer.instances, "selected-layer-marker", layer.icon.src);
+      }
     });
   }, [map, selectedLayers]);
 

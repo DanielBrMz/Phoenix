@@ -31,6 +31,16 @@ const addCustomLayers = (map: Map) => {
     },
   });
 
+  map.addLayer({
+    id: "prediction-circles-layer",
+    type: "fill",
+    source: "prediction-circles-source",
+    paint: {
+      "fill-color": "rgba(200, 100, 240, 0.5)", // Color de relleno
+      "fill-outline-color": "rgba(200, 100, 240, 1)", // Color del contorno
+    },
+  });
+
   // Add heatmap layers for each wildfire
   wildfiresDetails.forEach((country) => {
     country.states.forEach((state) => {
