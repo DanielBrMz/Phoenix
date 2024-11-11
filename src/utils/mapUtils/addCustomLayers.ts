@@ -136,7 +136,7 @@ export const addHotspotHeatmapLayer = (map: Map) => {
     paint: {
       "heatmap-intensity": 1,
       "heatmap-radius": 20,
-      "heatmap-opacity": 0.7,
+      "heatmap-opacity": 0.5,
       "heatmap-color": [
         "interpolate",
         ["linear"],
@@ -158,7 +158,10 @@ export const addHotspotHeatmapLayer = (map: Map) => {
   });
 };
 
-export const addHotspotHeatmapPrediction = async (map: Map) => {
+export const addHotspotHeatmapPrediction = async (
+  map: Map,
+  predictionData: any,
+) => {
   const sourceId = "prediction-heatmap-source";
   const layerId = "prediction-heatmap-layer";
 
@@ -167,11 +170,10 @@ export const addHotspotHeatmapPrediction = async (map: Map) => {
     return;
   }
 
-  // Usa los datos de predicción con `value` en `properties`
-  const predictionData = await createPredictionGeoJSON();
+  const predictionGeoJSON = await createPredictionGeoJSON(predictionData);
   const geoJSONSource: mapboxgl.GeoJSONSourceRaw = {
     type: "geojson",
-    data: predictionData,
+    data: predictionGeoJSON,
   };
 
   map.addSource(sourceId, geoJSONSource);
@@ -181,47 +183,39 @@ export const addHotspotHeatmapPrediction = async (map: Map) => {
     return;
   }
 
-  // Define los umbrales de valor
-  const minValue = 0.000000001; // Valor mínimo a considerar
-  const maxValue = 1; // Valor máximo a considerar
-
   map.addLayer({
     id: layerId,
     type: "heatmap",
     source: sourceId,
     paint: {
-      // Ajustar `heatmap-weight` para considerar solo valores entre 0.000000001 y 1
       "heatmap-weight": [
         "interpolate",
         ["linear"],
         ["get", "value"],
-        minValue,
-        0, // Peso mínimo para el valor mínimo
-        (minValue + maxValue) / 2,
-        0.5, // Peso medio para el valor medio del rango
-        maxValue,
-        1, // Peso máximo para el valor máximo
+        0.000000001,
+        0,
+        1,
+        1,
       ],
       "heatmap-intensity": 1,
       "heatmap-radius": 70,
       "heatmap-opacity": 0.7,
-      // Colores interpolados solo para valores dentro del rango
       "heatmap-color": [
         "interpolate",
         ["linear"],
         ["heatmap-density"],
         0,
-        "rgba(33,102,172,0)", // Color más claro para valores bajos
+        "rgba(33,102,172,0)",
         0.2,
-        "rgb(103,169,207)", // Azul para valores bajos-medios
+        "rgb(103,169,207)",
         0.4,
-        "rgb(209,229,240)", // Azul claro para valores medios
+        "rgb(209,229,240)",
         0.6,
-        "rgb(253,219,199)", // Rosado para valores medios-altos
+        "rgb(253,219,199)",
         0.8,
-        "rgb(239,138,98)", // Naranja para valores altos
+        "rgb(239,138,98)",
         1,
-        "rgb(178,24,43)", // Rojo oscuro para valores muy altos
+        "rgb(178,24,43)",
       ],
     },
   });

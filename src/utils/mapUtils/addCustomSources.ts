@@ -4,7 +4,7 @@ import createGeoJSONCircles from "../createGeoJSONSurface";
 import { wildfiresDetails } from "~/data/wildfires";
 import { createPredictionGeoJSON } from "./addHotspotsPrediction";
 
-const addCustomSources = async (map: Map) => {
+const addCustomSources = async (map: Map, predictionData: any) => {
   map.addSource("mapbox-dem", {
     type: "raster-dem",
     url: "mapbox://mapbox.mapbox-terrain-dem-v1",
@@ -22,10 +22,10 @@ const addCustomSources = async (map: Map) => {
     });
   });
 
-  const predictionData = await createPredictionGeoJSON();
+  const predictionGeoJSON = await createPredictionGeoJSON(predictionData);
   map.addSource("prediction-circles-source", {
     type: "geojson",
-    data: predictionData,
+    data: predictionGeoJSON,
   });
 
   console.log("Fuente 'prediction-circles-source' agregada al mapa");

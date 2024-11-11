@@ -21,7 +21,6 @@ import PopUp from "~/pages/MenuPages/PopUp";
 import PredictComponent from "~/Components/PredictComponent";
 
 const CENTER_COORDS: [number, number] = [-110.753336, 30.923788];
-
 const MAPBOX_ACCESS_TOKEN =
   "pk.eyJ1IjoiaGVjdG9yZ3R6MjciLCJhIjoiY2xuZ3dmc215MDc2ZDJqbWFydmszaTVxZCJ9.VjBUl1K3sWQTxY5pce434A";
 const INITIAL_ZOOM = 15;
@@ -36,6 +35,7 @@ export default function Home() {
     (state) => state.selectedCoordinates,
   );
   const { selectedLayers } = useLayersStore();
+  const [predictionData, setPredictionData] = useState<any>(null);
 
   const onAlertClick = (alert: Alert) => {
     console.log("Alert clicked:", alert);
@@ -76,8 +76,10 @@ export default function Home() {
       mapInstance.addControl(new mapboxgl.FullscreenControl());
 
       mapInstance.on("style.load", async () => {
-        await addCustomSources(mapInstance); // Espera a que se agreguen las fuentes
-        addCustomLayers(mapInstance); // Luego agrega las capas
+        if (predictionData) {
+          await addCustomSources(mapInstance, predictionData); // Pasa predictionData a addCustomSources
+          addCustomLayers(mapInstance);
+        }
 
         mapInstance.setFog({
           color: "rgb(186, 210, 235)",
@@ -105,14 +107,13 @@ export default function Home() {
         mapInstance.remove();
       };
     }
-  }, [userLogin]);
+  }, [userLogin, predictionData]);
 
   useEffect(() => {
     if (map && map.isStyleLoaded()) {
       const isFireHistorySelected = selectedLayers.some(
         (layer) => layer.name === "Fire history",
       );
-
       const isPredictionSelected = selectedLayers.some(
         (layer) => layer.name === "Prediction",
       );
@@ -139,9 +140,9 @@ export default function Home() {
         }
       }
 
-      if (isPredictionSelected) {
+      if (isPredictionSelected && predictionData) {
         if (!map.getLayer("prediction-heatmap-layer")) {
-          addHotspotHeatmapPrediction(map);
+          addHotspotHeatmapPrediction(map, predictionData); // Pasa predictionData a addHotspotHeatmapPrediction
         }
         map.flyTo({
           center: [-110.897, 31.259],
@@ -161,7 +162,7 @@ export default function Home() {
         }
       }
     }
-  }, [selectedLayers, map]);
+  }, [selectedLayers, map, predictionData]);
 
   useEffect(() => {
     if (selectedCoordinates && map) {
@@ -172,6 +173,10 @@ export default function Home() {
   const handleLogin = () => {
     setIsUserLogin(true);
     setShowPopUp(true);
+  };
+
+  const handlePredictionDataUpdate = (data: any) => {
+    setPredictionData(data);
   };
 
   return (

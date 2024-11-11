@@ -1,11 +1,10 @@
-// RangeSlider.tsx
 import * as React from "react";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { setHeatmapRadius } from "~/utils/mapUtils/addCustomLayers";
 import styles from "~/styles/SliderStyles/RangeSlider.module.css";
 import thumbIcon from "~/assets/thumbIcon.png";
+import { createPredictionGeoJSON } from "~/utils/mapUtils/addHotspotsPrediction";
 
 interface RangeSliderProps {
   map: mapboxgl.Map;
@@ -83,11 +82,11 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
     }
 
     try {
-      const requestData = await loadRequestData();
+      const requestData = await loadRequestData(sliderValue);
       if (requestData) {
         const predictionData = await fetchPredictionData(requestData);
         if (predictionData) {
-          setHeatmapRadius(map, predictionData, wildfireId);
+          updateMapWithPredictionData(predictionData);
         }
       }
     } catch (error) {
@@ -96,21 +95,19 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
     }
   };
 
-  // Cargar siempre request_data1.json independientemente del valor del slider
-  const loadRequestData = async () => {
-    const fileName = `/request_data1.json`;
+  const loadRequestData = async (sliderValue: number) => {
+    const fileName = `/request_data${sliderValue / 24}.json`;
     try {
       const response = await fetch(fileName);
       if (!response.ok) throw new Error("Error al cargar el archivo JSON");
-      return await response.json(); // Cargar el contenido tal cual, sin modificar
+      return await response.json();
     } catch (error) {
-      setError("Error al cargar request_data1.json");
+      setError(`Error al cargar ${fileName}`);
       console.error("Error loading request data:", error);
       return null;
     }
   };
 
-  // Enviar la solicitud de predicción a la API de Next.js
   const fetchPredictionData = async (requestData: any) => {
     try {
       const response = await fetch("/api/predict", {
@@ -125,12 +122,64 @@ export default function RangeSlider({ map, wildfireId }: RangeSliderProps) {
         throw new Error(`Failed to fetch prediction: ${response.statusText}`);
       }
 
-      const data = await response.json();
-
-      return data; // Retornar los datos directamente
+      return await response.json();
     } catch (error) {
       console.error("Error fetching prediction data:", error);
       throw error;
+    }
+  };
+
+  // Actualizar el mapa con los datos de predicción recibidos
+  const updateMapWithPredictionData = (predictionData: any) => {
+    const geoJSONData = createPredictionGeoJSON(predictionData);
+
+    if (map.getSource("prediction-heatmap-source")) {
+      const source = map.getSource(
+        "prediction-heatmap-source",
+      ) as mapboxgl.GeoJSONSource;
+      source.setData(geoJSONData);
+    } else {
+      map.addSource("prediction-heatmap-source", {
+        type: "geojson",
+        data: geoJSONData,
+      });
+
+      map.addLayer({
+        id: "prediction-heatmap-layer",
+        type: "heatmap",
+        source: "prediction-heatmap-source",
+        paint: {
+          "heatmap-weight": [
+            "interpolate",
+            ["linear"],
+            ["get", "value"],
+            0.000000001,
+            0,
+            1,
+            1,
+          ],
+          "heatmap-intensity": 1,
+          "heatmap-radius": 70,
+          "heatmap-opacity": 0.7,
+          "heatmap-color": [
+            "interpolate",
+            ["linear"],
+            ["heatmap-density"],
+            0,
+            "rgba(33,102,172,0)",
+            0.2,
+            "rgb(103,169,207)",
+            0.4,
+            "rgb(209,229,240)",
+            0.6,
+            "rgb(253,219,199)",
+            0.8,
+            "rgb(239,138,98)",
+            1,
+            "rgb(178,24,43)",
+          ],
+        },
+      });
     }
   };
 
