@@ -27,7 +27,7 @@
     "@trpc/server": "^10.40.0",
     "@turf/turf": "^6.5.0",
     "@vercel/kv": "^0.2.3",
-    "axios": "^1.6.0",
+    "axios": "^1.8.2",
     "csv-parser": "^3.0.0",
     "d3-array": "^3.2.4",
     "deck.gl": "^8.9.33",
